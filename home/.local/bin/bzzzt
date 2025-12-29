@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+sudo systemctl --user restart pipewire pipewire-pulse
+pkill quickshell
+quickshell &

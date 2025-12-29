@@ -3,11 +3,10 @@ set $mod Mod4
 #   Terminal
 set $term kitty
 bindsym $mod+return exec $term
-bindsym $mod+y exec $term ~/.shells/yazi_launcher.sh
+bindsym $mod+y exec $term ~/.local/bin/yazi_launcher.sh
 
 #   Application Launcher
-# set $menu ~/.shells/rofi-wrapper.sh
-set $menu ~/.shells/fuzzel-wrapper.sh
+set $menu ~/.local/bin/fuzzel-wrapper.sh
 bindsym $mod+tab exec $menu
 
 # Notification Daemon
@@ -42,16 +41,16 @@ input type:keyboard {
     bindsym ctrl+$mod+q kill
     bindsym $mod+escape kill
 # palette picker
-    bindsym $mod+p exec ~/.shells/fuzzel-palette/fuzzel_palette.js
+    bindsym $mod+p exec ~/.local/bin/fuzzel-palette/fuzzel_palette.js
 # bluetui
-    # bindsym $mod+b exec 'swaymsg fullscreen disable'; exec ~/.shells/bluetui-wrapper.sh
+    # bindsym $mod+b exec 'swaymsg fullscreen disable'; exec ~/.local/bin/bluetui-wrapper.sh
     bindsym $mod+b exec rofi-bluetooth
 # rotate toggler
     bindsym $mod+Shift+Insert exec ~/.config/sway/rotate
 
 
 # toggle scaling
-    bindsym shift+$mod+backslash exec ~/.shells/sway-scale-toggle.sh
+    bindsym shift+$mod+backslash exec ~/.local/bin/sway-scale-toggle.sh
 
 # Copy datestamp
     bindsym $mod+shift+d exec date -I | wl-copy && notify-send "date copied!"
@@ -242,4 +241,4 @@ seat seat0 xcursor_theme Bibata-Modern-Classic 20
 
 
 
-
+.local/bin/
