@@ -54,6 +54,9 @@ vim.keymap.set("n", "<C-[>", ":bp<CR>")
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+-- bullets-vim toggle checkbox
+--
+vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Recent Files" })
 -- Zen Mode
 vim.keymap.set("n", "zm", ":ZenMode<CR>")
 
@@ -136,6 +139,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-mini/mini.comment" },
   { src = "https://github.com/nvim-mini/mini.surround" },
   { src = "https://github.com/nvim-mini/mini.align" },
+  { src = "https://github.com/nvim-mini/mini.splitjoin" },
   { src = "https://github.com/abecodes/tabout.nvim" },
   { src = "https://github.com/nvim-mini/mini.pairs" },
   { src = "https://github.com/nvim-mini/mini.hipatterns" },
@@ -160,6 +164,7 @@ vim.pack.add({
 })
 require("mini.comment").setup()
 require("mini.pairs").setup()
+require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
 require("tabout").setup()
@@ -250,7 +255,18 @@ require("treesitter-context").setup()
 require("render-markdown").setup({
   render_modes = true,
   completions = { lsp = { enabled = true } },
-  checkbox = { checked = { scope_highlight = "RenderMarkdownCheckedItem" } },
+  checkbox = {
+    checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
+    unchecked = { icon = "󰋙", scope_highlight = nil },
+    custom = {
+      sixth = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
+      third = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
+      half = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
+      twothirds = { raw = "[d]", rendered = "󰫆 ", highlight = "RenderMarkdownBullet" },
+      fivesix = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
+      todo = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
+    },
+  },
   wiki = { scope_highlight = "RenderMarkdownWikiLinkText" },
   bullet = { icons = { "󰆧" } },
   pipe_table = {
@@ -273,6 +289,8 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.treesitter.start(args.buf, "markdown")
   end,
 })
+----bullets-vim--------------------------------------------------------
+vim.g.bullets_checkbox_markers = " abodeX"
 ----mini.hipatterns----------------------------------------------------
 require("mini.hipatterns").setup({
   highlighters = {
