@@ -43,8 +43,8 @@ input type:keyboard {
 # palette picker
     bindsym $mod+p exec ~/.local/bin/fuzzel-palette/fuzzel_palette.js
 # bluetui
-    # bindsym $mod+b exec 'swaymsg fullscreen disable'; exec ~/.local/bin/bluetui-wrapper.sh
-    bindsym $mod+b exec rofi-bluetooth
+    bindsym $mod+b exec 'swaymsg fullscreen disable'; exec ~/.local/bin/bluetui-wrapper.sh
+    # bindsym $mod+b exec rofi-bluetooth
 # rotate toggler
     bindsym $mod+Shift+Insert exec ~/.config/sway/rotate
 

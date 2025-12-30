@@ -26,11 +26,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "desert-witch.nvim": {
-<<<<<<< HEAD
-      "rev": "8ca066c7145d205a86412a23839bacbcd0cb50d9",
-=======
       "rev": "5fb7fe544690188146e89365061bd8774c700f72",
->>>>>>> be01306 (0)
       "src": "https://codeberg.org/trickyni/desert-witch.nvim"
     },
     "gitgraph.nvim": {
@@ -44,14 +40,6 @@
     "gitsigns.nvim": {
       "rev": "e895b811bc63d8e9b9c93216f1fe99c51280c769",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
-    },
-    "gruvbox": {
-      "rev": "697c00291db857ca0af00ec154e5bd514a79191f",
-      "src": "https://github.com/morhetz/gruvbox"
-    },
-    "gruvbox-material": {
-      "rev": "cc47341018320a2c82262958a1af889e5eeacd6e",
-      "src": "https://github.com/sainnhe/gruvbox-material"
     },
     "guess-indent.nvim": {
       "rev": "84a4987ff36798c2fc1169cbaff67960aed9776f",
@@ -146,11 +134,7 @@
       "src": "https://github.com/catgoose/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-<<<<<<< HEAD
-      "rev": "8973916a3d015d65a8c4614e141f4270a713cf33",
-=======
       "rev": "d696e36d5792daf828f8c8e8d4b9aa90c1a10c2a",
->>>>>>> be01306 (0)
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-numbertoggle": {
@@ -158,11 +142,7 @@
       "src": "https://github.com/sitiom/nvim-numbertoggle"
     },
     "nvim-rip-substitute": {
-<<<<<<< HEAD
-      "rev": "b93ed65cd0d7ea30dd36451dfddeb9cf32fecad2",
-=======
       "rev": "a329cf2a21e918faab2dcae88a5ec3148ce9c4d8",
->>>>>>> be01306 (0)
       "src": "https://github.com/chrisgrieser/nvim-rip-substitute"
     },
     "nvim-toggler": {
@@ -234,11 +214,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "yazi.nvim": {
-<<<<<<< HEAD
-      "rev": "c71c3cef0213adccebc7d5dfb20d98f3b0d89165",
-=======
       "rev": "7e2f49b72218f62fe73adbf221d85cd27ebf9f2b",
->>>>>>> be01306 (0)
       "src": "https://github.com/mikavilpas/yazi.nvim"
     },
     "zen-mode.nvim": {
