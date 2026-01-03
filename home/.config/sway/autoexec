@@ -8,7 +8,7 @@ assign [app_id="org.pulseaudio.pavucontrol"] workspace 12
 exec swaynag -t warning -m "open qbittorrent?" -Z "Yes" 'swaymsg exec qbittorrent'  
 assign [app_id="qbittorrent"] workspace 11
 assign [app_id="rmpc"] workspace 13
-for_window [title="bluetui"] floating enable, resize set 80 ppt 60 ppt, move position center, sticky enable
+for_window [app_id="bluetui"] floating enable, resize set 80 ppt 60 ppt, move position center, sticky enable
 
 
 assign [app_id="firefox"] workspace number 1

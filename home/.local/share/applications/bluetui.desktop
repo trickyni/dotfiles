@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=bluetui
-Exec=kitty -T bluetui -e bluetui
+Exec= kitty --app-id "bluetui" bluetui
 Icon=bluetooth-pixel-bg
 Terminal=false
 Type=Application
