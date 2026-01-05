@@ -1,7 +1,7 @@
 set $mod Mod4
 
 #   Terminal
-set $term kitty
+set $term kitty --single-instance
 bindsym $mod+return exec $term
 bindsym $mod+y exec $term ~/.local/bin/yazi_launcher.sh
 
