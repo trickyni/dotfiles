@@ -185,6 +185,7 @@ vim.lsp.enable({
   "bash_ls",
   "qmlls",
   "html",
+  "tombi",
 })
 vim.lsp.config("qmlls", { cmd = { "qmlls6" } })
 ---conform.nvim-------------------------------------------------------
@@ -200,7 +201,8 @@ require("conform").setup({
     css        = { "prettier" },
     yaml       = { "prettier" },
     json       = { "prettier" },
-    qml       = { "prettier" },
+    qml        = { "prettier" },
+    toml       = { "tombi" },
   },
   formatters   = {
     stylua     = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } },

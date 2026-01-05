@@ -24,11 +24,6 @@ rev = "7a08a09"
 hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
 
 [[plugin.deps]]
-use = "Rolv-Apneseth/starship"
-rev = "6a0f3f7"
-hash = "d5a74d95c2e8194ac352c5e10e81e64f"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:no-status"
 rev = "63f9650"
 hash = "3e023d31f29201efdac2a6ae35fedb78"
