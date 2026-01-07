@@ -22,7 +22,7 @@
       "src": "https://github.com/bullets-vim/bullets.vim"
     },
     "conform.nvim": {
-      "rev": "5420c4b5ea0aeb99c09cfbd4fd0b70d257b44f25",
+      "rev": "8314f4c9e205e7f30b62147069729f9a1227d8bf",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "desert-witch.nvim": {
@@ -38,7 +38,7 @@
       "src": "https://github.com/wallpants/github-preview.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "e895b811bc63d8e9b9c93216f1fe99c51280c769",
+      "rev": "30e5c516f03e0a0a4f71300c52abad481ee90337",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "gruvbox": {
@@ -82,7 +82,7 @@
       "src": "https://github.com/zapling/mason-conform.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "9f9c67795d0795a6e8612f5a899ca64a074a1076",
+      "rev": "4cfe411526a7a99c18281135e8b4765ae6330d15",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim.git"
     },
     "mason-tool-installer.nvim": {
@@ -90,15 +90,15 @@
       "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
     },
     "mason.nvim": {
-      "rev": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800",
+      "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.align": {
-      "rev": "60c61c8c63dca41b5ac6bfc36b52df69b1a03e6b",
+      "rev": "85e495b0987bc6277411e5f2305fea6d5d91f50a",
       "src": "https://github.com/nvim-mini/mini.align"
     },
     "mini.base16": {
-      "rev": "91c852a07a4907895cba714fab337aedb6bd9d87",
+      "rev": "852a1ab7700dd5ca56ec94232ea7bc2d6158662a",
       "src": "https://github.com/nvim-mini/mini.base16"
     },
     "mini.comment": {
@@ -126,7 +126,7 @@
       "src": "https://github.com/nvim-mini/mini.starter"
     },
     "mini.surround": {
-      "rev": "88c52297ed3e69ecf9f8652837888ecc727a28ee",
+      "rev": "cc7b9d0a056b5fa6915ffac1cb91f29bf7c96f69",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
     "mini.tabline": {
@@ -134,7 +134,7 @@
       "src": "https://github.com/nvim-mini/mini.tabline"
     },
     "neoscroll.nvim": {
-      "rev": "f957373912e88579e26fdaea4735450ff2ef5c9c",
+      "rev": "c8d29979cb0cb3a2437a8e0ae683fd82f340d3b8",
       "src": "https://github.com/karb94/neoscroll.nvim"
     },
     "nvim-colorizer.lua": {
@@ -142,7 +142,7 @@
       "src": "https://github.com/catgoose/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "d696e36d5792daf828f8c8e8d4b9aa90c1a10c2a",
+      "rev": "0b38bc74487e73489624d61396af7805af9cc75f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-numbertoggle": {
@@ -150,7 +150,7 @@
       "src": "https://github.com/sitiom/nvim-numbertoggle"
     },
     "nvim-rip-substitute": {
-      "rev": "a329cf2a21e918faab2dcae88a5ec3148ce9c4d8",
+      "rev": "81110457ce4e2834aa54c5086667baaedd3ace86",
       "src": "https://github.com/chrisgrieser/nvim-rip-substitute"
     },
     "nvim-toggler": {
@@ -182,7 +182,7 @@
       "src": "https://gitlab.com/HiPhish/rainbow-delimiters.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "07d088bf8bdadd159eb807b90eaee86a4778383f",
+      "rev": "da6a7b25471ab23824f3429225973186eb0b62d2",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "satellite.nvim": {
@@ -222,7 +222,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "yazi.nvim": {
-      "rev": "7e2f49b72218f62fe73adbf221d85cd27ebf9f2b",
+      "rev": "27f8cca8f481527b6b894e9e393a30b5944f6850",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     },
     "zen-mode.nvim": {
