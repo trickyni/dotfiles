@@ -1,13 +1,16 @@
 [mgr]
 cwd = { fg = "#C1A387" }
-hovered = { fg = "#3b3228", bg = "#f8e2a0" }
-preview_hovered = { fg = "#3b3228", bg = "#C1A387" }
 find_keyword = { fg = "#ff000f", italic = true }
 find_position = { fg = "#00ff00", bg = "reset", italic = true }
 marker_copied = { fg = "#92a650", bg = "#92a650" }
 marker_cut = { fg = "#E86045", bg = "#E86045" }
 marker_marked = { fg = "#E68D53", bg = "#E68D53" }
 marker_selected = { fg = "#3ECCBE", bg = "#3ECCBE" }
+
+[indicator]
+current = { fg = "#3b3228", bg = "#f8e2a0" }
+preview = { fg = "#3b3228", bg = "#C1A387" }
+padding = { open = "█", close = "█" }
 
 [tabs]
 active = { fg = "#3b3228", bg = "#E68D53" }
@@ -44,7 +47,7 @@ perm_sep = { fg = "#C1A387" }
 
 [input]
 border = { fg = "#E68D53" }
-title = {  }
+title = { fg = "#afd2e9" }
 value = {  }
 selected = { fg = "#3b3228", bg = "#f8e2a0" }
 
@@ -67,7 +70,7 @@ border = { fg = "#99d1db" }
 [tasks]
 border = { fg = "#E68D53" }
 title = {  }
-hovered = { underline = true }
+hovered = { fg = "#3b3228", bg = "#f8e2a0" }
 
 [which]
 cols = 3
