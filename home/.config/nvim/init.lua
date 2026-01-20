@@ -314,8 +314,20 @@ require("mini.tabline").setup({
 
 ----lualine-----------------------------------------------------------
 require("lualine").setup({
+  options = {
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "🭑", right = "🭔" },
+  },
   sections = {
-    lualine_x = { "lsp_status", "filetype" },
+    lualine_b = { { "branch", icon = { "𖣂", color = { fg = "#92a650" } } }, { "diff", padding = { right = 0 } } },
+    lualine_c = {
+      { "filename", symbols = { modified = "", readonly = { "", color = { fg = "#e86045" } } } },
+      "diagnostics",
+    },
+    lualine_x = {
+      { "lsp_status", color = "OkMsg", padding = 0, icon = "", symbols = { done = "" }, show_name = false },
+      "filetype",
+    },
     lualine_y = { "progress" },
     lualine_z = { "searchcount", "location" },
   },

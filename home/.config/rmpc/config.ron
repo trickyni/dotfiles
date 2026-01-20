@@ -4,7 +4,7 @@
 (
     address: "/tmp/mpd.sock",
     password: None,
-    theme: None,
+    theme: Some("desert-witch"),
     cache_dir: ".config/rmpc/cache",
     on_song_change: None,
     volume_step: 5,
