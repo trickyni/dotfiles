@@ -106,6 +106,15 @@
             "X":       Shuffle,
         },
     ),
+    cava:( 
+          input: (
+          method: Fifo,
+          source: "/tmp/mpd.fifo",
+          sample_rate: 44100,
+          channels: 2,
+          sample_bits: 16,
+      ),
+    ),
     search: (
         case_sensitive: false,
         ignore_diacritics: false,
@@ -129,31 +138,19 @@
     tabs: [
         (
             name: "Queue",
-            pane: Split(
-                direction: Horizontal,
-                panes: [
-                    (
-                        size: "40%",
-                        pane: Split(
-                            direction: Vertical,
-                            panes: [
-                                (
-                                    size: "3",
-                                    pane: Pane(Lyrics)
-                                ),
-                                (
-                                    size: "100%",
-                                    pane: Pane(AlbumArt)
-                                ),
-                            ],
-                        ),
-                    ), 
-                    (
-                        size: "60%",
-                        pane: Pane(Queue)
-                    ),
-                ],
-            ),
+        pane: Split(
+            direction: Horizontal,
+            panes: [
+                (size: "40%", pane: Pane(AlbumArt)),
+                (size: "60%", pane: Split(
+                    direction: Vertical,
+                    panes: [
+                        (size: "50%", pane: Pane(Queue)),
+                        (size: "50%", pane: Pane(Cava)),
+                    ],
+                )),
+            ],
+        ),
         ),
         (
             name: "Directories",

@@ -1,1 +1,0 @@
-../../../../../../../.config/mpv/scripts/rikai-mpv/front.lua

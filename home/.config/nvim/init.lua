@@ -151,14 +151,12 @@ vim.pack.add({
   { src = "https://github.com/mikavilpas/yazi.nvim" },
   { src = "https://github.com/smjonas/live-command.nvim" },
   { src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" },
   { src = "https://github.com/folke/trouble.nvim" },
   { src = "https://github.com/stevearc/conform.nvim" },
-  { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/OXY2DEV/helpview.nvim" },
   { src = "https://github.com/lambdalisue/vim-suda" },
 })
@@ -180,11 +178,9 @@ vim.cmd("cnoreabbrev g G")
 
 vim.lsp.enable({
   "lua_ls",
-  "cssls",
   "ts_ls",
-  "bash_ls",
+  "bashls",
   "qmlls",
-  "html",
   "tombi",
 })
 vim.lsp.config("qmlls", { cmd = { "qmlls6" } })
@@ -247,11 +243,10 @@ require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "bash", "caddy", "css",  "csv",      "diff",            "dockerfile", "html",  "javascript",
     "jq",   "json",  "lua",  "markdown", "markdown_inline", "qmljs",      "regex", "sql",
-    "toml", "typst", "sway", "vimdoc",   "yaml",
+    "toml", "typst", "sway", "vimdoc",   "yaml",            "rust",       "ron",
   },
 })
 -- stylua: ignore end
-require("treesitter-context").setup()
 
 ---RenderMarkdown-----------------------------------------------------
 require("render-markdown").setup({
