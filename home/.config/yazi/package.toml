@@ -19,11 +19,6 @@ rev = "63f9650"
 hash = "d0ad0c1946b46a30c8489735fe8de41c"
 
 [[plugin.deps]]
-use = "Lil-Dank/lazygit"
-rev = "7a08a09"
-hash = "a1fa2b3e1826c3a34804ea8c548e9f80"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:no-status"
 rev = "63f9650"
 hash = "3e023d31f29201efdac2a6ae35fedb78"
