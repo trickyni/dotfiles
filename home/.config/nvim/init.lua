@@ -1,17 +1,13 @@
-vim = vim
 vim.pack.add({ "https://codeberg.org/trickyni/desert-witch.nvim" })
 vim.cmd.colorscheme("desert-witch")
--- vim.api.nvim_set_hl(0, "@lsp.type.operator.qml", { fg = "#e86045" })
 -- OPTION  ----------------------------------------------------
 --stylua: ignore start
 vim.g.mapleader      = " " -- leader key (spacebar)
 vim.opt.shortmess:append("Swl")
 vim.g.have_nerd_font = true
 vim.o.number         = true -- number column
-vim.o.relativenumber = true -- relative number column
 vim.o.ignorecase     = true -- search ignores case
 vim.o.smartcase      = true -- search ignores case unless uppercase letter exists
-vim.opt.grepprg      = "rg --vimgrep" -- external grep
 vim.o.wrap           = true
 vim.o.textwidth      = 80
 vim.opt.linebreak    = true
@@ -36,65 +32,40 @@ vim.keymap.set("n", "<S-up>"  , ":m-2<CR>")
 vim.keymap.set("n", "<S-down>", ":m+1<CR>")
 vim.keymap.set("v", "<S-up>"  , ":'<, '>m '<-2<CR>gv")
 vim.keymap.set("v", "<S-down>", ":'<  , '>m '>+1<CR>gv")
-
 -- indent/unindent
 vim.keymap.set("n", "<S-right>", ">>")
 vim.keymap.set("n", "<S-left>" , "<<")
 vim.keymap.set("v", "<S-left>" , "<gv")
 vim.keymap.set("v", "<S-right>", ">gv")
 --stylua: ignore end
-
 -- creates new buffer
 vim.keymap.set("n", "<C-n>", ":enew<CR>")
-
 -- next/prev buffer
 vim.keymap.set("n", "<C-]>", ":bn<CR>")
 vim.keymap.set("n", "<C-[>", ":bp<CR>")
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
 -- bullets-vim toggle checkbox
---
 vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Recent Files" })
 -- Zen Mode
 vim.keymap.set("n", "zm", ":ZenMode<CR>")
-
 -- Yazi
 vim.keymap.set({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>")
-
 -- Rip-substitute
 vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = " rip substitutdde" })
-
 -- Diagnostics
 vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
-
 -- snacks picker projects
 vim.keymap.set("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
-
 -- snacks picker recent files
 vim.keymap.set("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
-
 -- snacks picker zoxide
 vim.keymap.set("n", "<leader>z", "<cmd>lua Snacks.picker.zoxide()<CR>", { desc = "Zoxide" })
-
 -- snacks picker highlights
 vim.keymap.set("n", "<leader>h", "<cmd>lua Snacks.picker.highlights()<CR>", { desc = "highlights" })
+
 -- Behaviors --------------------------------------------------
--- defines markers to determine a project's root dir
-local project_markers = { ".git", ".root", "cargo.toml", "selene.toml", "stylua.toml", "package.json" }
--- Finds a project's root directory
-vim.api.nvim_create_user_command("Root", function()
-  print(vim.fs.root(0, project_markers))
-end, {})
-
--- automatically stay on root directory
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePre" }, {
-  callback = function()
-    vim.cmd.lcd(vim.fs.root(0, project_markers))
-  end,
-})
-
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
@@ -125,9 +96,7 @@ vim.diagnostic.config({
   inlay_hints = true,
 })
 
-----------------------------
-
---Plugins----------------------------------
+-- Plugins ----------------------------------
 vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/sitiom/nvim-numbertoggle" },
@@ -135,15 +104,14 @@ vim.pack.add({
   { src = "https://github.com/preservim/vim-pencil" },
   { src = "https://github.com/bullets-vim/bullets.vim" },
   { src = "https://github.com/folke/zen-mode.nvim" },
-  { src = "https://github.com/folke/twilight.nvim" },
   { src = "https://github.com/nvim-mini/mini.comment" },
   { src = "https://github.com/nvim-mini/mini.surround" },
   { src = "https://github.com/nvim-mini/mini.align" },
   { src = "https://github.com/nvim-mini/mini.splitjoin" },
-  { src = "https://github.com/abecodes/tabout.nvim" },
   { src = "https://github.com/nvim-mini/mini.pairs" },
   { src = "https://github.com/nvim-mini/mini.hipatterns" },
   { src = "https://github.com/nvim-mini/mini.tabline" },
+  { src = "https://github.com/abecodes/tabout.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/folke/which-key.nvim" },
   { src = "https://github.com/karb94/neoscroll.nvim" },
@@ -183,7 +151,6 @@ vim.lsp.enable({
   "qmlls",
   "tombi",
 })
-vim.lsp.config("qmlls", { cmd = { "qmlls6" } })
 ---conform.nvim-------------------------------------------------------
 require("conform").setup({
   format_on_save = true,
@@ -314,14 +281,17 @@ require("lualine").setup({
     section_separators = { left = "🭑", right = "🭔" },
   },
   sections = {
-    lualine_b = { { "branch", icon = { "𖣂", color = { fg = "#92a650" } } }, { "diff", padding = { right = 0 } } },
+    lualine_b = {
+      { "branch", icon = { "𖣂", color = { fg = "#92a650" } } },
+      { "diff", padding = { left = 0, right = 1 } },
+    },
     lualine_c = {
       { "filename", symbols = { modified = "", readonly = { "", color = { fg = "#e86045" } } } },
-      "diagnostics",
+      { "diagnostics", padding = 0 },
     },
     lualine_x = {
       { "lsp_status", color = "OkMsg", padding = 0, icon = "", symbols = { done = "" }, show_name = false },
-      "filetype",
+      { "filetype", colored = false },
     },
     lualine_y = { "progress" },
     lualine_z = { "searchcount", "location" },
