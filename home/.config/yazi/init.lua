@@ -9,3 +9,4 @@ require("starship"):setup({
 --   show_confirm = true,
 -- })
 require("recycle-bin"):setup()
+require("relative-motions"):setup({ show_numbers = "relative_absolute" })
