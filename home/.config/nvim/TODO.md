@@ -1,18 +1,8 @@
-## desertwitch
-
-- Lualine
-  - theme?
-
 ## config
 
-- lualine
-  - separators
-- blin.cmp
-  - ==kind names, not just icons==
-  - remove spellcheck unless in writing mode
-    - ==zen+twilight+blinkcmp spellchecker --- writing mode?==
-- gitsigns
-  - add keybinds for diff mode
+- blink.cmp spellchecker
+- move to mini.picker
+- floating window diagnostic automate
 - todo comments picker
 
 ## writing

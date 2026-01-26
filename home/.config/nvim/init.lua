@@ -12,6 +12,7 @@ vim.o.wrap           = true
 vim.o.textwidth      = 80
 vim.opt.linebreak    = true
 vim.o.tabstop        = 2 -- tab width
+vim.o.softtabstop    = 2
 vim.o.shiftwidth     = 2 -- indentation width
 vim.o.expandtab      = true -- turns tabs into spaces
 vim.o.showmode       = false -- hides mode indicator, since we have a status line
@@ -134,10 +135,11 @@ require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
 require("tabout").setup()
+require("rip-substitute").setup({ popupWin = { border = "rounded" } })
 require("neoscroll").setup({ easing = "quintic" })
 require("which-key").setup({ preset = "helix", plugins = { presets = { motions = false } } })
 require("gitsigns").setup({ signs = { delete = "─" } })
-require("yazi").setup()
+require("yazi").setup({ yazi_floating_window_border = "rounded" })
 require("ibl").setup({ indent = { char = "▏", highlight = none }, scope = { enabled = false } })
 require("trouble").setup({ focus = true, win = { position = "bottom" }, open_no_results = true })
 require("live-command").setup({ commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } } })
@@ -273,7 +275,6 @@ require("mini.tabline").setup({
     return MiniTabline.default_format(buf_id, label) .. suffix
   end,
 })
-
 ----lualine-----------------------------------------------------------
 require("lualine").setup({
   options = {
@@ -365,5 +366,16 @@ require("snacks").setup({
       { title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
       { section = "keys", indent = 2, padding = 1 },
     },
+  },
+})
+-- Diagnostic float on jump --------------------
+vim.diagnostic.config({
+  jump = {
+    on_jump = function(diagnostic, bufnr)
+      if not diagnostic then
+        return
+      end
+      vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+    end,
   },
 })

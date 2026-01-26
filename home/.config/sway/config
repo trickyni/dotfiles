@@ -31,7 +31,7 @@ bindswitch lid:on exec systemctl suspend
 
 input type:keyboard {
 	xkb_options "caps:escape,grp:alt_shift_toggle,compose:ralt"
-	xkb_layout us
+	xkb_layout us,il
 }
 
 #   Keybinds
