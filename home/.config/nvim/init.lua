@@ -26,7 +26,8 @@ vim.o.list           = true -- whow trailing whitespaces and tab characters
 vim.opt.listchars    = {tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.timeoutlen   = 300 --timeout on keys with followups
 vim.o.winborder      = "rounded" --border for floating windows
-
+vim.opt.spelllang    = "en_US"
+vim.opt.spell        = true
 -- KEYMAPS ----------------------------------------------------
 -- move line up/down
 vim.keymap.set("n", "<S-up>"  , ":m-2<CR>")
