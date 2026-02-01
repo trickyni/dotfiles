@@ -1,3 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<oor:items xmlns:ns0="http://openoffice.org/2001/registry" xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><item ns0:path="/org.openoffice.Office.UI/ColorScheme"><prop ns0:name="CurrentColorScheme" ns0:op="fuse"><value>desert-witch</value></prop></item>
-</oor:items>

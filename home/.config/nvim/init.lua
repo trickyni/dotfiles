@@ -22,24 +22,14 @@ vim.o.breakindent    = true
 vim.o.signcolumn     = "yes:1" -- gutter to the left of the number column
 vim.o.inccommand     = "nosplit" -- shows find/replace results live
 vim.opt.backspace    = { "start", "eol", "indent" }
-vim.o.list           = true -- whow trailing whitespaces and tab characters
+vim.o.list           = true -- show trailing whitespaces and tab characters
 vim.opt.listchars    = {tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.timeoutlen   = 300 --timeout on keys with followups
 vim.o.winborder      = "rounded" --border for floating windows
-vim.opt.spelllang    = "en_US"
+vim.opt.spelllang    = "en_us"
 vim.opt.spell        = true
--- KEYMAPS ----------------------------------------------------
--- move line up/down
-vim.keymap.set("n", "<S-up>"  , ":m-2<CR>")
-vim.keymap.set("n", "<S-down>", ":m+1<CR>")
-vim.keymap.set("v", "<S-up>"  , ":'<, '>m '<-2<CR>gv")
-vim.keymap.set("v", "<S-down>", ":'<  , '>m '>+1<CR>gv")
--- indent/unindent
-vim.keymap.set("n", "<S-right>", ">>")
-vim.keymap.set("n", "<S-left>" , "<<")
-vim.keymap.set("v", "<S-left>" , "<gv")
-vim.keymap.set("v", "<S-right>", ">gv")
 --stylua: ignore end
+-- KEYMAPS ----------------------------------------------------
 -- creates new buffer
 vim.keymap.set("n", "<C-n>", ":enew<CR>")
 -- next/prev buffer
@@ -49,7 +39,7 @@ vim.keymap.set("n", "<C-[>", ":bp<CR>")
 -- Clear highlights on search when pressing <Esc> in normal mode
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- bullets-vim toggle checkbox
-vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Recent Files" })
+vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Toggle Checkbox" })
 -- Zen Mode
 vim.keymap.set("n", "zm", ":ZenMode<CR>")
 -- Yazi
@@ -59,13 +49,11 @@ vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = "�
 -- Diagnostics
 vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
 -- snacks picker projects
-vim.keymap.set("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
--- snacks picker recent files
-vim.keymap.set("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
--- snacks picker zoxide
-vim.keymap.set("n", "<leader>z", "<cmd>lua Snacks.picker.zoxide()<CR>", { desc = "Zoxide" })
--- snacks picker highlights
-vim.keymap.set("n", "<leader>h", "<cmd>lua Snacks.picker.highlights()<CR>", { desc = "highlights" })
+vim.keymap.set("n", "<leader>r", ":Pick oldfiles<CR>", { desc = "Recent Files" })
+vim.keymap.set("n", "<leader>p", ":Pick projects<CR>", { desc = "Projects" })
+vim.keymap.set("n", "<leader>t", ":Pick hipatterns<CR>", { desc = "TODO marks" })
+vim.keymap.set("n", "<leader>m", ":Pick manpages<CR>", { desc = "Man-pages" })
+vim.keymap.set("n", '<leader>"', ":Pick registers<CR>", { desc = "Registers" })
 
 -- Behaviors --------------------------------------------------
 -- Highlight when yanking (copying) text
@@ -96,17 +84,29 @@ vim.diagnostic.config({
   },
   update_in_insert = true,
   inlay_hints = true,
+  jump = {
+    on_jump = function(diagnostic, bufnr)
+      if not diagnostic then
+        return
+      end
+      vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+    end,
+  },
 })
 
 -- Plugins ----------------------------------
 vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
+  { src = "https://github.com/ahmedkhalf/project.nvim" },
   { src = "https://github.com/sitiom/nvim-numbertoggle" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/preservim/vim-pencil" },
   { src = "https://github.com/bullets-vim/bullets.vim" },
   { src = "https://github.com/folke/zen-mode.nvim" },
   { src = "https://github.com/nvim-mini/mini.comment" },
+  { src = "https://github.com/nvim-mini/mini.pick" },
+  { src = "https://github.com/nvim-mini/mini.extra" },
+  { src = "https://github.com/nvim-mini/mini.move" },
   { src = "https://github.com/nvim-mini/mini.surround" },
   { src = "https://github.com/nvim-mini/mini.align" },
   { src = "https://github.com/nvim-mini/mini.splitjoin" },
@@ -130,7 +130,10 @@ vim.pack.add({
   { src = "https://github.com/OXY2DEV/helpview.nvim" },
   { src = "https://github.com/lambdalisue/vim-suda" },
 })
+require("project_nvim").setup()
 require("mini.comment").setup()
+require("mini.pick").setup()
+require("mini.extra").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
@@ -263,9 +266,22 @@ require("mini.hipatterns").setup({
   highlighters = {
     fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
     hack = { pattern = "HACK", group = "MiniHipatternsHack" },
-    todo = { pattern = "TODO", group = "MiniHipatternsTodo" }, --TODO
+    todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
     note = { pattern = "NOTE", group = "MiniHipatternsNote" },
     hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+  },
+})
+----mini.move---------------------------------------------------------
+require("mini.move").setup({
+  mappings = {
+    left = "<S-left>",
+    right = "<S-right>",
+    down = "<S-down>",
+    up = "<S-up>",
+    line_left = "<S-left>",
+    line_right = "<S-right>",
+    line_down = "<S-down>",
+    line_up = "<S-up>",
   },
 })
 
@@ -307,9 +323,6 @@ vim.g.rainbow_delimiters = {
     "RainbowDelimiterYellow",
     "RainbowDelimiterBlue",
     "RainbowDelimiterOrange",
-    -- "RainbowDelimiterGreen",
-    -- "RainbowDelimiterViolet",
-    -- "RainbowDelimiterCyan",
   },
   blacklist = { "html" },
 }
@@ -318,18 +331,8 @@ vim.g.rainbow_delimiters = {
 vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim", { load = false } },
 })
+
 require("snacks").setup({
-  picker = {
-    sources = {
-      recent = { layout = { preset = "select" } },
-      projects = {
-        layout = { preset = "select" },
-        patterns = { ".git", "package.json", "Makefile", ".root", "stylua.toml" },
-        dev = { "~/git", "~/.shells", "~/.config/nvim" },
-      },
-      zoxide = { layout = { preset = "select" } },
-    },
-  },
   dashboard = {
     enabled = true,
     width = 40,
@@ -337,7 +340,7 @@ require("snacks").setup({
       keys = {
         { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
         { icon = " ", key = "\\", desc = "File Explorer", action = ":Yazi" },
-        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('recent')" },
+        { icon = " ", key = "r", desc = "Recent Files", action = ":Pick oldfiles" },
         {
           icon = " ",
           key = "p",
@@ -352,8 +355,8 @@ require("snacks").setup({
  /  )    .-'       `./ /   \
 (  (   ,'            `/    /|
  \  `-"             \'\   / |
-  `.              ,  \ \ /  |
    /`.          ,'-`----Y   |
+   `.              ,  \ \ /  |
   (            ;        |   '
   |  ,-.    ,-'         |  /
   |  | (   |            | /
@@ -369,14 +372,17 @@ require("snacks").setup({
     },
   },
 })
--- Diagnostic float on jump --------------------
-vim.diagnostic.config({
-  jump = {
-    on_jump = function(diagnostic, bufnr)
-      if not diagnostic then
-        return
-      end
-      vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
-    end,
-  },
-})
+
+--- mini.pick project picker
+MiniPick.registry.projects = function()
+  local cwd = vim.fn.expand("~/git")
+  local choose = function(item)
+    vim.schedule(function()
+      MiniPick.builtin.files(nil, { source = { cwd = item.path } })
+    end)
+  end
+  return MiniExtra.pickers.explorer({ cwd = cwd }, { source = { choose = choose } })
+end
+
+-- opens yazi at requested folder
+-- require("yazi").yazi(nil, "~/git/")
