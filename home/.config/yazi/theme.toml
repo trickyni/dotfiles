@@ -10,7 +10,7 @@ marker_selected = { fg = "#3ECCBE", bg = "#3ECCBE" }
 [indicator]
 current = { fg = "#3b3228", bg = "#f8e2a0" }
 preview = { fg = "#3b3228", bg = "#C1A387" }
-padding = { open = "█", close = "█" }
+padding = { open = "█", close = "🭠" }
 
 [tabs]
 active = { fg = "#3b3228", bg = "#E68D53" }
@@ -23,7 +23,6 @@ count_cut = { fg = "#3b3228", bg = "#E86045" }
 count_selected = { fg = "#3b3228", bg = "#C1A387" }
 border_symbol = "│"
 border_style = { fg = "#C1A387" }
-syntect_theme = "~/.config/yazi/Catppuccin-frappe.tmTheme"
 
 [mode]
 normal_main = { fg = "#3b3228", bg = "#C1A387" }
