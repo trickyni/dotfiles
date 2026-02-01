@@ -24,9 +24,6 @@ shopt -s checkwinsize
 #   sleep 10; alertrm "$1" && echo "Removed file: $1"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# changes manpage pager
-# export PAGER='glow' TODO
-export LESS="-R"
 
 #--------------
 #   completion stuff
@@ -49,6 +46,11 @@ echo -e -n "\x1b[\x35 q" # changes to blinking bar
 
 #   paths
 export PATH="$HOME/.cargo/bin:$PATH"
+#
+#   pager
+export MANPAGER='nvim +Man!'
+export PAGER=less
+export LESS="-R"
 
 #   editor
 export EDITOR=nvim
@@ -138,10 +140,9 @@ alias lockdown-lift='sudo rfkill unblock all'
 alias nmtui='NEWT_COLORS=$(<~/.config/nmtui/palette) nmtui'
 alias dust='dust -r'
 alias quickshell='swaymsg exec quickshell'
-alias cat='bat --theme="ansi" --style="header,grid"'
-
 alias enkidu='ncdu --color off'
 alias grep='grep --color=auto'
+alias cat='bat --theme "ansi" --style="header,grid"'
 
 #   Arch linux
 if grep arch /etc/os-release >/dev/null; then
@@ -160,11 +161,17 @@ alias whaleseesaw='sudo docker compose down && sudo docker compose up -d'
 alias gitscum='git add . && git commit -m "0" && git push && echo -e "\033[93mgit successfully scummed\033[0m"'
 
 #   yt-dlp
-alias ytdlp='yt-dlp'
-alias ytmp3='yt-dlp --config-location ~/.config/yt-dlp/mp3'
+alias ytdlp='yt-dlp \
+-f "bv[height<=1080]+ba"  \
+-o "~/Downloads/[%(upload_date>%Y-%m-%d)s] %(title)s - %(uploader)s"  \
+--embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
+--sponsorblock-remove sponsor --sponsorblock-mark selfpromo,interaction \
+--cookies-from-browser firefox \
+--remote-components ejs:github'
 
-#   hachiko
-alias hachisync='ssh -L 8385:localhost:8384 hachiko'
-alias hachiko-login='ssh root@192.168.0.3'
-
-
+alias ytmp3='yt-dlp \
+-f ba \
+--extract-audio --audio-format flac --audio-quality 0 \
+-o "~/Downloads/%(uploader)s - %(title)s" \
+--embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
+--cookies-from-browser firefox'
