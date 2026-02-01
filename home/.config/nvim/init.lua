@@ -3,29 +3,29 @@ vim.cmd.colorscheme("desert-witch")
 -- OPTION  ----------------------------------------------------
 --stylua: ignore start
 vim.g.mapleader      = " " -- leader key (spacebar)
-vim.opt.shortmess:append("Swl")
 vim.g.have_nerd_font = true
-vim.o.number         = true -- number column
-vim.o.ignorecase     = true -- search ignores case
-vim.o.smartcase      = true -- search ignores case unless uppercase letter exists
-vim.o.wrap           = true
-vim.o.textwidth      = 80
+vim.opt.shortmess:append("Swl")
+vim.opt.number       = true -- number column
+vim.opt.ignorecase   = true -- search ignores case
+vim.opt.smartcase    = true -- search ignores case unless uppercase letter exists
+vim.opt.wrap         = true
+vim.opt.textwidth    = 80
 vim.opt.linebreak    = true
-vim.o.tabstop        = 2 -- tab width
-vim.o.softtabstop    = 2
-vim.o.shiftwidth     = 2 -- indentation width
-vim.o.expandtab      = true -- turns tabs into spaces
-vim.o.showmode       = false -- hides mode indicator, since we have a status line
-vim.o.cursorline     = true -- highlights cursor line
-vim.o.scrolloff      = 10 -- keeps 10 lines above/below the cursor when scrolling
-vim.o.breakindent    = true
-vim.o.signcolumn     = "yes:1" -- gutter to the left of the number column
-vim.o.inccommand     = "nosplit" -- shows find/replace results live
+vim.opt.shiftwidth   = 2 -- indentation width
+vim.opt.tabstop      = 2 -- tab width
+vim.opt.softtabstop  = 2
+vim.opt.expandtab    = true -- turns tabs into spaces
+vim.opt.showmode     = false -- hides mode indicator, since we have a status line
+vim.opt.cursorline   = true -- highlights cursor line
+vim.opt.scrolloff    = 10 -- keeps 10 lines above/below the cursor when scrolling
+vim.opt.breakindent  = true
+vim.opt.signcolumn   = "yes:1" -- gutter to the left of the number column
+vim.opt.inccommand   = "nosplit" -- shows find/replace results live
 vim.opt.backspace    = { "start", "eol", "indent" }
-vim.o.list           = true -- show trailing whitespaces and tab characters
+vim.opt.list         = true -- show trailing whitespaces and tab characters
 vim.opt.listchars    = {tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.timeoutlen   = 300 --timeout on keys with followups
-vim.o.winborder      = "rounded" --border for floating windows
+vim.opt.winborder    = "rounded" --border for floating windows
 vim.opt.spelllang    = "en_us"
 vim.opt.spell        = true
 --stylua: ignore end
@@ -257,6 +257,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function(args)
     vim.treesitter.start(args.buf, "markdown")
+    vim.bo.shiftwidth = 2
   end,
 })
 ----bullets-vim--------------------------------------------------------

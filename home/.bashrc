@@ -1,4 +1,3 @@
-
 case $- in
 *i*) ;;
 *) return ;;
@@ -26,7 +25,7 @@ shopt -s checkwinsize
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # changes manpage pager
-# export PAGER='glow'
+# export PAGER='glow' TODO
 export LESS="-R"
 
 #--------------
@@ -46,17 +45,22 @@ fi
 bind -s 'set completion-ignore-case on' >/dev/null
 #--------------
 
+echo -e -n "\x1b[\x35 q" # changes to blinking bar
+
 #   paths
-export PATH="$PATH:~/.shells"
-export PYTHONPATH="${PYTHONPATH}:~/.shells"
 export PATH="$HOME/.cargo/bin:$PATH"
+
+#   editor
 export EDITOR=nvim
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
-fi
+alias e='${EDITOR:-vim}'
+
+#   file manager
+export XDG_FILE_MANAGER=nemo
 
 #   eza
 export EZA_ICONS_AUTO=always
+alias ls='eza -1 --group-directories-first'
+alias ll='eza -laohb --no-time --no-permissions --group-directories-first'
 
 #   FZF
 export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzf-config
@@ -68,11 +72,19 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 #   homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+alias homescum='homeshick cd dotfiles && git add . && git commit -m "0" && git push && echo -e "\033[93mhome successfully scummed\033[0m"'
+alias hometrack='homeshick track dotfiles'
 
 #   zoxide
 eval "$(zoxide init bash)"
 
+#   taskwarrior completions
+source ~/.task/task_completions.sh
+alias t='task'
+alias tt='task pri.not:x'
+
 #   yazi
+alias y='yazi'
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
@@ -81,15 +93,11 @@ function y() {
   rm -f -- "$tmp"
 }
 
-echo -e -n "\x1b[\x35 q" # changes to blinking bar
-
-# export RESTIC_REPOSITORY=~/restic-repo
-# export RESTIC_PASSWORD=reallystrongpassword
-
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# -------------------------------------------------------------------------------------------
 # Eternal bash history.
 # https://stackoverflow.com/a/19533853
 #export HISTFILESIZE=
@@ -102,7 +110,6 @@ export HISTFILE=~/.bash_eternal_history
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-export XDG_FILE_MANAGER=nemo
 
 # wayland
 export QT_QPA_PLATFORM=wayland-egl
@@ -113,5 +120,51 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_DESKTOP=sway
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
+alias obsidian='obsidian --ozone-platform=wayland'
 
-source ~/.task/task_completions.sh
+#----ALIASES
+#   core
+alias bk='cd ..'
+alias reload='source ~/.bashrc && echo "ka-clunk~"'
+alias bashr='e ~/.bashrc'
+alias rm='rm -i'
+alias untar='sudo tar -xvzf'
+
+#   security
+alias lockdown='rfkill block all'
+alias lockdown-lift='sudo rfkill unblock all'
+
+#   renames/config loads
+alias nmtui='NEWT_COLORS=$(<~/.config/nmtui/palette) nmtui'
+alias dust='dust -r'
+alias quickshell='swaymsg exec quickshell'
+alias cat='bat --theme="ansi" --style="header,grid"'
+
+alias enkidu='ncdu --color off'
+alias grep='grep --color=auto'
+
+#   Arch linux
+if grep arch /etc/os-release >/dev/null; then
+    alias invoke='sudo pacman -S'
+    alias banish='sudo pacman -R'
+    alias commune='sudo pacman -Syu'
+fi
+
+#   docker
+alias whale='sudo docker compose'
+alias whaleup='sudo docker compose up -d'
+alias whaledown='sudo docker compose down'
+alias whaleseesaw='sudo docker compose down && sudo docker compose up -d'
+
+#   git
+alias gitscum='git add . && git commit -m "0" && git push && echo -e "\033[93mgit successfully scummed\033[0m"'
+
+#   yt-dlp
+alias ytdlp='yt-dlp'
+alias ytmp3='yt-dlp --config-location ~/.config/yt-dlp/mp3'
+
+#   hachiko
+alias hachisync='ssh -L 8385:localhost:8384 hachiko'
+alias hachiko-login='ssh root@192.168.0.3'
+
+

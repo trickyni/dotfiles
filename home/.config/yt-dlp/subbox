@@ -1,7 +1,0 @@
-URL "https://www.youtube.com/feed/subscriptions"
---no-download
---cookies-from-browser firefox
-
--O "%(upload_date>%Y-%m-%d)s, %(title)s, %(uploader)s, %(duration_string)s"
-
---playlist-items 1-10 >> subbox.csv
