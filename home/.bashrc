@@ -137,7 +137,7 @@ alias lockdown='rfkill block all'
 alias lockdown-lift='sudo rfkill unblock all'
 
 #   renames/config loads
-alias nmtui='NEWT_COLORS=$(<~/.config/nmtui/palette) nmtui'
+alias nmtui='NEWT_COLORS=$(<~/.config/nmtui/desert-witch.theme) nmtui'
 alias dust='dust -r'
 alias quickshell='swaymsg exec quickshell'
 alias enkidu='ncdu --color off'
