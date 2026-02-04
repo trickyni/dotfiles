@@ -47,13 +47,12 @@ vim.keymap.set({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>")
 -- Rip-substitute
 vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = " rip substitutdde" })
 -- Diagnostics
-vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics" })
--- snacks picker projects
-vim.keymap.set("n", "<leader>r", ":Pick oldfiles<CR>", { desc = "Recent Files" })
-vim.keymap.set("n", "<leader>p", ":Pick projects<CR>", { desc = "Projects" })
+vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
+vim.keymap.set("n", "<leader>r", ":lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
+vim.keymap.set("n", "<leader>p", ":lua Snacks.picker.projects()<CR>", { desc = "Projects" })
 vim.keymap.set("n", "<leader>t", ":Pick hipatterns<CR>", { desc = "TODO marks" })
-vim.keymap.set("n", "<leader>m", ":Pick manpages<CR>", { desc = "Man-pages" })
-vim.keymap.set("n", '<leader>"', ":Pick registers<CR>", { desc = "Registers" })
+vim.keymap.set("n", "<leader>m", ":lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
+vim.keymap.set("n", '<leader>"', ":lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 
 -- Behaviors --------------------------------------------------
 -- Highlight when yanking (copying) text
@@ -128,24 +127,26 @@ vim.pack.add({
   { src = "https://github.com/folke/trouble.nvim" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/OXY2DEV/helpview.nvim" },
-  { src = "https://github.com/lambdalisue/vim-suda" },
 })
-require("project_nvim").setup()
-require("mini.comment").setup()
 require("mini.pick").setup()
+require("mini.comment").setup()
 require("mini.extra").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
-require("tabout").setup()
+require("tabout").setup({ tabkey = "<Tab>" })
 require("rip-substitute").setup({ popupWin = { border = "rounded" } })
 require("neoscroll").setup({ easing = "quintic" })
 require("which-key").setup({ preset = "helix", plugins = { presets = { motions = false } } })
 require("gitsigns").setup({ signs = { delete = "─" } })
 require("yazi").setup({ yazi_floating_window_border = "rounded" })
-require("ibl").setup({ indent = { char = "▏", highlight = none }, scope = { enabled = false } })
-require("trouble").setup({ focus = true, win = { position = "bottom" }, open_no_results = true })
+require("ibl").setup({ indent = { char = "▏" }, scope = { enabled = false } })
+require("trouble").setup({
+  focus = true,
+  win = { position = "bottom" },
+  keys = { ["<esc>"] = "close" },
+})
 require("live-command").setup({ commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } } })
 vim.cmd("cnoreabbrev norm Norm")
 vim.cmd("cnoreabbrev g G")
@@ -210,13 +211,13 @@ require("blink.cmp").setup({
 })
 
 ----treesitter---------------------------------------------------------
-require("nvim-treesitter.configs").setup({
+require("nvim-treesitter").setup({
   highlight = { enable = true },
   -- stylua: ignore start
   ensure_installed = {
-    "bash", "caddy", "css",  "csv",      "diff",            "dockerfile", "html",  "javascript",
-    "jq",   "json",  "lua",  "markdown", "markdown_inline", "qmljs",      "regex", "sql",
-    "toml", "typst", "sway", "vimdoc",   "yaml",            "rust",       "ron",
+    "bash", "caddy", "comment", "css",      "csv",             "diff",  "dockerfile", "html", "javascript",
+    "jq",   "json",  "lua",     "markdown", "markdown_inline", "qmljs", "regex",      "sql",
+    "toml", "typst", "sway",    "vimdoc",   "yaml",            "rust",  "ron",
   },
 })
 -- stylua: ignore end
@@ -262,16 +263,18 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 ----bullets-vim--------------------------------------------------------
 vim.g.bullets_checkbox_markers = " abodeX"
-----mini.hipatterns----------------------------------------------------
-require("mini.hipatterns").setup({
-  highlighters = {
-    fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
-    hack = { pattern = "HACK", group = "MiniHipatternsHack" },
-    todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
-    note = { pattern = "NOTE", group = "MiniHipatternsNote" },
-    hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
-  },
-})
+--TODO:
+-- ----mini.hipatterns----------------------------------------------------
+-- require("mini.hipatterns").setup({
+--   highlighters = {
+--     fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
+--     hack = { pattern = "HACK", group = "MiniHipatternsHack" },
+--     todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
+--     note = { pattern = "NOTE", group = "MiniHipatternsNote" },
+--     hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+--   },
+-- })
+
 ----mini.move---------------------------------------------------------
 require("mini.move").setup({
   mappings = {
@@ -293,6 +296,7 @@ require("mini.tabline").setup({
     return MiniTabline.default_format(buf_id, label) .. suffix
   end,
 })
+
 ----lualine-----------------------------------------------------------
 require("lualine").setup({
   options = {
@@ -319,35 +323,21 @@ require("lualine").setup({
 
 ----rainbow-delimeters----------------------------------------------------
 vim.g.rainbow_delimiters = {
-  highlight = {
-    "RainbowDelimiterRed",
-    "RainbowDelimiterYellow",
-    "RainbowDelimiterBlue",
-    "RainbowDelimiterOrange",
-  },
+  highlight = { "RainbowDelimiterRed", "RainbowDelimiterYellow", "RainbowDelimiterBlue", "RainbowDelimiterOrange" },
   blacklist = { "html" },
 }
 
 ----snacks-----------------------------------------------------------------
-vim.pack.add({
-  { src = "https://github.com/folke/snacks.nvim", { load = false } },
-})
-
+vim.pack.add({ "https://github.com/folke/snacks.nvim" })
 require("snacks").setup({
   dashboard = {
-    enabled = true,
     width = 40,
     preset = {
       keys = {
         { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
         { icon = " ", key = "\\", desc = "File Explorer", action = ":Yazi" },
-        { icon = " ", key = "r", desc = "Recent Files", action = ":Pick oldfiles" },
-        {
-          icon = " ",
-          key = "p",
-          desc = "Projects",
-          action = ":lua Snacks.picker.projects()",
-        },
+        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
+        { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects()" },
         { icon = " ", key = "q", desc = "Quit", action = ":qa" },
       },
       header = {
@@ -362,28 +352,27 @@ require("snacks").setup({
   |  ,-.    ,-'         |  /
   |  | (   |            | /
   )  |  \  `.___________|/
-  `--'   `--']],
+  `--'   `--'
+]],
       },
     },
-    formats = {},
+    -- formats = {},
     sections = {
       { section = "header", indent = 5 },
       { title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
       { section = "keys", indent = 2, padding = 1 },
     },
   },
+  picker = {
+    sources = {
+      registers = {
+        layout = { preview = false, preset = "right" },
+        preview = false,
+        confirm = { "paste", "close" },
+      },
+      projects = { dev = "~/git", layout = "select" },
+      man = { layout = "select" },
+      recent = { layout = "select" },
+    },
+  },
 })
-
---- mini.pick project picker
-MiniPick.registry.projects = function()
-  local cwd = vim.fn.expand("~/git")
-  local choose = function(item)
-    vim.schedule(function()
-      MiniPick.builtin.files(nil, { source = { cwd = item.path } })
-    end)
-  end
-  return MiniExtra.pickers.explorer({ cwd = cwd }, { source = { choose = choose } })
-end
-
--- opens yazi at requested folder
--- require("yazi").yazi(nil, "~/git/")
