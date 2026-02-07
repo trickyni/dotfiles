@@ -9,7 +9,7 @@ edit = [
   { run = '${EDITOR:-vi} "$@"', desc = "Edit", block = true, for = "unix" },
 ]
 view = [
-  { run = 'geeqie "$1"', desc = "View" },
+  { run = 'swayimg "$1"', desc = "View" },
 ]
 play = [
   { run = 'mpv --force-window "$@"', orphan = true, desc = "Play" },
@@ -19,7 +19,8 @@ play = [
 rules = [
   # Text"edit",
   { mime = "text/*", use = "edit" },
-  {url="{*.json,*.md}", use="edit"},
+  { mime = "application/{javascript,json}", use = "edit" },
+  { mime = "inode/{empty,x-empty}", use = "edit" },
   # Image
   { mime = "image/*", use = "view" },
   # Media

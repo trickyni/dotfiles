@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-if pgrep -x quickshell; then
-    killall quickshell
-    swaymsg exec quickshell
+if pgrep -x bluetui; then
+    killall bluetui
 else
-    swamsg exec quickshell
+  gtk-launch bluetui
 fi

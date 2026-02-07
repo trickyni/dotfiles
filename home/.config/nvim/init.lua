@@ -43,6 +43,7 @@ vim.keymap.set("n", "<leader>r", ":lua Snacks.picker.recent()<CR>", { desc = "Re
 vim.keymap.set("n", "<leader>p", ":lua Snacks.picker.projects()<CR>", { desc = "Projects" })
 vim.keymap.set("n", "<leader>m", ":lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
 vim.keymap.set("n", '<leader>"', ":lua Snacks.picker.registers()<CR>", { desc = "Registers" })
+vim.keymap.set("n", "<leader>t", ":lua Snacks.picker.todo_comments()<CR>", { desc = "Todo" })
 
 -- Behaviors --------------------------------------------------
 -- Highlight when yanking (copying) text
@@ -82,10 +83,11 @@ vim.diagnostic.config({
     end,
   },
 })
-
+--
 -- Plugins ----------------------------------
 vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
+  { src = "https://github.com/folke/todo-comments.nvim" },
   { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/sitiom/nvim-numbertoggle" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
@@ -121,6 +123,10 @@ require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
 require("tabout").setup({ tabkey = "<Tab>" })
+require("todo-comments").setup({
+  highlight = { keyword = "bg", after = "", pattern = [[.*<(KEYWORDS)\s*]] },
+  search = { pattern = [[\b(KEYWORDS)]] },
+})
 require("rip-substitute").setup({ popupWin = { border = "rounded" } })
 require("neoscroll").setup({ easing = "quintic" })
 require("which-key").setup({ preset = "helix", plugins = { presets = { motions = false } } })
