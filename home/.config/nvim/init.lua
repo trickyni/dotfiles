@@ -30,27 +30,17 @@ vim.opt.spelllang    = "en_us"
 vim.opt.spell        = true
 --stylua: ignore end
 -- KEYMAPS ----------------------------------------------------
--- creates new buffer
-vim.keymap.set("n", "<C-n>", ":enew<CR>")
--- next/prev buffer
-vim.keymap.set("n", "<C-]>", ":bn<CR>")
-vim.keymap.set("n", "<C-[>", ":bp<CR>")
-
--- Clear highlights on search when pressing <Esc> in normal mode
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
--- bullets-vim toggle checkbox
+vim.keymap.set("n", "<C-n>", ":enew<CR>", { desc = "New buffer" })
+vim.keymap.set("n", "<C-]>", ":bn<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<C-[>", ":bp<CR>", { desc = "Prev buffer" })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear highlights" })
 vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Toggle Checkbox" })
--- Zen Mode
-vim.keymap.set("n", "zm", ":ZenMode<CR>")
--- Yazi
-vim.keymap.set({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>")
--- Rip-substitute
+vim.keymap.set("n", "zm", ":ZenMode<CR>", { desc = "Zen mode" })
+vim.keymap.set({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>", { desc = "yazi" })
 vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = " rip substitutdde" })
--- Diagnostics
 vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>r", ":lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
 vim.keymap.set("n", "<leader>p", ":lua Snacks.picker.projects()<CR>", { desc = "Projects" })
-vim.keymap.set("n", "<leader>t", ":Pick hipatterns<CR>", { desc = "TODO marks" })
 vim.keymap.set("n", "<leader>m", ":lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
 vim.keymap.set("n", '<leader>"', ":lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 
@@ -96,21 +86,18 @@ vim.diagnostic.config({
 -- Plugins ----------------------------------
 vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/ahmedkhalf/project.nvim" },
+  { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/sitiom/nvim-numbertoggle" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/preservim/vim-pencil" },
   { src = "https://github.com/bullets-vim/bullets.vim" },
   { src = "https://github.com/folke/zen-mode.nvim" },
   { src = "https://github.com/nvim-mini/mini.comment" },
-  { src = "https://github.com/nvim-mini/mini.pick" },
-  { src = "https://github.com/nvim-mini/mini.extra" },
   { src = "https://github.com/nvim-mini/mini.move" },
   { src = "https://github.com/nvim-mini/mini.surround" },
   { src = "https://github.com/nvim-mini/mini.align" },
   { src = "https://github.com/nvim-mini/mini.splitjoin" },
   { src = "https://github.com/nvim-mini/mini.pairs" },
-  { src = "https://github.com/nvim-mini/mini.hipatterns" },
   { src = "https://github.com/nvim-mini/mini.tabline" },
   { src = "https://github.com/abecodes/tabout.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
@@ -128,9 +115,7 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/OXY2DEV/helpview.nvim" },
 })
-require("mini.pick").setup()
 require("mini.comment").setup()
-require("mini.extra").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
@@ -142,11 +127,7 @@ require("which-key").setup({ preset = "helix", plugins = { presets = { motions =
 require("gitsigns").setup({ signs = { delete = "─" } })
 require("yazi").setup({ yazi_floating_window_border = "rounded" })
 require("ibl").setup({ indent = { char = "▏" }, scope = { enabled = false } })
-require("trouble").setup({
-  focus = true,
-  win = { position = "bottom" },
-  keys = { ["<esc>"] = "close" },
-})
+require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
 require("live-command").setup({ commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } } })
 vim.cmd("cnoreabbrev norm Norm")
 vim.cmd("cnoreabbrev g G")
@@ -215,9 +196,9 @@ require("nvim-treesitter").setup({
   highlight = { enable = true },
   -- stylua: ignore start
   ensure_installed = {
-    "bash", "caddy", "comment", "css",      "csv",             "diff",  "dockerfile", "html", "javascript",
-    "jq",   "json",  "lua",     "markdown", "markdown_inline", "qmljs", "regex",      "sql",
-    "toml", "typst", "sway",    "vimdoc",   "yaml",            "rust",  "ron",
+    "bash", "caddy", "comment", "css",    "csv",      "diff",            "dockerfile", "html",  "javascript",
+    "jq",   "json",  "jsx",     "lua",    "markdown", "markdown_inline", "qmljs",      "regex", "sql",
+    "toml", "typst", "sway",    "vimdoc", "yaml",     "rust",            "ron",
   },
 })
 -- stylua: ignore end
@@ -263,17 +244,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 ----bullets-vim--------------------------------------------------------
 vim.g.bullets_checkbox_markers = " abodeX"
---TODO:
--- ----mini.hipatterns----------------------------------------------------
--- require("mini.hipatterns").setup({
---   highlighters = {
---     fixme = { pattern = "FIXME", group = "MiniHipatternsFixme" },
---     hack = { pattern = "HACK", group = "MiniHipatternsHack" },
---     todo = { pattern = "TODO", group = "MiniHipatternsTodo" },
---     note = { pattern = "NOTE", group = "MiniHipatternsNote" },
---     hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
---   },
--- })
 
 ----mini.move---------------------------------------------------------
 require("mini.move").setup({
@@ -364,15 +334,23 @@ require("snacks").setup({
     },
   },
   picker = {
+    layout = "select",
     sources = {
       registers = {
         layout = { preview = false, preset = "right" },
         preview = false,
-        confirm = { "paste", "close" },
       },
-      projects = { dev = "~/git", layout = "select" },
-      man = { layout = "select" },
-      recent = { layout = "select" },
+      confirm = { "paste", "close" },
+      projects = {
+        filter = { paths = { ["~/.local/share/nvim/"] = false } },
+        dev = "~/git",
+        layout = "default",
+        projects = {
+          "~/.config/nvim",
+          "~/.config/rmpc",
+          "~/.config/sway",
+        },
+      },
     },
   },
 })

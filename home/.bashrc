@@ -162,7 +162,7 @@ alias gitscum='git add . && git commit -m "0" && git push && echo -e "\033[93mgi
 
 #   yt-dlp
 alias ytdlp='yt-dlp \
--f "bv[height<=1080]+ba"  \
+-f "best[height<=1080]"  \
 -o "~/Downloads/[%(upload_date>%Y-%m-%d)s] %(title)s - %(uploader)s"  \
 --embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
 --sponsorblock-remove sponsor --sponsorblock-mark selfpromo,interaction \

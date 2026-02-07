@@ -1,5 +1,5 @@
 # exec eww open-many topbar bottombar
-exec quickshell
+exec_always quickshell-wrapper.sh
 #   volume control (workspace v)
 exec pavucontrol
 assign [app_id="org.pulseaudio.pavucontrol"] workspace 12
