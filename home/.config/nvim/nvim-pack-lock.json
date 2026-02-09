@@ -18,7 +18,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "desert-witch.nvim": {
-      "rev": "70adeb944261e5b0baf9527b600d0d039a4f9843",
+      "rev": "4daab30c889ce998d8c21b9dbe6a8786966a8afc",
       "src": "https://codeberg.org/trickyni/desert-witch.nvim"
     },
     "gitsigns.nvim": {
@@ -82,11 +82,11 @@
       "src": "https://github.com/sitiom/nvim-numbertoggle"
     },
     "nvim-rip-substitute": {
-      "rev": "6d6b5bfc7b3b502ac4eda200eff9a4ec4b98a0c7",
+      "rev": "1fae57ead7e1f3221286beced9e32fdd661e453b",
       "src": "https://github.com/chrisgrieser/nvim-rip-substitute"
     },
     "nvim-treesitter": {
-      "rev": "4967fa48b0fe7a7f92cee546c76bb4bb61bb14d5",
+      "rev": "45a07f869b0cffba342276f2c77ba7c116d35db8",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
@@ -130,7 +130,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "yazi.nvim": {
-      "rev": "02d5086bee04e0c861afeed8ce48988c89b19f9d",
+      "rev": "d0f6f796563cfd76a9514191b294d1d98e8da4de",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     },
     "zen-mode.nvim": {

@@ -4,46 +4,71 @@ vim.cmd.colorscheme("desert-witch")
 --stylua: ignore start
 vim.g.mapleader      = " " -- leader key (spacebar)
 vim.g.have_nerd_font = true
-vim.opt.shortmess:append("Swl")
 vim.opt.number       = true -- number column
 vim.opt.ignorecase   = true -- search ignores case
 vim.opt.smartcase    = true -- search ignores case unless uppercase letter exists
+vim.opt.textwidth    = 100
 vim.opt.wrap         = true
-vim.opt.textwidth    = 80
 vim.opt.linebreak    = true
+vim.opt.breakindent  = true
+vim.opt.showbreak    = "> "
 vim.opt.shiftwidth   = 2 -- indentation width
 vim.opt.tabstop      = 2 -- tab width
 vim.opt.softtabstop  = 2
 vim.opt.expandtab    = true -- turns tabs into spaces
 vim.opt.showmode     = false -- hides mode indicator, since we have a status line
+vim.opt.laststatus   = 3
 vim.opt.cursorline   = true -- highlights cursor line
 vim.opt.scrolloff    = 10 -- keeps 10 lines above/below the cursor when scrolling
-vim.opt.breakindent  = true
 vim.opt.signcolumn   = "yes:1" -- gutter to the left of the number column
 vim.opt.inccommand   = "nosplit" -- shows find/replace results live
 vim.opt.backspace    = { "start", "eol", "indent" }
 vim.opt.list         = true -- show trailing whitespaces and tab characters
-vim.opt.listchars    = {tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars    = { tab = "» ", trail = "·", nbsp = "␣", extends="𖡺" }
+vim.opt.fillchars    = { horiz="─" }
 vim.opt.timeoutlen   = 300 --timeout on keys with followups
 vim.opt.winborder    = "rounded" --border for floating windows
 vim.opt.spelllang    = "en_us"
-vim.opt.spell        = true
+vim.opt.smoothscroll = true
+vim.opt.splitright   = true
+vim.opt.undofile     = true
+vim.opt.thesaurus    = "~/.config/nvim/dict/thesaurus.txt"
+vim.opt.shortmess:append("Swl")
+
+vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
+  pattern = "markdown",
+  callback = function(args)
+    vim.treesitter.start(args.buf, "markdown") -- activates the markdown treesitter
+    vim.opt_local.spell       = true  -- spellcheck
+    vim.opt_local.shiftwidth  = 2     -- ensures tabs == 2 whitespaces
+    vim.opt_local.textwidth   = 0
+    -- make up/down consider wrapped text
+    vim.keymap.set({"n","v"}, "k", "gk", { remap = false, buffer = true, silent = true })
+    vim.keymap.set({"n","v"}, "j", "gj", { remap = false, buffer = true, silent = true })
+  end,
+})
 --stylua: ignore end
 -- KEYMAPS ----------------------------------------------------
-vim.keymap.set("n", "<C-n>", ":enew<CR>", { desc = "New buffer" })
-vim.keymap.set("n", "<C-]>", ":bn<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<C-[>", ":bp<CR>", { desc = "Prev buffer" })
+vim.keymap.set("n", "<C-n>", "<cmd>enew<CR>", { desc = "New buffer" })
+vim.keymap.set("n", "<C-]>", "<cmd>bn<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<C-[>", "<cmd>bp<CR>", { desc = "Prev buffer" })
+vim.keymap.set({ "n", "v" }, "<Up>", "gk", { remap = false, silent = true })
+vim.keymap.set({ "n", "v" }, "<Down>", "gj", { remap = false, silent = true })
+vim.keymap.set("i", "<Up>", "<C-o>gk", { remap = false, silent = true })
+vim.keymap.set("i", "<Down>", "<C-o>gj", { remap = false, silent = true })
+vim.keymap.set("n", "<C-/>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show floating diagnostic" })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear highlights" })
 vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Toggle Checkbox" })
-vim.keymap.set("n", "zm", ":ZenMode<CR>", { desc = "Zen mode" })
+vim.keymap.set("n", "<leader><leader>", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
 vim.keymap.set({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>", { desc = "yazi" })
 vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = " rip substitutdde" })
 vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>r", ":lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
-vim.keymap.set("n", "<leader>p", ":lua Snacks.picker.projects()<CR>", { desc = "Projects" })
-vim.keymap.set("n", "<leader>m", ":lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
-vim.keymap.set("n", '<leader>"', ":lua Snacks.picker.registers()<CR>", { desc = "Registers" })
-vim.keymap.set("n", "<leader>t", ":lua Snacks.picker.todo_comments()<CR>", { desc = "Todo" })
+vim.keymap.set("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
+vim.keymap.set("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
+vim.keymap.set("n", "<leader>m", "<cmd>lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
+vim.keymap.set("n", "<leader>t", "<cmd>lua Snacks.picker.todo_comments()<CR>", { desc = "Todo" })
+vim.keymap.set({ "n", "v" }, '<leader>"', "<cmd>lua Snacks.picker.registers()<CR>", { desc = "Registers" })
+vim.keymap.set("n", "<leader>g", "<cmd>Gitsigns toggle_linehl<CR>", { desc = "Toggle Diff" })
 
 -- Behaviors --------------------------------------------------
 -- Highlight when yanking (copying) text
@@ -66,9 +91,9 @@ vim.diagnostic.config({
   underline = { severity = vim.diagnostic.severity.ERROR },
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = "󰅚 ",
-      [vim.diagnostic.severity.WARN] = "󰀪 ",
-      [vim.diagnostic.severity.INFO] = "󰋽 ",
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
       [vim.diagnostic.severity.HINT] = "󰌶 ",
     },
   },
@@ -91,7 +116,6 @@ vim.pack.add({
   { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/sitiom/nvim-numbertoggle" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
-  { src = "https://github.com/preservim/vim-pencil" },
   { src = "https://github.com/bullets-vim/bullets.vim" },
   { src = "https://github.com/folke/zen-mode.nvim" },
   { src = "https://github.com/nvim-mini/mini.comment" },
@@ -123,32 +147,34 @@ require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
 require("tabout").setup({ tabkey = "<Tab>" })
-require("todo-comments").setup({
-  highlight = { keyword = "bg", after = "", pattern = [[.*<(KEYWORDS)\s*]] },
-  search = { pattern = [[\b(KEYWORDS)]] },
-})
 require("rip-substitute").setup({ popupWin = { border = "rounded" } })
-require("neoscroll").setup({ easing = "quintic" })
+require("neoscroll").setup({ easing = "sine" })
 require("which-key").setup({ preset = "helix", plugins = { presets = { motions = false } } })
 require("gitsigns").setup({ signs = { delete = "─" } })
 require("yazi").setup({ yazi_floating_window_border = "rounded" })
 require("ibl").setup({ indent = { char = "▏" }, scope = { enabled = false } })
 require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
-require("live-command").setup({ commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } } })
+require("live-command").setup({
+  commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } },
+  inline_highlighting = false,
+})
 vim.cmd("cnoreabbrev norm Norm")
 vim.cmd("cnoreabbrev g G")
 
+--stylua: ignore
 vim.lsp.enable({
-  "lua_ls",
-  "ts_ls",
-  "bashls",
-  "qmlls",
-  "tombi",
+  "lua_ls",    --lua
+  "ts_ls",     --Javascript/typescript
+  "bashls",    --Bash
+  "qmlls",     --QML
+  "tombi",     --TOML FIX
+  "ltex_plus", --plaintext, markdown
 })
+
 ---conform.nvim-------------------------------------------------------
+--stylua: ignore
 require("conform").setup({
   format_on_save = true,
-  --stylua: ignore start
   formatters_by_ft = {
     sh         = { "shfmt" },
     lua        = { "stylua" },
@@ -166,9 +192,8 @@ require("conform").setup({
     shfmt      = { prepend_args = { "-i = 2" } },
     prettier   = { prepend_args = { "--tab-width", "2" ,"--experimental-ternaries","false"} },
   },
-  --stylua: ignore end
 })
-----------------------------------------------------------------------
+
 --blink.cmp----------------------------------------------------------
 vim.pack.add({
   { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
@@ -200,14 +225,20 @@ require("blink.cmp").setup({
 ----treesitter---------------------------------------------------------
 require("nvim-treesitter").setup({
   highlight = { enable = true },
-  -- stylua: ignore start
+  -- stylua: ignore
   ensure_installed = {
-    "bash", "caddy", "comment", "css",    "csv",      "diff",            "dockerfile", "html",  "javascript",
-    "jq",   "json",  "jsx",     "lua",    "markdown", "markdown_inline", "qmljs",      "regex", "sql",
-    "toml", "typst", "sway",    "vimdoc", "yaml",     "rust",            "ron",
+    "bash", "caddy", "css",  "csv",    "diff",     "dockerfile",      "html",  "javascript",
+    "jq",   "json",  "jsx",  "lua",    "markdown", "markdown_inline", "qmljs", "regex", "sql",
+    "toml", "typst", "sway", "vimdoc", "yaml",     "rust",            "ron",
   },
 })
--- stylua: ignore end
+
+--- todo-comments-----------------------------------------------------
+require("todo-comments").setup({
+  keywords = { FIX = { icon = "" }, HACK = { icon = "" }, PERF = { icon = "" }, TODO = { icon = "" } },
+  highlight = { keyword = "bg", after = "", pattern = [[.*<(KEYWORDS)\s*]] },
+  search = { pattern = [[\b(KEYWORDS)]] },
+})
 
 ---RenderMarkdown-----------------------------------------------------
 require("render-markdown").setup({
@@ -216,13 +247,14 @@ require("render-markdown").setup({
   checkbox = {
     checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
     unchecked = { icon = "󰋙", scope_highlight = nil },
+    --stylua: ignore
     custom = {
-      sixth = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
-      third = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
-      half = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
+      sixth     = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
+      third     = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
+      half      = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
       twothirds = { raw = "[d]", rendered = "󰫆 ", highlight = "RenderMarkdownBullet" },
-      fivesix = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
-      todo = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
+      fivesix   = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
+      todo      = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
     },
   },
   wiki = { scope_highlight = "RenderMarkdownWikiLinkText" },
@@ -240,14 +272,7 @@ require("render-markdown").setup({
   },
   latex = { enabled = false },
 })
----
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function(args)
-    vim.treesitter.start(args.buf, "markdown")
-    vim.bo.shiftwidth = 2
-  end,
-})
+
 ----bullets-vim--------------------------------------------------------
 vim.g.bullets_checkbox_markers = " abodeX"
 
@@ -297,11 +322,23 @@ require("lualine").setup({
   },
 })
 
-----rainbow-delimeters----------------------------------------------------
+----rainbow-delimiters----------------------------------------------------
 vim.g.rainbow_delimiters = {
   highlight = { "RainbowDelimiterRed", "RainbowDelimiterYellow", "RainbowDelimiterBlue", "RainbowDelimiterOrange" },
   blacklist = { "html" },
 }
+
+----zen-mode----------------------------------------------------------------
+require("zen-mode").setup({
+  window = { width = 100, backdrop = 1 },
+  -- plugins = { gitsigns = { enabled = false } },
+  on_open = function()
+    vim.cmd("Gitsigns toggle_signs")
+  end,
+  on_close = function()
+    vim.cmd("Gitsigns toggle_signs")
+  end,
+})
 
 ----snacks-----------------------------------------------------------------
 vim.pack.add({ "https://github.com/folke/snacks.nvim" })
@@ -340,13 +377,14 @@ require("snacks").setup({
     },
   },
   picker = {
-    layout = "select",
     sources = {
+      man = { layout = "select" },
+      recent = { layout = "select" },
       registers = {
         layout = { preview = false, preset = "right" },
         preview = false,
+        confirm = { "paste", "close" },
       },
-      confirm = { "paste", "close" },
       projects = {
         filter = { paths = { ["~/.local/share/nvim/"] = false } },
         dev = "~/git",
@@ -357,6 +395,7 @@ require("snacks").setup({
           "~/.config/sway",
         },
       },
+      todo_comments = { buffers = true, layout = "select" },
     },
   },
 })

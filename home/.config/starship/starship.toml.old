@@ -1,0 +1,60 @@
+# ~/.config/starship.toml
+
+format='''
+[╭](#AFD2E9)${custom.glyphs}
+[ ]()$hostname$directory$git_branch$git_status
+[╰]()$status'''
+
+add_newline = true
+[status]
+format = '$symbol'
+symbol = '[󰝾](#E86045) '
+not_executable_symbol = '[󰝾](#E86045) '
+success_symbol = '[󰝾](#AFD2E9) '
+not_found_symbol = '[󰝾](#AFD2E9) '
+signal_symbol = '[󰝾](#AFD2E9) '
+sigint_symbol = '[󰝾](#AFD2E9) '
+map_symbol = true
+disabled = false
+
+[directory]
+style='#C1A387'
+read_only=''
+read_only_style='#E86045'
+truncation_length=3
+truncation_symbol='.../'
+truncate_to_repo = true # truncates directory to root folder if in github repo
+
+[hostname]
+ssh_only = true
+format = '$hostname '
+aliases = {"hachiko" = "\u001B[38;2;62;204;190m󰩄", "IrregularNotes" = "\u001B[38;2;193;163;135m󰎌", "pablotronica" = "\u001B[38;2;193;163;135m󰩃", "twister"="\u001B[38;2;62;204;190m𖦹"}
+
+[git_branch]
+symbol = '𖣂'
+always_show_remote = true
+format='[$symbol $branch ]($style)'
+style = '#92a650'
+
+[git_status]
+format = '([$ahead_behind$staged$deleted$modified$untracked$stashed]($style))'
+style = '#92a650'
+untracked = '[?](#E68D53)'
+stashed = '[ ](#3ECCBE)'
+modified = '[*$count](#E68D53)'
+staged = '[+$count](#92a650)'
+deleted = '[-$count](#E86045)'
+up_to_date = '[󰺕](#ace1af)'
+ahead = '[⇡$count](#92a650)'
+behind = '[⇣$count|](#E86045)'
+conflicted = '[!!](#E86045)'
+
+[custom.glyphs]
+format="[$output](#AFD2E9)"
+command='python3 ~/.config/starship/glyphs_long.py'
+shell = ["bash", "--noprofile", "--norc"]
+when=true
+
+
+#󰝾
+#𖢊𖦋𖢏𖢴𖤲𖤱𖦹𖧻

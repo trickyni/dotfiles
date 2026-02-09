@@ -2,8 +2,9 @@
 open = [
   { run = 'xdg-open "$1"', desc = "Open" },
 ]
+browse = [{ run = 'firefox "$1"', desc = "Firefox" }]
 extract = [
-  { run = 'ouch d -y "$@"', desc = "Extract here with ouch" },
+  { run = 'ouch d -y "$@"', desc = "Extract" },
 ]
 edit = [
   { run = '${EDITOR:-vi} "$@"', desc = "Edit", block = true, for = "unix" },
@@ -12,13 +13,14 @@ view = [
   { run = 'swayimg "$1"', desc = "View" },
 ]
 play = [
-  { run = 'mpv --force-window "$@"', orphan = true, desc = "Play" },
+  { run = 'mpv --force-window "$@"', orphan = true, desc = "MPV" },
 ]
 
 [open]
 rules = [
   # Text"edit",
-  { mime = "text/*", use = "edit" },
+  { mime = "text/html", use = ["edit", "browse", "open"] },
+  { mime = "text/*", use = ["edit", "open"] },
   { mime = "application/{javascript,json}", use = "edit" },
   { mime = "inode/{empty,x-empty}", use = "edit" },
   # Image
@@ -28,5 +30,5 @@ rules = [
   # Archive
   { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = "extract" },
   # Fallback
-  { url = "*", use = [ "open", "edit" ]},
+  { url = "*", use = ["open", "edit"] },
 ]

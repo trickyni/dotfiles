@@ -1,9 +1,6 @@
 ## config
 
-- blink.cmp spellchecker
-- move to mini.picker
 - floating window diagnostic automate
-- todo comments picker
 
 ## writing
 
@@ -12,9 +9,6 @@
 - Rhymer
 - Dictionary
 - Wikipedia?
-- configure zenmode
-
-- [lecure on vim novelwriting](https://www.youtube.com/watch?v=2ORWaIqyj7k)
 
 - typst
   - [snippets](https://github.com/rafamadriz/friendly-snippets)
@@ -48,3 +42,5 @@ what's a quickfix window?
 [digraphs](https://neovim.io/doc/user/digraph.html)
 [registers](https://www.youtube.com/watch?v=AC_DyfUcTsw)
 marks?
+folds
+formatprg
