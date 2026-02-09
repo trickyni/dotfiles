@@ -14,7 +14,7 @@ vim.opt.breakindent  = true
 vim.opt.showbreak    = "> "
 vim.opt.shiftwidth   = 2 -- indentation width
 vim.opt.tabstop      = 2 -- tab width
-vim.opt.softtabstop  = 2
+vim.opt.softtabstop  = 2 
 vim.opt.expandtab    = true -- turns tabs into spaces
 vim.opt.showmode     = false -- hides mode indicator, since we have a status line
 vim.opt.laststatus   = 3
@@ -48,6 +48,7 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
   end,
 })
 --stylua: ignore end
+
 -- KEYMAPS ----------------------------------------------------
 vim.keymap.set("n", "<C-n>", "<cmd>enew<CR>", { desc = "New buffer" })
 vim.keymap.set("n", "<C-]>", "<cmd>bn<CR>", { desc = "Next buffer" })
@@ -141,6 +142,7 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/OXY2DEV/helpview.nvim" },
 })
+
 require("mini.comment").setup()
 require("mini.pairs").setup()
 require("mini.splitjoin").setup()
@@ -273,20 +275,46 @@ require("render-markdown").setup({
   latex = { enabled = false },
 })
 
-----bullets-vim--------------------------------------------------------
+----bullets-vim-------------------------------------------------------
 vim.g.bullets_checkbox_markers = " abodeX"
 
+----colorizer---------------------------------------------------------
+require("colorizer").setup({
+  user_default_options = {
+    names = false,
+    --stylua: ignore
+    names_custom = {
+      bg      = "#3b3228",
+      bg95    = "#43392d",
+      bg75    = "#4c4134",
+      altbg   = "#5d4f40",
+      bg25    = "#6b6055",
+      sand    = "#c1a387",
+      fg      = "#afd2e9",
+      orange  = "#e68d53",
+      saffron = "#f8e2a0",
+      scarlet = "#e86045",
+      moss    = "#92a650",
+      celadon = "#ace1af",
+      cyan    = "#3eccbe",
+      grey    = "#868686",
+      nazar   = "#15156b",
+    },
+  },
+})
+
 ----mini.move---------------------------------------------------------
+--stylua: ignore
 require("mini.move").setup({
   mappings = {
-    left = "<S-left>",
-    right = "<S-right>",
-    down = "<S-down>",
-    up = "<S-up>",
-    line_left = "<S-left>",
+    left       = "<S-left>",
+    right      = "<S-right>",
+    down       = "<S-down>",
+    up         = "<S-up>",
+    line_left  = "<S-left>",
     line_right = "<S-right>",
-    line_down = "<S-down>",
-    line_up = "<S-up>",
+    line_down  = "<S-down>",
+    line_up    = "<S-up>",
   },
 })
 
@@ -346,12 +374,13 @@ require("snacks").setup({
   dashboard = {
     width = 40,
     preset = {
+      --stylua: ignore
       keys = {
-        { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+        { icon = " ", key = "n",  desc = "New File",     action  = ":ene | startinsert" },
         { icon = " ", key = "\\", desc = "File Explorer", action = ":Yazi" },
-        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
-        { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects()" },
-        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+        { icon = " ", key = "r",  desc = "Recent Files", action  = ":lua Snacks.picker.recent()" },
+        { icon = " ", key = "p",  desc = "Projects",     action  = ":lua Snacks.picker.projects()" },
+        { icon = " ", key = "q",  desc = "Quit",         action  = ":qa" },
       },
       header = {
         [[
