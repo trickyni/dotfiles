@@ -24,10 +24,6 @@
       "rev": "31217271a7314c343606acb4072a94a039a19fb5",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "helpview.nvim": {
-      "rev": "518789535a0cb146224a428edf93a70f98b795db",
-      "src": "https://github.com/OXY2DEV/helpview.nvim"
-    },
     "live-command.nvim": {
       "rev": "fc8c36d7e5b96945fbc52af7029facc317a47377",
       "src": "https://github.com/smjonas/live-command.nvim"
@@ -47,6 +43,10 @@
     "mini.align": {
       "rev": "6d8a6ca3a0fd313938374abccb50cad026229db3",
       "src": "https://github.com/nvim-mini/mini.align"
+    },
+    "mini.comment": {
+      "rev": "a0c721115faff8d05505c0a12dab410084d9e536",
+      "src": "https://github.com/nvim-mini/mini.comment"
     },
     "mini.move": {
       "rev": "4d214202d71e0a4066b6288176bbe88f268f9777",

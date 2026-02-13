@@ -33,7 +33,6 @@ vim.opt.spelllang      = "en_us"
 vim.opt.smoothscroll   = true
 vim.opt.splitright     = true
 vim.opt.undofile       = true
-vim.opt.thesaurus      = "~/.config/nvim/dict/thesaurus.txt"
 vim.opt.shortmess:append("Swl")
 --stylua: ignore end
 -- KEYMAPS --------------------------------------------------------------------
@@ -61,7 +60,7 @@ vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Toggle Checkbox
 vim.keymap.set("n", "<C-/>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show floating diagnostic" })
 vim.keymap.set("n", "<leader><leader>", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
 vim.keymap.set({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>", { desc = "yazi" })
-vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = " rip substitutdde" })
+vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = "Find/Replace" })
 vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
 vim.keymap.set("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
@@ -117,6 +116,7 @@ vim.pack.add({
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/folke/zen-mode.nvim" },
   { src = "https://github.com/nvim-mini/mini.surround" },
+  { src = "https://github.com/nvim-mini/mini.comment" },
   { src = "https://github.com/nvim-mini/mini.align" },
   { src = "https://github.com/nvim-mini/mini.splitjoin" },
   { src = "https://github.com/nvim-mini/mini.pairs" },
@@ -133,13 +133,13 @@ vim.pack.add({
   { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" },
   { src = "https://github.com/folke/trouble.nvim" },
   { src = "https://github.com/stevearc/conform.nvim" },
-  { src = "https://github.com/OXY2DEV/helpview.nvim" },
   { src = "https://github.com/folke/snacks.nvim" },
-  { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
   { src = "https://github.com/saghen/blink.cmp" },
+  { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
 })
 
 require("mini.pairs").setup()
+require("mini.comment").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
@@ -215,43 +215,42 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
     -- make up/down consider wrapped text
     vim.keymap.set({ "n", "v" }, "k", "gk", { remap = false, buffer = true, silent = true })
     vim.keymap.set({ "n", "v" }, "j", "gj", { remap = false, buffer = true, silent = true })
+    ---RenderMarkdown-----------------------------------------------------
+    require("render-markdown").setup({
+      render_modes = true,
+      completions = { lsp = { enabled = true } },
+      checkbox = {
+        checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
+        unchecked = { icon = "󰋙", scope_highlight = nil },
+     --stylua: ignore
+     custom = {
+       sixth     = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
+       third     = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
+       half      = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
+       twothirds = { raw = "[d]", rendered = "󰫆 ", highlight = "RenderMarkdownBullet" },
+       fivesix   = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
+       todo      = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
+     },
+      },
+      -- wiki = { scope_highlight = "RenderMarkdownWikiLinkText" },
+      bullet = { icons = { "󰆧" } },
+      pipe_table = {
+        preset = "round",
+        alignment_indicator = "┈",
+      },
+      dash = {
+        enabled = true,
+        render_modes = false,
+        icon = "─",
+        width = "full",
+        left_margin = 0,
+      },
+      latex = { enabled = false },
+    })
+    ----bullets-vim-------------------------------------------------------
+    vim.g.bullets_checkbox_markers = " abodeX"
   end,
 })
----RenderMarkdown-----------------------------------------------------
-require("render-markdown").setup({
-  render_modes = true,
-  completions = { lsp = { enabled = true } },
-  checkbox = {
-    checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
-    unchecked = { icon = "󰋙", scope_highlight = nil },
-	    --stylua: ignore
-	    custom = {
-	      sixth     = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
-	      third     = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
-	      half      = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
-	      twothirds = { raw = "[d]", rendered = "󰫆 ", highlight = "RenderMarkdownBullet" },
-	      fivesix   = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
-	      todo      = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
-	    },
-  },
-  -- wiki = { scope_highlight = "RenderMarkdownWikiLinkText" },
-  bullet = { icons = { "󰆧" } },
-  pipe_table = {
-    preset = "round",
-    alignment_indicator = "┈",
-  },
-  dash = {
-    enabled = true,
-    render_modes = false,
-    icon = "─",
-    width = "full",
-    left_margin = 0,
-  },
-  latex = { enabled = false },
-})
-----bullets-vim-------------------------------------------------------
-vim.g.bullets_checkbox_markers = " abodeX"
-
 --blink.cmp----------------------------------------------------------
 require("blink.cmp").setup({
   keymap = { preset = "enter", ["<Tab>"] = { "select_next" }, ["<S-Tab>"] = { "select_prev" } },
@@ -393,12 +392,12 @@ require("snacks").setup({
       },
       header = {
         [[
-   ,-.       _,---._ __  / \
- `.              ,  \ \ /  |
+  ,-.       _,---._ __  / \
  /  )    .-'       `./ /   \
 (  (   ,'            `/    /|
  \  `-"             \'\   / |
    /`.          ,'-`----Y   |
+   `.              ,  \ \ /  |
   (            ;        |   '
   |  ,-.    ,-'         |  /
   |  | (   |            | /
@@ -407,7 +406,6 @@ require("snacks").setup({
 ]],
       },
     },
-    -- formats = {},
     sections = {
       { section = "header", indent = 5 },
       { section = "recent_files", indent = 2, padding = 1 },
