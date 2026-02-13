@@ -6,8 +6,7 @@
     },
     "blink.cmp": {
       "rev": "4b18c32adef2898f95cdef6192cbd5796c1a332d",
-      "src": "https://github.com/saghen/blink.cmp",
-      "version": ">=0.0.0"
+      "src": "https://github.com/saghen/blink.cmp"
     },
     "bullets.vim": {
       "rev": "89294b8930e660936374fb763ac48a1ac51dd29c",
@@ -36,6 +35,10 @@
     "lualine.nvim": {
       "rev": "47f91c416daef12db467145e16bed5bbfe00add8",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
+    "lz.n": {
+      "rev": "5825c810ac97e141fb8869e3dabef06653ac6ecd",
+      "src": "https://github.com/lumen-oss/lz.n"
     },
     "markdown-preview.nvim": {
       "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",

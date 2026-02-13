@@ -110,54 +110,48 @@ vim.diagnostic.config({
 -- Plugins ----------------------------------
 vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
-  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim", load = false },
-  { src = "https://github.com/bullets-vim/bullets.vim", load = false },
-  { src = "https://github.com/folke/todo-comments.nvim", load = false },
-  { src = "https://github.com/catgoose/nvim-colorizer.lua", load = false },
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+  { src = "https://github.com/bullets-vim/bullets.vim" },
+  { src = "https://github.com/folke/todo-comments.nvim" },
+  { src = "https://github.com/catgoose/nvim-colorizer.lua" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
-  { src = "https://github.com/folke/zen-mode.nvim", load = false },
-  { src = "https://github.com/nvim-mini/mini.surround", load = false },
-  { src = "https://github.com/nvim-mini/mini.align", load = false },
-  { src = "https://github.com/nvim-mini/mini.splitjoin", load = false },
-  { src = "https://github.com/nvim-mini/mini.pairs", load = false },
-  { src = "https://github.com/nvim-mini/mini.tabline", load = false },
-  { src = "https://github.com/abecodes/tabout.nvim", load = false },
-  { src = "https://github.com/lewis6991/gitsigns.nvim", load = false },
+  { src = "https://github.com/folke/zen-mode.nvim" },
+  { src = "https://github.com/nvim-mini/mini.surround" },
+  { src = "https://github.com/nvim-mini/mini.align" },
+  { src = "https://github.com/nvim-mini/mini.splitjoin" },
+  { src = "https://github.com/nvim-mini/mini.pairs" },
+  { src = "https://github.com/nvim-mini/mini.tabline" },
+  { src = "https://github.com/abecodes/tabout.nvim" },
+  { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/folke/which-key.nvim" },
-  { src = "https://github.com/karb94/neoscroll.nvim", load = false },
-  { src = "https://github.com/chrisgrieser/nvim-rip-substitute", load = false },
+  { src = "https://github.com/karb94/neoscroll.nvim" },
+  { src = "https://github.com/chrisgrieser/nvim-rip-substitute" },
   { src = "https://github.com/mikavilpas/yazi.nvim" },
-  { src = "https://github.com/smjonas/live-command.nvim", load = false },
+  { src = "https://github.com/smjonas/live-command.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-  { src = "https://github.com/nvim-lualine/lualine.nvim", load = false },
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },
   { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" },
-  { src = "https://github.com/folke/trouble.nvim", load = false },
-  { src = "https://github.com/stevearc/conform.nvim", load = false },
-  { src = "https://github.com/OXY2DEV/helpview.nvim", load = false },
-  { src = "https://github.com/folke/snacks.nvim", load = false },
-  { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim", load = false },
-  { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("*"), load = false },
+  { src = "https://github.com/folke/trouble.nvim" },
+  { src = "https://github.com/stevearc/conform.nvim" },
+  { src = "https://github.com/OXY2DEV/helpview.nvim" },
+  { src = "https://github.com/folke/snacks.nvim" },
+  { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
+  { src = "https://github.com/saghen/blink.cmp" },
 })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
-  once = true,
-  pattern = "*",
-  callback = function()
-    require("mini.pairs").setup()
-    require("mini.splitjoin").setup()
-    require("mini.surround").setup()
-    require("mini.align").setup()
-    require("tabout").setup({ tabkey = "<Tab>" })
-    require("rip-substitute").setup({ popupWin = { border = "rounded" } })
-    require("gitsigns").setup({ signs = { delete = "─" } })
-    require("live-command").setup({
-      commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } },
-      inline_highlighting = false,
-    })
-    vim.cmd("cnoreabbrev norm Norm")
-    vim.cmd("cnoreabbrev g G")
-  end,
+require("mini.pairs").setup()
+require("mini.splitjoin").setup()
+require("mini.surround").setup()
+require("mini.align").setup()
+require("tabout").setup({ tabkey = "<Tab>" })
+require("rip-substitute").setup({ popupWin = { border = "rounded" } })
+require("gitsigns").setup({ signs = { delete = "─" } })
+require("live-command").setup({
+  commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } },
+  inline_highlighting = false,
 })
+vim.cmd("cnoreabbrev norm Norm")
+vim.cmd("cnoreabbrev g G")
 
 require("neoscroll").setup({ easing = "sine" })
 require("which-key").setup({ preset = "helix", plugins = { presets = { motions = false } } })
