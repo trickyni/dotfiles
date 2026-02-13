@@ -40,14 +40,15 @@ style = '#92a650'
 format = '([$ahead_behind$staged$deleted$modified$untracked$stashed]($style))'
 style = '#92a650'
 untracked = '[?](#E68D53)'
-stashed = '[ ](#3ECCBE)'
-modified = '[*$count](#E68D53)'
+stashed = '[](#3ECCBE)'
+modified = '[~$count](#E68D53)'
 staged = '[+$count](#92a650)'
 deleted = '[-$count](#E86045)'
 up_to_date = '[󰺕](#ace1af)'
 ahead = '[⇡$count](#92a650)'
 behind = '[⇣$count|](#E86045)'
 conflicted = '[!!](#E86045)'
+renamed = "[»$count](#E68D53)"
 
 [custom.glyphs]
 format="[$output](#AFD2E9)"

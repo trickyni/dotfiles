@@ -18,20 +18,16 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "desert-witch.nvim": {
-      "rev": "4daab30c889ce998d8c21b9dbe6a8786966a8afc",
+      "rev": "88810d0263482efdc69a1f6c5e5fe9f6f0a2e495",
       "src": "https://codeberg.org/trickyni/desert-witch.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "1ce96a464fdbc24208e24c117e2021794259005d",
+      "rev": "31217271a7314c343606acb4072a94a039a19fb5",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "helpview.nvim": {
       "rev": "518789535a0cb146224a428edf93a70f98b795db",
       "src": "https://github.com/OXY2DEV/helpview.nvim"
-    },
-    "indent-blankline.nvim": {
-      "rev": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
-      "src": "https://github.com/lukas-reineke/indent-blankline.nvim"
     },
     "live-command.nvim": {
       "rev": "fc8c36d7e5b96945fbc52af7029facc317a47377",
@@ -41,13 +37,13 @@
       "rev": "47f91c416daef12db467145e16bed5bbfe00add8",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
+    "markdown-preview.nvim": {
+      "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
+      "src": "https://github.com/iamcco/markdown-preview.nvim"
+    },
     "mini.align": {
       "rev": "6d8a6ca3a0fd313938374abccb50cad026229db3",
       "src": "https://github.com/nvim-mini/mini.align"
-    },
-    "mini.comment": {
-      "rev": "a0c721115faff8d05505c0a12dab410084d9e536",
-      "src": "https://github.com/nvim-mini/mini.comment"
     },
     "mini.move": {
       "rev": "4d214202d71e0a4066b6288176bbe88f268f9777",
@@ -77,16 +73,12 @@
       "rev": "338409dd8a6ed74767bad3eb5269f1b903ffb3cf",
       "src": "https://github.com/catgoose/nvim-colorizer.lua"
     },
-    "nvim-numbertoggle": {
-      "rev": "796af12a1e2aed6faba9be08e6fb5d472bab29de",
-      "src": "https://github.com/sitiom/nvim-numbertoggle"
-    },
     "nvim-rip-substitute": {
       "rev": "1fae57ead7e1f3221286beced9e32fdd661e453b",
       "src": "https://github.com/chrisgrieser/nvim-rip-substitute"
     },
     "nvim-treesitter": {
-      "rev": "45a07f869b0cffba342276f2c77ba7c116d35db8",
+      "rev": "9f2dad22ef8bb14fd1e0a3aa8859cdc88170668b",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
@@ -121,16 +113,12 @@
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim"
     },
-    "vim-pencil": {
-      "rev": "6d70438a8886eaf933c38a7a43a61adb0a7815ed",
-      "src": "https://github.com/preservim/vim-pencil"
-    },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "src": "https://github.com/folke/which-key.nvim"
     },
     "yazi.nvim": {
-      "rev": "d0f6f796563cfd76a9514191b294d1d98e8da4de",
+      "rev": "3d8e2e23bef09b41f405f11e0147a9d0793d2ef8",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     },
     "zen-mode.nvim": {

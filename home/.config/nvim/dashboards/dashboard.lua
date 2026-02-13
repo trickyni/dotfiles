@@ -29,7 +29,7 @@ require("dashboard").setup({
 
 -- vim.api.nvim_set_hl(0, "DashboardHeader", { fg = "", bg = "" })
 -- vim.api.nvim_set_hl(0, "DashboardFooter", { fg = "", bg = "" })
--- vim.api.nvim_set_hl(0, "DashboardMruTitle", { fg = "", bg = "" })
+vim.api.nvim_set_hl(0, "DashboardMruTitle", { fg = "#ffffff", bg = "#ff00ff" })
 -- vim.api.nvim_set_hl(0, "DashboardMruIcon", { fg = "", bg = "" })
 vim.api.nvim_set_hl(0, "DashboardFiles", { fg = "#c1a387", bg = "" })
 -- vim.api.nvim_set_hl(0, "DashboardShortCutIcon", { fg = "", bg = "" })
