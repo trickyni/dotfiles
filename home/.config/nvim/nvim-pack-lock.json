@@ -24,6 +24,10 @@
       "rev": "31217271a7314c343606acb4072a94a039a19fb5",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "guttermarks.nvim": {
+      "rev": "b57e6dd1f29b378d2dc8ae5097a7710c3ef328be",
+      "src": "https://github.com/dimtion/guttermarks.nvim"
+    },
     "live-command.nvim": {
       "rev": "fc8c36d7e5b96945fbc52af7029facc317a47377",
       "src": "https://github.com/smjonas/live-command.nvim"

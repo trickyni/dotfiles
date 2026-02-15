@@ -26,13 +26,15 @@ vim.opt.signcolumn     = "yes:1" -- gutter to the left of the number column
 vim.opt.inccommand     = "nosplit" -- shows find/replace results live
 vim.opt.backspace      = { "start", "eol", "indent" }
 vim.opt.list           = true -- show trailing whitespaces and tab characters
-vim.opt.listchars      = { tab = "» ", trail = "·", nbsp = "␣", extends = "𖡺" }
+vim.opt.listchars      = { tab = "» ", trail = "·", nbsp = "␣", extends = "𖡺",conceal="𖠶" }
 vim.opt.timeoutlen     = 300 --timeout on keys with followups
 vim.opt.winborder      = "rounded" --border for floating windows
 vim.opt.spelllang      = "en_us"
 vim.opt.smoothscroll   = true
 vim.opt.splitright     = true
 vim.opt.undofile       = true
+vim.o.conceallevel     = 2
+vim.o.concealcursor    = "" 
 vim.opt.shortmess:append("Swl")
 --stylua: ignore end
 -- KEYMAPS --------------------------------------------------------------------
@@ -136,6 +138,7 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/saghen/blink.cmp" },
   { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
+  { src = "https://github.com/dimtion/guttermarks.nvim" },
 })
 
 require("mini.pairs").setup()
@@ -215,6 +218,10 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
     -- make up/down consider wrapped text
     vim.keymap.set({ "n", "v" }, "k", "gk", { remap = false, buffer = true, silent = true })
     vim.keymap.set({ "n", "v" }, "j", "gj", { remap = false, buffer = true, silent = true })
+    vim.cmd('syntax match Emdash "—" conceal cchar=𖢊')
+    vim.cmd('syntax region EditNote start="|NOTE" end="||" conceal cchar=𖡗')
+    vim.api.nvim_set_hl(0, "EditNote", { fg = "#e86045", bg = "#3b3228" })
+    vim.cmd("digraph -- 8212")
     ---RenderMarkdown-----------------------------------------------------
     require("render-markdown").setup({
       render_modes = true,
@@ -246,6 +253,10 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
         left_margin = 0,
       },
       latex = { enabled = false },
+      win_options = {
+        conceallevel = { rendered = vim.o.conceallevel },
+        concealcursor = { rendered = vim.o.concealcursor },
+      },
     })
     ----bullets-vim-------------------------------------------------------
     vim.g.bullets_checkbox_markers = " abodeX"

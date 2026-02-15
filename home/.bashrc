@@ -175,3 +175,6 @@ alias ytmp3='yt-dlp \
 -o "~/Downloads/%(uploader)s - %(title)s" \
 --embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
 --cookies-from-browser firefox'
+
+
+
