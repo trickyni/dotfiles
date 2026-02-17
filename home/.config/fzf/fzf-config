@@ -1,27 +1,16 @@
 --color=fg:#AFD2E9
---color=fg+:#AFD2E9
+--color=fg+:#3b3228
 --color=bg:#3b3228
---color=bg+:#5D4F40
+--color=bg+:#f8e2a0
 --color=hl:#E68D53
 --color=hl+:#E86045
 --color=info:#C1A387
---color=marker:#3ECCBE
 --color=prompt:#AFD2E9
 --color=spinner:#92a650
---color=pointer:#92a650
 --color=border:#C1A387
 --color=separator:#C1A387
---color=preview-label:#3ECCBE
---color=label:#3ECCBE
 --color=query:#AFD2E9
---border="none"
 --prompt="󰝾 "
---marker="𖦹"
---pointer="𖨀"
---separator=""
---style=full:sharp
---no-separator
---no-scrollbar
---no-list-border
---color=input-border:#E68D53
---color gutter:-1
+--style=minimal
+--color=gutter:#6b6055
+--color=pointer:#e68d53
