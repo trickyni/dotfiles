@@ -4,42 +4,42 @@ rule.precedence.color=deleted,completed,active,keyword.,tag.,project.,overdue,sc
 
 # General decoration
 
-color.label=color26
-color.label.sort=color22
+color.label=color25
+color.label.sort=color21
 color.alternate=on color17
 color.header=
 color.footnote=
 color.warning=
-color.error=color28 on color23
+color.error=color27 on color22
 color.debug=
 
 # Task state
-color.completed=color28
-color.deleted=color16 on color23
-color.active=black on color27
+color.completed=color27
+color.deleted=color16 on color22
+color.active=black on color26
 color.recurring=
 color.scheduled=black on color4
 color.until=
-color.blocked=color23
-color.blocking=color24
+color.blocked=color22
+color.blocking=color23
 
 # Project
 color.project.none=
 
 # Priority
-color.uda.priority.o=color25
-color.uda.priority.x=color22
+color.uda.priority.o=color24
+color.uda.priority.x=color21
 color.uda.priority.@=color19
 
 # Tags
-color.tag.next=black on color27
+color.tag.next=black on color26
 color.tag.none=
 color.tagged=
 
 # Due
-color.due.today=black on color29
+color.due.today=black on color28
 color.due=
-color.overdue=white on color23
+color.overdue=white on color22
 
 # Report: burndown
 color.burndown.done=on rgb010
@@ -56,19 +56,19 @@ color.summary.background=white on color0
 color.summary.bar=black on rgb141
 
 # Command: calendar
-color.calendar.due.today=black on color22
-color.calendar.due=black on color27
-color.calendar.scheduled=black on color27
-color.calendar.holiday=color0 on color27
-color.calendar.overdue=color0 on color23
+color.calendar.due.today=black on color21
+color.calendar.due=black on color26
+color.calendar.scheduled=black on color26
+color.calendar.holiday=color0 on color26
+color.calendar.overdue=color0 on color22
 color.calendar.today=black on white
 color.calendar.weekend=on color235
-color.calendar.weeknumber=color27
+color.calendar.weeknumber=color26
 
 # Command: sync
-color.sync.added=color24
-color.sync.changed=color27
-color.sync.rejected=color23
+color.sync.added=color23
+color.sync.changed=color26
+color.sync.rejected=color22
 
 # Command: undo
 color.undo.after=color2

@@ -1,11 +1,15 @@
 {
   "plugins": {
+    "blink-emoji.nvim": {
+      "rev": "066013e4c98a9318408ee3f1ca2dbcb6fa3e4c06",
+      "src": "https://github.com/moyiz/blink-emoji.nvim"
+    },
     "blink-nerdfont.nvim": {
       "rev": "e5034457a0a3f3444c0a48af8f5d7db0ad02a204",
       "src": "https://github.com/MahanRahmati/blink-nerdfont.nvim"
     },
     "blink.cmp": {
-      "rev": "4b18c32adef2898f95cdef6192cbd5796c1a332d",
+      "rev": "cd79f572971c58784ca72551af29af3a63da9168",
       "src": "https://github.com/saghen/blink.cmp"
     },
     "bullets.vim": {
@@ -17,11 +21,11 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "desert-witch.nvim": {
-      "rev": "88810d0263482efdc69a1f6c5e5fe9f6f0a2e495",
+      "rev": "f5a26c159f5ae6a8073eca8ab1ce5b44387b9b62",
       "src": "https://codeberg.org/trickyni/desert-witch.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "31217271a7314c343606acb4072a94a039a19fb5",
+      "rev": "9f3c6dd7868bcc116e9c1c1929ce063b978fa519",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "guttermarks.nvim": {
@@ -85,7 +89,7 @@
       "src": "https://github.com/chrisgrieser/nvim-rip-substitute"
     },
     "nvim-treesitter": {
-      "rev": "9f2dad22ef8bb14fd1e0a3aa8859cdc88170668b",
+      "rev": "4d9466677a5ceadef104eaa0fe08d60d91c4e9a7",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
@@ -125,7 +129,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "yazi.nvim": {
-      "rev": "3d8e2e23bef09b41f405f11e0147a9d0793d2ef8",
+      "rev": "834842409184e612e0fc037358cd150a1b6e3cd6",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     },
     "zen-mode.nvim": {

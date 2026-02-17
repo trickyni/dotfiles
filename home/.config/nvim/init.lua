@@ -1,6 +1,6 @@
 vim.pack.add({ "https://codeberg.org/trickyni/desert-witch.nvim" })
 vim.cmd.colorscheme("desert-witch")
--- OPTIONS --------------------------------------------------------------------
+---- OPTIONS -------------------------------------------------------------------
 --stylua: ignore start
 vim.g.mapleader        = " " -- leader key (spacebar)
 vim.g.have_nerd_font   = true
@@ -37,7 +37,7 @@ vim.o.conceallevel     = 2
 vim.o.concealcursor    = "" 
 vim.opt.shortmess:append("Swl")
 --stylua: ignore end
--- KEYMAPS --------------------------------------------------------------------
+---- KEYMAPS -------------------------------------------------------------------
 -- Buffer Navigation
 vim.keymap.set("n", "<C-n>", "<cmd>enew<CR>", { desc = "New buffer" })
 vim.keymap.set("n", "<C-]>", "<cmd>bn<CR>", { desc = "Next buffer" })
@@ -71,7 +71,7 @@ vim.keymap.set("n", "<leader>t", "<cmd>lua Snacks.picker.todo_comments()<CR>", {
 vim.keymap.set({ "n", "v" }, '<leader>"', "<cmd>lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 vim.keymap.set("n", "<leader>g", "<cmd>Gitsigns toggle_linehl<CR>", { desc = "Toggle Diff" })
 
--- Behaviors --------------------------------------------------
+---- Behaviors -----------------------------------------------------------------
 vim.api.nvim_create_autocmd("TextYankPost", { --highlights text on yank
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
   callback = function()
@@ -83,7 +83,7 @@ vim.schedule(function() -- sync OS/nvim clipboards
   vim.o.clipboard = "unnamedplus"
 end)
 
--- Diagnostic configs ----------------------------
+---- Diagnostic configs --------------------------------------------------------
 vim.diagnostic.config({
   severity_sort = true,
   float = { border = "rounded", source = "if_many" },
@@ -108,7 +108,7 @@ vim.diagnostic.config({
   },
 })
 
--- Plugins ----------------------------------
+---- Plugins -------------------------------------------------------------------
 vim.pack.add({
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
@@ -138,6 +138,7 @@ vim.pack.add({
   { src = "https://github.com/folke/snacks.nvim" },
   { src = "https://github.com/saghen/blink.cmp" },
   { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
+  { src = "https://github.com/moyiz/blink-emoji.nvim" },
   { src = "https://github.com/dimtion/guttermarks.nvim" },
 })
 
@@ -157,10 +158,8 @@ vim.cmd("cnoreabbrev norm Norm")
 vim.cmd("cnoreabbrev g G")
 
 require("neoscroll").setup({ easing = "sine" })
-require("which-key").setup({ preset = "helix", plugins = { presets = { motions = false } } })
 require("yazi").setup({ yazi_floating_window_border = "rounded" })
 require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
-
 
 --stylua: ignore
 vim.lsp.enable({
@@ -173,7 +172,7 @@ vim.lsp.enable({
   "rumdl",     --Markdown
 })
 
----conform.nvim-------------------------------------------------------
+---- conform.nvim --------------------------------------------------------------
 --stylua: ignore
 require("conform").setup({
   format_on_save = true,
@@ -196,7 +195,7 @@ require("conform").setup({
   },
 })
 
-----treesitter---------------------------------------------------------
+---- treesitter ----------------------------------------------------------------
 require("nvim-treesitter").setup({
   highlight = { enable = true },
   -- stylua: ignore
@@ -207,7 +206,7 @@ require("nvim-treesitter").setup({
   },
 })
 
-----MARKDOWN-------------------------------------------------------------------
+---- MARKDOWN -------------------------------------------------------------------
 vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
   pattern = "markdown",
   callback = function(args)
@@ -221,8 +220,16 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
     vim.cmd('syntax match Emdash "—" conceal cchar=𖢊')
     vim.cmd('syntax region EditNote start="|NOTE" end="||" conceal cchar=𖡗')
     vim.api.nvim_set_hl(0, "EditNote", { fg = "#e86045", bg = "#3b3228" })
+    vim.cmd('syntax region MossText matchgroup=Conceal start="+G{" end="}+" concealends')
+    vim.cmd('syntax region ScarletText matchgroup=Conceal start="+R{" end="}+" concealends')
+    vim.cmd('syntax region SandText matchgroup=Conceal start="+S{" end="}+" concealends')
+    vim.cmd('syntax region SaffronText matchgroup=Conceal start="+Y{" end="}+" concealends')
+    vim.cmd('syntax region OrangeText matchgroup=Conceal start="+O{" end="}+" concealends')
+    vim.cmd('syntax region CyanText matchgroup=Conceal start="+B{" end="}+" concealends')
+    vim.cmd('syntax region CeladonText matchgroup=Conceal start="+T{" end="}+" concealends')
     vim.cmd("digraph -- 8212")
-    ---RenderMarkdown-----------------------------------------------------
+
+    ---- RenderMarkdown --------------------------------------------------------
     require("render-markdown").setup({
       render_modes = true,
       completions = { lsp = { enabled = true } },
@@ -231,16 +238,16 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
         unchecked = { icon = "󰋙", scope_highlight = nil },
      --stylua: ignore
      custom = {
-       sixth     = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
-       third     = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
-       half      = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
-       twothirds = { raw = "[d]", rendered = "󰫆 ", highlight = "RenderMarkdownBullet" },
-       fivesix   = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
-       todo      = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
+       sixth     = { raw = "[a]", rendered = "󰫃", highlight = "RenderMarkdownBullet" },
+       third     = { raw = "[b]", rendered = "󰫄", highlight = "RenderMarkdownBullet" },
+       half      = { raw = "[o]", rendered = "󰫅", highlight = "RenderMarkdownBullet" },
+       twothirds = { raw = "[d]", rendered = "󰫆", highlight = "RenderMarkdownBullet" },
+       fivesix   = { raw = "[e]", rendered = "󰫇", highlight = "RenderMarkdownBullet" },
+       todo      = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
      },
       },
       -- wiki = { scope_highlight = "RenderMarkdownWikiLinkText" },
-      bullet = { icons = { "󰆧" } },
+      bullet = { icons = { "󰆧" }, right_pad = 0 },
       pipe_table = {
         preset = "round",
         alignment_indicator = "┈",
@@ -258,11 +265,12 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
         concealcursor = { rendered = vim.o.concealcursor },
       },
     })
-    ----bullets-vim-------------------------------------------------------
+
+    ---- bullets-vim -----------------------------------------------------------
     vim.g.bullets_checkbox_markers = " abodeX"
   end,
 })
---blink.cmp----------------------------------------------------------
+---- blink.cmp -----------------------------------------------------------------
 require("blink.cmp").setup({
   keymap = { preset = "enter", ["<Tab>"] = { "select_next" }, ["<S-Tab>"] = { "select_prev" } },
   fuzzy = { implementation = "prefer_rust", prebuilt_binaries = { force_version = "0.6.0" } },
@@ -272,21 +280,37 @@ require("blink.cmp").setup({
     documentation = { auto_show = true },
   },
   sources = {
-    default = { "lsp", "path", "snippets", "nerdfont" },
+    default = { "lsp", "path", "snippets", "nerdfont", "emoji" },
     providers = {
       nerdfont = {
         module = "blink-nerdfont",
         name = "Nerd Fonts",
         score_offset = 15, -- Tune by preference
-        opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
+        opts = { insert = true, trigger = ";" }, -- Insert nerdfont icon (default) or complete its name
+      },
+      emoji = {
+        module = "blink-emoji",
+        name = "Emoji",
+        score_offset = 15, -- Tune by preference
+        opts = { insert = true, trigger = ":" },
       },
     },
   },
   cmdline = { enabled = true },
   signature = { enabled = false },
 })
+---- which-key -----------------------------------------------------------------
+require("which-key").setup({
+  preset = "helix",
+  plugins = { presets = { motions = false, text_objects = false, operators = false } },
+  icons = { rules = false, separator = "→" },
+})
+require("which-key").add({
+  { "gN", desc = "Renumber bullet list" },
+  { "gS", desc = "mini.splitjoin Toggle" },
+})
 
---- todo-comments-----------------------------------------------------
+---- todo-comments -------------------------------------------------------------
 require("todo-comments").setup({
   keywords = {
     FIX = { icon = "󰅜" },
@@ -299,7 +323,7 @@ require("todo-comments").setup({
   search = { pattern = [[\b(KEYWORDS)]] },
 })
 
-----colorizer---------------------------------------------------------
+---- colorizer -----------------------------------------------------------------
 require("colorizer").setup({
   lazy_load = true,
   user_default_options = {
@@ -325,7 +349,7 @@ require("colorizer").setup({
   },
 })
 
-----mini.tabline------------------------------------------------------
+---- mini.tabline --------------------------------------------------------------
 require("mini.tabline").setup({
   format = function(buf_id, label)
     local suffix = vim.bo[buf_id].modified and "+ " or ""
@@ -333,9 +357,7 @@ require("mini.tabline").setup({
   end,
 })
 
-----------------------------------------------------------------------
-
-----lualine-----------------------------------------------------------
+---- lualine -------------------------------------------------------------------
 require("lualine").setup({
   options = {
     component_separators = { left = "", right = "" },
@@ -369,13 +391,13 @@ require("lualine").setup({
   },
 })
 
-----rainbow-delimiters----------------------------------------------------
+---- rainbow-delimiters --------------------------------------------------------
 vim.g.rainbow_delimiters = {
   highlight = { "RainbowDelimiterRed", "RainbowDelimiterYellow", "RainbowDelimiterBlue", "RainbowDelimiterOrange" },
   blacklist = { "html" },
 }
 
-----zen-mode----------------------------------------------------------------
+---- Zen-Mode ------------------------------------------------------------------
 require("zen-mode").setup({
   window = { width = 100, backdrop = 1 },
   plugins = { options = { laststatus = 0 }, gitsigns = { enabled = true } },
@@ -387,7 +409,7 @@ require("zen-mode").setup({
   -- end,
 })
 
-----snacks-----------------------------------------------------------------
+---- Snacks --------------------------------------------------------------------
 require("snacks").setup({
   dashboard = {
     enabled = true,
