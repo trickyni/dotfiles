@@ -58,6 +58,7 @@ vim.keymap.set("v", "<S-Right>", ">gv", { desc = "Move line right", remap = fals
 vim.keymap.set("v", "<S-Left>", "<gv", { desc = "Move line left", remap = false, silent = true })
 -- Other
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear highlights" })
+vim.keymap.set("n", "ycc", "yygccp", { remap = true, desc = "Duplicate line and comment original" })
 vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Toggle Checkbox" })
 vim.keymap.set("n", "<C-/>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show floating diagnostic" })
 vim.keymap.set("n", "<leader><leader>", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
@@ -87,7 +88,7 @@ end)
 vim.diagnostic.config({
   severity_sort = true,
   float = { border = "rounded", source = "if_many" },
-  underline = { severity = vim.diagnostic.severity.ERROR },
+  -- underline = { severity = vim.diagnostic.severity.ERROR },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "󰅜 ",
@@ -140,14 +141,20 @@ vim.pack.add({
   { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
   { src = "https://github.com/moyiz/blink-emoji.nvim" },
   { src = "https://github.com/dimtion/guttermarks.nvim" },
+  { src = "https://github.com/cosmicbuffalo/eyeliner.nvim" },
+  { src = "https://github.com/selimacerbas/live-server.nvim" },
+  { src = "https://github.com/selimacerbas/markdown-preview.nvim" },
+  { src = "https://github.com/kais-radwan/ascii-mermaid" },
 })
-
+require("markdown_preview").setup({ mermaid_renderer = "js", scroll_sync = false })
+require("ascii-mermaid").setup()
 require("mini.pairs").setup()
 require("mini.comment").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
 require("tabout").setup({ tabkey = "<Tab>" })
+require("eyeliner").setup({ dim = true })
 require("rip-substitute").setup({ popupWin = { border = "rounded" } })
 require("gitsigns").setup({ signs = { delete = "─" } })
 require("live-command").setup({
