@@ -4,6 +4,10 @@
       "rev": "a91a0c7baec6392212c59221bc67389bb617feb7",
       "src": "https://github.com/kais-radwan/ascii-mermaid"
     },
+    "autolist.nvim": {
+      "rev": "5f70a5f99e96c8fe3069de042abd2a8ed2deb855",
+      "src": "https://github.com/gaoDean/autolist.nvim"
+    },
     "blink-emoji.nvim": {
       "rev": "066013e4c98a9318408ee3f1ca2dbcb6fa3e4c06",
       "src": "https://github.com/moyiz/blink-emoji.nvim"
@@ -25,7 +29,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "desert-witch.nvim": {
-      "rev": "f5a26c159f5ae6a8073eca8ab1ce5b44387b9b62",
+      "rev": "4bc39225a7b54d0623b84e8bf9e9958084c7021b",
       "src": "https://codeberg.org/trickyni/desert-witch.nvim"
     },
     "eyeliner.nvim": {
@@ -48,6 +52,10 @@
       "rev": "6897c94950e05d5b22440c6db8fa24c5c51d8d12",
       "src": "https://github.com/selimacerbas/live-server.nvim"
     },
+    "lspkind.nvim": {
+      "rev": "c7274c48137396526b59d86232eabcdc7fed8a32",
+      "src": "https://github.com/onsails/lspkind.nvim"
+    },
     "ltex_extra.nvim": {
       "rev": "49ea83c231139d98b7c9668c99e7b4591421b056",
       "src": "https://github.com/barreiroleo/ltex_extra.nvim"
@@ -58,7 +66,7 @@
     },
     "markdown-preview.nvim": {
       "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
-      "src": "https://github.com/iamcco/markdown-preview.nvim"
+      "src": "https://github.com/selimacerbas/markdown-preview.nvim"
     },
     "mini.align": {
       "rev": "94a80efd1979839121bf011c856acb0459598433",

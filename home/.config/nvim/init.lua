@@ -88,7 +88,7 @@ end)
 vim.diagnostic.config({
   severity_sort = true,
   float = { border = "rounded", source = "if_many" },
-  -- underline = { severity = vim.diagnostic.severity.ERROR },
+  underline = { severity = vim.diagnostic.severity.WARN },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "󰅜 ",
@@ -140,6 +140,7 @@ vim.pack.add({
   { src = "https://github.com/saghen/blink.cmp" },
   { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" },
   { src = "https://github.com/moyiz/blink-emoji.nvim" },
+  { src = "https://github.com/onsails/lspkind.nvim" },
   { src = "https://github.com/dimtion/guttermarks.nvim" },
   { src = "https://github.com/cosmicbuffalo/eyeliner.nvim" },
   { src = "https://github.com/selimacerbas/live-server.nvim" },
@@ -227,13 +228,13 @@ vim.api.nvim_create_autocmd("FileType", { -- Markdown-specific
     vim.cmd('syntax match Emdash "—" conceal cchar=𖢊')
     vim.cmd('syntax region EditNote start="|NOTE" end="||" conceal cchar=𖡗')
     vim.api.nvim_set_hl(0, "EditNote", { fg = "#e86045", bg = "#3b3228" })
-    vim.cmd('syntax region MossText matchgroup=Conceal start="+G{" end="}+" concealends')
-    vim.cmd('syntax region ScarletText matchgroup=Conceal start="+R{" end="}+" concealends')
-    vim.cmd('syntax region SandText matchgroup=Conceal start="+S{" end="}+" concealends')
-    vim.cmd('syntax region SaffronText matchgroup=Conceal start="+Y{" end="}+" concealends')
-    vim.cmd('syntax region OrangeText matchgroup=Conceal start="+O{" end="}+" concealends')
-    vim.cmd('syntax region CyanText matchgroup=Conceal start="+B{" end="}+" concealends')
-    vim.cmd('syntax region CeladonText matchgroup=Conceal start="+T{" end="}+" concealends')
+    vim.cmd('syntax region MossText matchgroup=Conceal start="+G|" end="|+" concealends')
+    vim.cmd('syntax region ScarletText matchgroup=Conceal start="+R|" end="|+" concealends')
+    vim.cmd('syntax region SandText matchgroup=Conceal start="+S|" end="|+" concealends')
+    vim.cmd('syntax region SaffronText matchgroup=Conceal start="+Y|" end="|+" concealends')
+    vim.cmd('syntax region OrangeText matchgroup=Conceal start="+O|" end="|+" concealends')
+    vim.cmd('syntax region CyanText matchgroup=Conceal start="+B|" end="|+" concealends')
+    vim.cmd('syntax region CeladonText matchgroup=Conceal start="+T|" end="|+" concealends')
     vim.cmd("digraph -- 8212")
 
     ---- RenderMarkdown --------------------------------------------------------
@@ -285,6 +286,11 @@ require("blink.cmp").setup({
   completion = {
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
+    kind_icon = {
+      text = function(ctx)
+        return require("lspkind").symbol_map[ctx.kind] or ""
+      end,
+    },
   },
   sources = {
     default = { "lsp", "path", "snippets", "nerdfont", "emoji" },
