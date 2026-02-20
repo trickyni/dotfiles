@@ -5,7 +5,7 @@ esac
 
 #   bash history stuff
 HISTCONTROL=ignoreboth
-shopt -s histappend
+shopt -s histappend extglob
 HISTSIZE=1000
 HISTFILESIZE=2000
 

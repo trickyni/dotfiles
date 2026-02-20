@@ -18,7 +18,6 @@
 [Desktop Entry]
 Version=1.0
 Terminal=false
-NoDisplay=true
 Icon=libreoffice-draw
 Type=Application
 Categories=Office;FlowChart;Graphics;2DGraphics;VectorGraphics;X-Red-Hat-Base;
