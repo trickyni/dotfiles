@@ -1,3 +1,4 @@
+---- COLORSCHEME ---------------------------------------------------------------
 vim.pack.add({ "https://codeberg.org/trickyni/desert-witch.nvim" })
 vim.cmd.colorscheme("desert-witch")
 ---- OPTIONS -------------------------------------------------------------------
@@ -56,19 +57,21 @@ vim.keymap.set("n", "<S-Right>", ">>", { desc = "Move line right", remap = false
 vim.keymap.set("n", "<S-Left>", "<<", { desc = "Move line left", remap = false, silent = true })
 vim.keymap.set("v", "<S-Right>", ">gv", { desc = "Move line right", remap = false, silent = true })
 vim.keymap.set("v", "<S-Left>", "<gv", { desc = "Move line left", remap = false, silent = true })
+-- bottom of the file and center screen
+vim.keymap.set("n", "G", "Gzz", { remap = false, silent = true })
 -- Other
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear highlights" })
 vim.keymap.set("n", "ycc", "yygccp", { remap = true, desc = "Duplicate line and comment original" })
-vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { desc = "Toggle Checkbox" })
 vim.keymap.set("n", "<C-/>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show floating diagnostic" })
 vim.keymap.set("n", "<leader><leader>", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
 vim.keymap.set({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>", { desc = "yazi" })
+vim.keymap.set({ "n", "v" }, "<C-Bslash>", "<cmd>lua Snacks.picker.explorer()<CR>", { desc = "yazi" })
 vim.keymap.set({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = "Find/Replace" })
 vim.keymap.set("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
 vim.keymap.set("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
-vim.keymap.set("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
-vim.keymap.set("n", "<leader>m", "<cmd>lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
-vim.keymap.set("n", "<leader>t", "<cmd>lua Snacks.picker.todo_comments()<CR>", { desc = "Todo" })
+vim.keymap.set("n", "<leader>pp", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
+vim.keymap.set("n", "<leader>pm", "<cmd>lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
+vim.keymap.set("n", "<leader>pt", "<cmd>lua Snacks.picker.todo_comments()<CR>", { desc = "Todo comments" })
 vim.keymap.set({ "n", "v" }, '<leader>"', "<cmd>lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 vim.keymap.set("n", "<leader>g", "<cmd>Gitsigns toggle_linehl<CR>", { desc = "Toggle Diff" })
 vim.keymap.set("n", "<leader>f", "<cmd>lua require('conform').format()<CR>", { desc = "Format buffer" })
@@ -123,7 +126,6 @@ vim.pack.add({
   { src = "https://github.com/nvim-mini/mini.splitjoin" },
   { src = "https://github.com/nvim-mini/mini.pairs" },
   { src = "https://github.com/nvim-mini/mini.tabline" },
-  { src = "https://github.com/abecodes/tabout.nvim" },
   { src = "https://github.com/lewis6991/gitsigns.nvim" },
   { src = "https://github.com/folke/which-key.nvim" },
   { src = "https://github.com/karb94/neoscroll.nvim" },
@@ -142,19 +144,20 @@ vim.pack.add({
   { src = "https://github.com/onsails/lspkind.nvim" },
   { src = "https://github.com/dimtion/guttermarks.nvim" },
   { src = "https://github.com/cosmicbuffalo/eyeliner.nvim" },
+  { src = "https://github.com/abecodes/tabout.nvim" },
 })
 require("mini.pairs").setup()
 require("mini.comment").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
-require("tabout").setup({ tabkey = "<Tab>" })
 require("eyeliner").setup({ dim = true })
 require("rip-substitute").setup({ popupWin = { border = "rounded" } })
 require("gitsigns").setup({ signs = { delete = "─" } })
 require("neoscroll").setup({ easing = "sine" })
 require("yazi").setup({ yazi_floating_window_border = "rounded" })
 require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
+require("tabout").setup({ completion = true, act_as_tab = true })
 require("live-command").setup({
   commands = { Norm = { cmd = "norm" }, G = { cmd = "g" } },
   inline_highlighting = false,
@@ -193,7 +196,7 @@ require("nvim-treesitter").setup({
 
 ---- blink.cmp -----------------------------------------------------------------
 require("blink.cmp").setup({
-  keymap = { preset = "enter", ["<Tab>"] = { "select_next" }, ["<S-Tab>"] = { "select_prev" } },
+  keymap = { preset = "enter", ["<Tab>"] = { "select_next", "fallback" }, ["<S-Tab>"] = { "select_prev", "fallback" } },
   fuzzy = { implementation = "prefer_rust", prebuilt_binaries = { force_version = "0.6.0" } },
   appearance = { nerd_font_variant = "mono" },
   completion = {
@@ -232,12 +235,13 @@ require("blink.cmp").setup({
 ---- which-key -----------------------------------------------------------------
 require("which-key").setup({
   preset = "helix",
-  plugins = { presets = { motions = false, text_objects = false, operators = false } },
+  plugins = { presets = { motions = false, text_objects = false, operators = false, mappings = false } },
   icons = { rules = false, separator = "→" },
+  sort = { "local", "order", "group", "manual", "alphanum", "mod" },
 })
 require("which-key").add({
-  { "gN", desc = "Renumber bullet list" },
   { "gS", desc = "mini.splitjoin Toggle" },
+  { "<leader>p", group = "Pickers" },
 })
 
 ---- todo-comments -------------------------------------------------------------
@@ -314,6 +318,7 @@ require("lualine").setup({
         icon = { "", align = "right" },
         symbols = { done = "", spinner = "", separator = ", " },
         show_name = true,
+        ignore_lsp = { "render-markdown" },
       },
     },
     lualine_y = { { "filetype", colored = false } },
@@ -350,7 +355,7 @@ require("snacks").setup({
         { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
         --   { icon = " ", key = "\\", desc = "File Explorer", action = ":Yazi" },
         { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
-        --   { icon = " ", key = "p",  desc = "Projects",     action  = ":lua Snacks.picker.projects()" },
+        { icon = " ", key = "p",  desc = "Projects",     action  = ":lua Snacks.picker.projects()" },
         { icon = " ", key = "q", desc = "Quit", action = ":qa" },
       },
       header = {
@@ -391,15 +396,17 @@ require("snacks").setup({
       },
       projects = {
         filter = { paths = { ["~/.local/share/nvim/"] = false } },
-        dev = "~/git",
+        dev = { "~/git", "~/Documents/writing/novels", "~/.config" },
+        patterns = { ".git", ".root" },
         layout = "default",
-        projects = {
-          "~/.config/nvim",
-          "~/.config/rmpc",
-          "~/.config/sway",
-        },
+        -- projects = {
+        --   "~/.config/nvim",
+        --   "~/.config/rmpc",
+        --   "~/.config/sway",
+        -- },
       },
       todo_comments = { buffers = true, layout = "select" },
+      explorer = { win = { list = { keys = { ["d"] = "explorer_del" } } } },
     },
   },
 })
