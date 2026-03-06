@@ -2,53 +2,45 @@
 vim.opt_local.spell = true -- spellcheck
 vim.opt_local.shiftwidth = 2 -- ensures tabs == 2 whitespaces
 vim.opt_local.textwidth = 0
-vim.treesitter.start()
 vim.cmd("digraph -- 8212")
+
+---- Treesitter ---------------------------------------------------------------
+require("nvim-treesitter").install({ "markdown", "markdown_inline", "yaml" })
+vim.treesitter.start()
+
+---- LSP -----------------------------------------------------------------------
+-- vim.lsp.enable({ "ltex_plus", "rumdl", "markdown_oxide" })
+vim.lsp.enable({ "rumdl", "markdown_oxide" })
 
 ---- Keymaps -------------------------------------------------------------------
 -- make up/down consider wrapped text
 local map = vim.keymap.set
+map("n", "grl", '<cmd>lua vim.lsp.enable("ltex_plus")<CR>', { desc = "Enable ltex_ls" })
 map({ "n", "v" }, "k", "gk", { remap = false, buffer = true, silent = true })
 map({ "n", "v" }, "j", "gj", { remap = false, buffer = true, silent = true })
-map("n", "<leader>n", "<cmd>MkdnCreateFootnote<CR>", { remap = false, buffer = true, desc = "Create footnote" })
-map("n", "o", "<cmd>MkdnNewListItemBelowInsert<CR>", { remap = false, buffer = true })
-map("n", "O", "<cmd>MkdnNewListItemAboveInsert<CR>", { remap = false, buffer = true })
-map("n", "<CR>", "<cmd>MkdnToggleToDo<CR>", { remap = false, buffer = true })
-map("n", "gf", "<cmd>MkdnFollowLink<CR>", { remap = false, buffer = true })
--- Tables
-require("which-key").add({
-  { "<leader>i", group = "󰩵 Table insert" },
-  { "<leader>x", group = "󰩶 Table delete" },
-})
-map({ "n", "i" }, "<Tab>", "<cmd>MkdnTableNextCell<CR>", { remap = false, buffer = true })
-map({ "n", "i" }, "<S-Tab>", "<cmd>MkdnTablePrevCell<CR>", { remap = false, buffer = true })
+map("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { remap = false, buffer = true })
+map("n", "gf", "<cmd>lua require('follow-md-links').follow_link()<CR>", { noremap = true })
+map("n", "o", "<cmd>InsertNewBullet<CR>", { remap = false, buffer = true })
+map("i", "<CR>", "<cmd>InsertNewBullet<CR>", { remap = false, buffer = true })
 map(
   "n",
-  "<leader>ir",
-  "<cmd>MkdnTableNewRowBelow<CR>",
-  { remap = false, buffer = true, desc = "󰓳 Insert row below" }
+  "<leader>if",
+  "<cmd>lua require('footnote').new_footnote()<CR>",
+  { buffer = true, desc = "Insert new footnote" }
 )
 map(
   "n",
-  "<leader>iR",
-  "<cmd>MkdnTableNewRowAbove<CR>",
-  { remap = false, buffer = true, desc = "󰓴 Insert row above" }
+  "]f",
+  "<cmd>lua require('footnote').next_footnote()<CR>",
+  { remap = false, buffer = true, desc = "Next footnote" }
 )
 map(
   "n",
-  "<leader>ic",
-  "<cmd>MkdnTableNewColAfter<CR>",
-  { remap = false, buffer = true, desc = "󰓬 Insert column right" }
+  "[f",
+  "<cmd>lua require('footnote').prev_footnote()<CR>",
+  { remap = false, buffer = true, desc = "Next footnote" }
 )
-map(
-  "n",
-  "<leader>iC",
-  "<cmd>MkdnTableNewColBefore<CR>",
-  { remap = false, buffer = true, desc = "󰓭 Insert column left" }
-)
-map("n", "<leader>xc", "<cmd>MkdnTableDeleteCol<CR>", { remap = false, buffer = true, desc = "󰓮 Delete column" })
-map("n", "<leader>xr", "<cmd>MkdnTableDeleteRow<CR>", { remap = false, buffer = true, desc = "󰓵 Delete row" })
-
+map("n", "<leader>mm", "<cmd>MarkmapOpen<CR>", { buffer = true, desc = "Open MarkMap" })
 ---- Custom Syntax -------------------------------------------------------------
 vim.cmd('syntax match Emdash "—" conceal cchar=𖢊')
 vim.cmd('syntax region ScarletText matchgroup=Conceal start="+R|" end="|+" concealends')
@@ -60,47 +52,30 @@ vim.cmd('syntax region CyanText matchgroup=Conceal start="+B|" end="|+" conceale
 vim.cmd('syntax region CeladonText matchgroup=Conceal start="+T|" end="|+" concealends')
 require("mini.surround").config.custom_surroundings = {
   ["R"] = { output = { left = "+R|", right = "|+" } },
-  ["G"] = { output = { left = "+R|", right = "|+" } },
-  ["S"] = { output = { left = "+R|", right = "|+" } },
-  ["Y"] = { output = { left = "+R|", right = "|+" } },
-  ["O"] = { output = { left = "+R|", right = "|+" } },
-  ["B"] = { output = { left = "+R|", right = "|+" } },
-  ["T"] = { output = { left = "+R|", right = "|+" } },
+  ["G"] = { output = { left = "+G|", right = "|+" } },
+  ["S"] = { output = { left = "+S|", right = "|+" } },
+  ["Y"] = { output = { left = "+Y|", right = "|+" } },
+  ["O"] = { output = { left = "+O|", right = "|+" } },
+  ["B"] = { output = { left = "+B|", right = "|+" } },
+  ["T"] = { output = { left = "+T|", right = "|+" } },
 }
 
----- LSP -----------------------------------------------------------------------
-vim.lsp.enable({ "ltex_plus", "rumdl", "markdown_oxide" })
-
 ---- Plugins -------------------------------------------------------------------
-vim.pack.add({
-  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
-  -- { src = "https://github.com/bullets-vim/bullets.vim" },
-  { src = "https://github.com/selimacerbas/live-server.nvim" },
-  { src = "https://github.com/selimacerbas/markdown-preview.nvim" },
-  { src = "https://github.com/jakewvincent/mkdnflow.nvim" },
-})
-
-
----- conform.nvim --------------------------------------------------------------
---stylua: ignore
-require("conform").formatters_by_ft.markdown = {"rumdl"}
-
 ---- RenderMarkdown ------------------------------------------------------------
-require("render-markdown").setup({
+vim.g.render_markdown_config = {
   render_modes = true,
   completions = { lsp = { enabled = true } },
   checkbox = {
     checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
     unchecked = { icon = "󰋙", scope_highlight = nil },
-        --stylua: ignore
-        custom = {
-          todo      = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
-          -- sixth     = { raw = "[a]", rendered = "󰫃", highlight = "RenderMarkdownBullet" },
-          -- third     = { raw = "[b]", rendered = "󰫄", highlight = "RenderMarkdownBullet" },
-          -- half      = { raw = "[o]", rendered = "󰫅", highlight = "RenderMarkdownBullet" },
-          -- twothirds = { raw = "[d]", rendered = "󰫆", highlight = "RenderMarkdownBullet" },
-          -- fivesix   = { raw = "[e]", rendered = "󰫇", highlight = "RenderMarkdownBullet" },
-        },
+    custom = {
+      todo = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
+      sixth = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
+      third = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
+      half = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
+      twothirds = { raw = "[d]", rendered = "󰫆 ", highlight = "RenderMarkdownBullet" },
+      fivesix = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
+    },
   },
   link = {
     footnote = { superscript = false },
@@ -119,43 +94,24 @@ require("render-markdown").setup({
     left_margin = 0,
   },
   latex = { enabled = false },
-  win_options = {
-    conceallevel = { rendered = vim.o.conceallevel },
-    concealcursor = { rendered = vim.o.concealcursor },
-  },
+}
+
+vim.g.bullets_checkbox_markers = " abodeX"
+require("conform").formatters_by_ft.markdown = { "rumdl" }
+vim.pack.add({
+  { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/selimacerbas/markdown-preview.nvim" }, --FIX LLM
+  { src = "https://github.com/selimacerbas/live-server.nvim" }, --FIX LLM
+  { src = "https://github.com/bullets-vim/bullets.vim" }, --CHECKED: no LLMs
+  { src = "https://github.com/chenxin-yan/footnote.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/jghauser/follow-md-links.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/Zeioth/markmap.nvim" }, --CHECKED: no LLMs
 })
 
----- mermaid chart previewers ----------------------------------------------
+require("footnote").setup()
 require("markdown_preview").setup({ mermaid_renderer = "js", scroll_sync = false })
-
----- bullets-vim -----------------------------------------------------------
--- vim.g.bullets_checkbox_markers = " abodeX"
-
----- footnotes -------------------------------------------------------------
-
-require("mkdnflow").setup({
-  modules = {
-    bib = false,
-    conceal = false,
-    folds = false, --might be fun
-    foldtext = false,
-    maps = false,
-    paths = false,
-    notebook = false,
-  },
-  links = { auto_create = false },
-  tables = { auto_extend_rows = true, cols = true },
-  to_do = {
-    statuses = {
-      unchecked = { marker = " ", sort = { section = 1, position = "top" } },
-      checked = { marker = { "X", "x" }, sort = { section = 2, position = "bottom" } },
-    },
-    status_order = { "unchecked", "checked" },
-    status_propagation = { up = true, down = true },
-    sort = {
-      on_status_change = true,
-      recursive = true,
-      cursor_behavior = { track = false },
-    },
-  },
+require("markmap").setup({
+  html_output = "/tmp/markmap.html",
+  hide_toolbar = false,
+  grace_period = 3600000,
 })

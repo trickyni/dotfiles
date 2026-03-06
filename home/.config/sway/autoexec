@@ -1,13 +1,11 @@
 # exec eww open-many topbar bottombar
 exec_always quickshell-wrapper.sh
 #   volume control (workspace v)
-exec pavucontrol
-assign [app_id="org.pulseaudio.pavucontrol"] workspace 12
 
 #   qbittorrent (workspace d)
 exec swaynag -t warning -m "open qbittorrent?" -Z "Yes" 'swaymsg exec qbittorrent'  
 assign [app_id="qbittorrent"] workspace 11
-assign [app_id="rmpc"] workspace 13
+assign [app_id="rmpc"] workspace 12
 for_window [app_id="bluetui"] floating enable, resize set 80 ppt 60 ppt, move position center, sticky enable
 
 

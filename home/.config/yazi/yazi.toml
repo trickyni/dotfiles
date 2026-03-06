@@ -32,3 +32,11 @@ rules = [
   # Fallback
   { url = "*", use = ["open", "edit"] },
 ]
+
+[[plugin.prepend_previewers]]
+url = "*.csv"
+run = 'piper -- xan view "$1"'
+
+[[plugin.prepend_previewers]]
+url = "*.md"
+run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'

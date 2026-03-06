@@ -1,0 +1,8 @@
+heading_completions = false
+semantic_tokens = false
+hover = true
+case_matching = "Smart"
+# Link file names only
+# Enables autocompleting by heading but inserting link to filename (instead of filename + heading)
+# Useful for unique notes / Zettelkasten users
+link_filenames_only = false

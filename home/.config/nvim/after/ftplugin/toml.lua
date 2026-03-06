@@ -1,4 +1,6 @@
-vim.lsp.enable({ "tombi" })
+-- using tombi (LSP)
+-- https://taplo.tamasfe.dev/
+require("nvim-treesitter").install({ "toml" })
 vim.treesitter.start()
-
-require("conform").formatters_by_ft.toml = { "tombi", lsp_format = "fallback" }
+vim.lsp.enable({ "tombi" }) --FIX: llm code!
+require("conform").formatters_by_ft.toml = { "tombi" }

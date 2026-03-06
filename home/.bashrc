@@ -5,10 +5,11 @@ esac
 
 #   bash history stuff
 HISTCONTROL=ignoreboth
-shopt -s histappend extglob
+shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+shopt -s extglob
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -23,7 +24,6 @@ shopt -s checkwinsize
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alertrm "$1" && echo "Removed file: $1"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 
 #--------------
 #   completion stuff
@@ -91,7 +91,7 @@ function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
   IFS= read -r -d '' cwd <"$tmp"
-  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd" || exit
   rm -f -- "$tmp"
 }
 
@@ -111,7 +111,6 @@ export HISTFILE=~/.bash_eternal_history
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-
 
 # wayland
 export QT_QPA_PLATFORM=wayland-egl
@@ -143,12 +142,12 @@ alias quickshell='swaymsg exec quickshell'
 alias enkidu='ncdu --color off'
 alias grep='grep --color=auto'
 alias cat='bat --theme "ansi" --style="header,grid"'
-
+alias rsync='rsync --info=progress2'
 #   Arch linux
 if grep arch /etc/os-release >/dev/null; then
-    alias invoke='sudo pacman -S'
-    alias banish='sudo pacman -R'
-    alias commune='sudo pacman -Syu'
+  alias invoke='sudo pacman -S'
+  alias banish='sudo pacman -R'
+  alias commune='sudo pacman -Syu'
 fi
 
 #   docker
@@ -176,5 +175,4 @@ alias ytmp3='yt-dlp \
 --embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
 --cookies-from-browser firefox'
 
-
-
+alias lavat='lavat -s 7 -c blue -k yellow'
