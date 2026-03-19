@@ -176,3 +176,12 @@ alias ytmp3='yt-dlp \
 --cookies-from-browser firefox'
 
 alias lavat='lavat -s 7 -c blue -k yellow'
+
+alias termdown='termdown -f doh'
+
+alias meiscan="scanimage --device 'hpaio:/net/hp_laserjet_m1536dnf_mfp?ip=192.168.0.9&queue=false' --format=png --resolution 300 --mode Color -p -o"
+
+function timer() {
+  termdown "$1"
+  notify-send -w "Timer" "${2:-BEEP}" &
+}

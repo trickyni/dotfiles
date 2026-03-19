@@ -28,7 +28,7 @@ vim.opt.signcolumn     = "yes:1"   -- gutter to the left of the number column
 vim.opt.inccommand     = "nosplit" -- shows find/replace results live
 vim.opt.backspace      = { "start", "eol", "indent" }
 vim.opt.list           = true      -- show trailing whitespaces and tab characters
-vim.opt.listchars      = { tab = "» ", trail = "·", nbsp = "␣", extends = "𖡺", conceal = "𖠶" }
+vim.opt.listchars      = { tab = "» ", trail = "·", nbsp = "␣"}
 vim.opt.timeoutlen     = 300       --timeout on keys with followups
 vim.opt.winborder      = "rounded" --border for floating windows
 vim.opt.spelllang      = "en_us"
@@ -117,7 +117,7 @@ vim.diagnostic.config({
 
 ---- Plugins -------------------------------------------------------------------
 vim.pack.add({
-  { src = "https://github.com/neovim/nvim-lspconfig" }, --CHECKED: no LLMs
+  { src = "https://github.com/neovim/nvim-lspconfig" }, --INFO one copilot commit
   { src = "https://github.com/nvim-lua/plenary.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-mini/mini.surround" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-mini/mini.comment" }, --CHECKED: no LLMs
@@ -129,17 +129,17 @@ vim.pack.add({
   { src = "https://github.com/folke/zen-mode.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/folke/which-key.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/folke/trouble.nvim" }, --CHECKED: no LLMs
-  { src = "https://github.com/folke/snacks.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/folke/snacks.nvim" }, --FIX: LLM DETECTED
   { src = "https://github.com/catgoose/nvim-colorizer.lua" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-tree/nvim-web-devicons" }, --CHECKED: no LLMs
-  { src = "https://github.com/lewis6991/gitsigns.nvim" }, --INFO llm use but no vibecode
+  { src = "https://github.com/lewis6991/gitsigns.nvim" }, --FIX llm use
   { src = "https://github.com/karb94/neoscroll.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/chrisgrieser/nvim-rip-substitute" }, --CHECKED: no LLMs
-  { src = "https://github.com/mikavilpas/yazi.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/mikavilpas/yazi.nvim" }, --WARN LLM usage
   { src = "https://github.com/smjonas/live-command.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-lualine/lualine.nvim" }, --CHECKED: no LLMs
-  { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" }, --CHECKED: no LLMs
+  -- { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/stevearc/conform.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/saghen/blink.cmp" }, --CHECKED: no LLMs
   { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" }, --CHECKED: no LLMs
@@ -150,8 +150,11 @@ vim.pack.add({
   { src = "https://github.com/abecodes/tabout.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/tpope/vim-abolish" }, --CHECKED: no LLMs
   { src = "https://github.com/alex-popov-tech/store.nvim" }, --CHECKED: no LLMs
+  -- { src = "https://github.com/obsidian-nvim/obsidian.nvim" }, --CHECKED: no LLMs
+  -- { src = "https://github.com/lervag/wiki.vim" }, --CHECKED: no LLMs
 })
 
+-- vim.g.wiki_root = "~/Sync/"
 require("mini.pairs").setup()
 require("mini.comment").setup()
 require("mini.splitjoin").setup()
@@ -229,6 +232,49 @@ require("nvim-treesitter").install({
   "yaml",
 })
 
+-- ---- obsidian.nvim -------------------------------------------------------------
+-- -- keymaps
+-- map("n", "gf", "<cmd>Obsidian follow_link<CR>", { desc = "Daily notes picker" })
+-- map("n", "<leader>od", "<cmd>Obsidian dailies<CR>", { desc = "Daily notes picker" })
+-- map("n", "<leader>ot", "<cmd>Obsidian today<CR>", { desc = "Today's daily note" })
+-- map("n", "<leader>on", "<cmd>Obsidian tomorrow<CR>", { desc = "Tomorrow's daily note" })
+-- map("n", "<leader>oy", "<cmd>Obsidian yesterday<CR>", { desc = "Yesterday's daily note" })
+-- map("n", "<leader>op", "<cmd><CR>", { desc = "Pick from vault" })
+-- map("n", "<leader>ov", "<cmd><CR>", { desc = "Switch vault" })
+-- -- Config
+-- require("obsidian").setup({
+--   ui = { enable = false },
+--   legacy_commands = false,
+--   checkbox = { enabled = false },
+--   footer = { format = "{{words}} words  {{backlinks}} backlinks" },
+--   templates = {
+--     folder = ".tmp",
+--     customizations = {
+--       weekly = { notes_subdir = "journal/weekly/" },
+--     },
+--   },
+--   note_id_func = require("obsidian.builtin").title_id,
+--   workspaces = {
+--     {
+--       name = "Sync",
+--       path = "~/Sync",
+--     },
+--   },
+--   daily_notes = {
+--     enabled = true,
+--     folder = "journal/",
+--     template = "~/Sync/.tmp/daily",
+--     default_tags = { "daily-notes" },
+--     workdays_only = false,
+--   },
+--   callbacks = {
+--     enter_note = function(note)
+--       vim.keymap.del("n", "<CR>", { buffer = true })
+--       vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { remap = false, buffer = true })
+--     end,
+--   },
+-- })
+
 ---- blink.cmp -----------------------------------------------------------------
 require("blink.cmp").setup({
   keymap = {
@@ -252,11 +298,7 @@ require("blink.cmp").setup({
     },
   },
   sources = {
-    default = { "lsp", "path", "snippets" },
-    per_filetype = {
-      markdown = { inherit_defaults = true, "nerdfont", "emoji" },
-      csv = { inherit_defaults = true, "nerdfont", "emoji" },
-    },
+    default = { "lsp", "path", "snippets", "omni", "nerdfont", "emoji" },
     providers = {
       nerdfont = {
         module = "blink-nerdfont",
@@ -317,6 +359,7 @@ require("which-key").add({
   { "grt", desc = "LSP type definitions" },
   { "grn", desc = "LSP rename" },
   { "<leader>p", group = "Pickers" },
+  { "<leader>o", group = "Obsidian" },
 })
 
 ---- todo-comments -------------------------------------------------------------
@@ -373,7 +416,7 @@ require("lualine").setup({
         icon = { "", align = "right" },
         symbols = { done = "", spinner = "", separator = ", " },
         show_name = true,
-        ignore_lsp = { "render-markdown" },
+        ignore_lsp = { "render-markdown", "obsidian-ls" },
       },
     },
     lualine_y = { { "filetype", colored = false } },
@@ -381,11 +424,11 @@ require("lualine").setup({
   },
 })
 
----- rainbow-delimiters --------------------------------------------------------
-vim.g.rainbow_delimiters = {
-  highlight = { "RainbowDelimiterRed", "RainbowDelimiterYellow", "RainbowDelimiterBlue", "RainbowDelimiterOrange" },
-  blacklist = { "html" },
-}
+-- ---- rainbow-delimiters --------------------------------------------------------
+-- vim.g.rainbow_delimiters = {
+--   highlight = { "RainbowDelimiterRed", "RainbowDelimiterYellow", "RainbowDelimiterBlue", "RainbowDelimiterOrange" },
+--   blacklist = { "html" },
+-- }
 
 ---- Zen-Mode ------------------------------------------------------------------
 require("zen-mode").setup({
@@ -408,7 +451,7 @@ require("snacks").setup({
       --stylua: ignore
       keys = {
         { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-        --   { icon = " ", key = "\\", desc = "File Explorer", action = ":Yazi" },
+        { icon = "󱨰 ", key = "t", desc = "Today's journal entry", action = "<cmd>Obsidian today<CR>" },
         { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
         { icon = " ", key = "p",  desc = "Projects",     action  = ":lua Snacks.picker.projects()" },
         { icon = " ", key = "q", desc = "Quit", action = ":qa" },
