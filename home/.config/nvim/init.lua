@@ -139,7 +139,7 @@ vim.pack.add({
   { src = "https://github.com/smjonas/live-command.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-lualine/lualine.nvim" }, --CHECKED: no LLMs
-  -- { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" }, --CHECKED: no LLMs
+  { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/stevearc/conform.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/saghen/blink.cmp" }, --CHECKED: no LLMs
   { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" }, --CHECKED: no LLMs
@@ -150,7 +150,7 @@ vim.pack.add({
   { src = "https://github.com/abecodes/tabout.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/tpope/vim-abolish" }, --CHECKED: no LLMs
   { src = "https://github.com/alex-popov-tech/store.nvim" }, --CHECKED: no LLMs
-  -- { src = "https://github.com/obsidian-nvim/obsidian.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/obsidian-nvim/obsidian.nvim" }, --CHECKED: no LLMs
   -- { src = "https://github.com/lervag/wiki.vim" }, --CHECKED: no LLMs
 })
 
@@ -166,7 +166,7 @@ require("gitsigns").setup({ signs = { delete = "─" } })
 require("yazi").setup({ yazi_floating_window_border = "rounded", open_for_directories = true })
 require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
 require("tabout").setup({ completion = true, act_as_tab = true })
-require("colorizer").setup({ options = { parsers = { names = { enable = false } } } })
+-- require("colorizer").setup({ options = { parsers = { names = { enable = false } } } })
 require("neoscroll").setup({ easing = "sine", use_local_scrolloff = true })
 map("n", "<PageUp>", "<cmd>lua require('neoscroll').ctrl_u({duration=300})<CR>", { remap = true })
 map("n", "<PageDown>", "<cmd>lua require('neoscroll').ctrl_d({duration=300})<CR>", { remap = true })
@@ -232,48 +232,52 @@ require("nvim-treesitter").install({
   "yaml",
 })
 
--- ---- obsidian.nvim -------------------------------------------------------------
--- -- keymaps
--- map("n", "gf", "<cmd>Obsidian follow_link<CR>", { desc = "Daily notes picker" })
--- map("n", "<leader>od", "<cmd>Obsidian dailies<CR>", { desc = "Daily notes picker" })
--- map("n", "<leader>ot", "<cmd>Obsidian today<CR>", { desc = "Today's daily note" })
--- map("n", "<leader>on", "<cmd>Obsidian tomorrow<CR>", { desc = "Tomorrow's daily note" })
--- map("n", "<leader>oy", "<cmd>Obsidian yesterday<CR>", { desc = "Yesterday's daily note" })
--- map("n", "<leader>op", "<cmd><CR>", { desc = "Pick from vault" })
--- map("n", "<leader>ov", "<cmd><CR>", { desc = "Switch vault" })
--- -- Config
--- require("obsidian").setup({
---   ui = { enable = false },
---   legacy_commands = false,
---   checkbox = { enabled = false },
---   footer = { format = "{{words}} words  {{backlinks}} backlinks" },
---   templates = {
---     folder = ".tmp",
---     customizations = {
---       weekly = { notes_subdir = "journal/weekly/" },
---     },
---   },
---   note_id_func = require("obsidian.builtin").title_id,
---   workspaces = {
---     {
---       name = "Sync",
---       path = "~/Sync",
---     },
---   },
---   daily_notes = {
---     enabled = true,
---     folder = "journal/",
---     template = "~/Sync/.tmp/daily",
---     default_tags = { "daily-notes" },
---     workdays_only = false,
---   },
---   callbacks = {
---     enter_note = function(note)
---       vim.keymap.del("n", "<CR>", { buffer = true })
---       vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { remap = false, buffer = true })
---     end,
---   },
--- })
+---- obsidian.nvim -------------------------------------------------------------
+-- keymaps
+map("n", "gf", "<cmd>Obsidian follow_link<CR>", { desc = "Daily notes picker" })
+map("n", "<leader>od", "<cmd>Obsidian dailies<CR>", { desc = "Daily notes picker" })
+map("n", "<leader>ot", "<cmd>Obsidian today<CR>", { desc = "Today's daily note" })
+map("n", "<leader>on", "<cmd>Obsidian tomorrow<CR>", { desc = "Tomorrow's daily note" })
+map("n", "<leader>oy", "<cmd>Obsidian yesterday<CR>", { desc = "Yesterday's daily note" })
+map("n", "<leader>op", "<cmd><CR>", { desc = "Pick from vault" })
+map("n", "<leader>ov", "<cmd><CR>", { desc = "Switch vault" })
+-- Config
+require("obsidian").setup({
+  ui = { enable = false },
+  legacy_commands = false,
+  checkbox = { enabled = false },
+  footer = { format = "{{words}} words  {{backlinks}} backlinks" },
+  templates = {
+    folder = ".tmp",
+    customizations = {
+      weekly = {
+        notes_subdir = "journal/weekly/",
+        date_format = "YYYY/MMMM/YYYY-wWW",
+      },
+    },
+  },
+  note_id_func = require("obsidian.builtin").title_id,
+  workspaces = {
+    {
+      name = "Sync",
+      path = "~/Sync",
+    },
+  },
+  daily_notes = {
+    enabled = true,
+    folder = "journal/",
+    template = "~/Sync/.tmp/daily",
+    default_tags = { "daily-notes" },
+    workdays_only = false,
+    date_format = "YYYY/MMMM/YYYY-MM-DD__dddd",
+  },
+  callbacks = {
+    enter_note = function(note)
+      vim.keymap.del("n", "<CR>", { buffer = true })
+      vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>j", { remap = false, buffer = true })
+    end,
+  },
+})
 
 ---- blink.cmp -----------------------------------------------------------------
 require("blink.cmp").setup({
@@ -282,7 +286,7 @@ require("blink.cmp").setup({
     ["<Tab>"] = { "select_next", "fallback" },
     ["<S-Tab>"] = { "select_prev", "fallback" },
   },
-  fuzzy = { implementation = "prefer_rust", prebuilt_binaries = { force_version = "0.6.0" } },
+  fuzzy = { implementation = "lua" },
   appearance = { nerd_font_variant = "mono" },
   completion = {
     accept = { auto_brackets = { enabled = true } },
@@ -424,11 +428,11 @@ require("lualine").setup({
   },
 })
 
--- ---- rainbow-delimiters --------------------------------------------------------
--- vim.g.rainbow_delimiters = {
---   highlight = { "RainbowDelimiterRed", "RainbowDelimiterYellow", "RainbowDelimiterBlue", "RainbowDelimiterOrange" },
---   blacklist = { "html" },
--- }
+---- rainbow-delimiters --------------------------------------------------------
+vim.g.rainbow_delimiters = {
+  highlight = { "RainbowDelimiterRed", "RainbowDelimiterYellow", "RainbowDelimiterBlue", "RainbowDelimiterOrange" },
+  blacklist = { "html" },
+}
 
 ---- Zen-Mode ------------------------------------------------------------------
 require("zen-mode").setup({

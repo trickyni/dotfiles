@@ -162,8 +162,9 @@ alias gitscum='git add . && git commit -m "0" && git push && echo -e "\033[93mgi
 #   yt-dlp
 alias ytdlp='yt-dlp \
 -f "best[height<=1080]"  \
--o "~/Downloads/[%(upload_date>%Y-%m-%d)s] %(title)s - %(uploader)s"  \
---embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
+ -P "~/Downloads/" \
+-o "%(upload_date>%Y-%m-%d)s - %(title)s - %(uploader)s.%(ext)s"  \
+--embed-chapters --no-write-info-json --embed-thumbnail \
 --sponsorblock-remove sponsor --sponsorblock-mark selfpromo,interaction \
 --cookies-from-browser firefox \
 --remote-components ejs:github'
@@ -171,7 +172,8 @@ alias ytdlp='yt-dlp \
 alias ytmp3='yt-dlp \
 -f ba \
 --extract-audio --audio-format flac --audio-quality 0 \
--o "~/Downloads/%(uploader)s - %(title)s" \
+-P "~/Downloads/ \
+-o %(uploader)s - %(title)s.%(ext)s" \
 --embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
 --cookies-from-browser firefox'
 
@@ -183,5 +185,5 @@ alias meiscan="scanimage --device 'hpaio:/net/hp_laserjet_m1536dnf_mfp?ip=192.16
 
 function timer() {
   termdown "$1"
-  notify-send -w "Timer" "${2:-BEEP}" &
+  notify-send -w "${2:-BEEP}"
 }

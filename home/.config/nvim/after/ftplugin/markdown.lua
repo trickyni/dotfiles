@@ -2,6 +2,7 @@
 vim.opt_local.spell = true -- spellcheck
 vim.opt_local.shiftwidth = 2 -- ensures tabs == 2 whitespaces
 vim.opt_local.textwidth = 0
+-- vim.fn.setcellwidths({ { 0x2014, 0x2014, 2 } })
 vim.cmd("digraph -- 8212")
 
 ---- Treesitter ---------------------------------------------------------------
@@ -42,8 +43,6 @@ map(
 )
 map("n", "<leader>mm", "<cmd>MarkmapOpen<CR>", { buffer = true, desc = "Open MarkMap" })
 ---- Custom Syntax -------------------------------------------------------------
-vim.cmd('syntax match dooobl "—"')
--- vim.cmd('syntax match Emdash "—" conceal cchar=𖢊')
 vim.cmd('syntax region ScarletText matchgroup=Conceal start="+R|" end="|+" concealends')
 vim.cmd('syntax region MossText matchgroup=Conceal start="+G|" end="|+" concealends')
 vim.cmd('syntax region SandText matchgroup=Conceal start="+S|" end="|+" concealends')
@@ -65,18 +64,24 @@ require("mini.surround").config.custom_surroundings = {
 ---- RenderMarkdown ------------------------------------------------------------
 vim.g.render_markdown_config = {
   render_modes = true,
+  on = {
+    initial = function()
+      vim.cmd("syntax clear Emdash")
+    end,
+  },
   completions = { lsp = { enabled = true } },
   checkbox = {
     checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
     unchecked = { icon = "󰋙", scope_highlight = nil },
     custom = {
       todo = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
-      sixth = { raw = "[a]", rendered = "󰫃 ", highlight = "RenderMarkdownBullet" },
-      third = { raw = "[b]", rendered = "󰫄 ", highlight = "RenderMarkdownBullet" },
-      half = { raw = "[o]", rendered = "󰫅 ", highlight = "RenderMarkdownBullet" },
-      twothirds = { raw = "[d]", rendered = "󰫆 ", highlight = "RenderMarkdownBullet" },
-      fivesix = { raw = "[e]", rendered = "󰫇 ", highlight = "RenderMarkdownBullet" },
-      ongoing = { raw = "[@]", rendered = "󰛡 ", highlight = "AltbgText", scope_highlight = "AltbgText" },
+      sixth = { raw = "[a]", rendered = "󰫃", highlight = "RenderMarkdownBullet" },
+      third = { raw = "[b]", rendered = "󰫄", highlight = "RenderMarkdownBullet" },
+      half = { raw = "[o]", rendered = "󰫅", highlight = "RenderMarkdownBullet" },
+      twothirds = { raw = "[d]", rendered = "󰫆", highlight = "RenderMarkdownBullet" },
+      fivesix = { raw = "[e]", rendered = "󰫇", highlight = "RenderMarkdownBullet" },
+      ongoing = { raw = "[@]", rendered = "󰛡", highlight = "Bg25Text", scope_highlight = "Bg25Text" },
+      focus = { raw = "[!]", rendered = "", highlight = "ScarletText", scope_highlight = "ScarletText" },
     },
   },
   link = {
@@ -88,6 +93,14 @@ vim.g.render_markdown_config = {
     preset = "round",
     alignment_indicator = "┈",
   },
+  heading = {
+    position = "inline",
+    -- icons = { " 󰉫 ", " 󰉬 ", " 󰉭 ", " 󰉮 ", " 󰉯 ", " 󰉰 " },
+    -- icons = { " 󰇊 ", " 󰇋 ", " 󰇌 ", " 󰇍 ", " 󰇎 ", " 󰇏 " },
+    icons = { " Ⅰ ", " Ⅱ ", " Ⅲ ", " Ⅳ ", " Ⅴ ", " Ⅵ " },
+    -- icons = { " 🯱 ", " 🯲 ", " 🯳 ", " 🯴 ", " 🯵 ", " 🯶 " },
+  },
+
   dash = {
     enabled = true,
     render_modes = false,
@@ -106,9 +119,10 @@ vim.pack.add({
   { src = "https://github.com/selimacerbas/live-server.nvim" }, --FIX LLM
   { src = "https://github.com/bullets-vim/bullets.vim" }, --CHECKED: no LLMs
   { src = "https://github.com/chenxin-yan/footnote.nvim" }, --CHECKED: no LLMs
-  -- { src = "https://github.com/jghauser/follow-md-links.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/jghauser/follow-md-links.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/Zeioth/markmap.nvim" }, --CHECKED: no LLMs
 })
+
 require("footnote").setup()
 require("markdown_preview").setup({ mermaid_renderer = "js", scroll_sync = false })
 require("markmap").setup({
