@@ -29,7 +29,7 @@
       "src": "https://github.com/hat0uma/csvview.nvim"
     },
     "desert-witch.nvim": {
-      "rev": "e90392af1149df28b65e034f897377cef569c131",
+      "rev": "561ec7bceb17c5d8654ddb3df2abe772e9155f01",
       "src": "https://codeberg.org/trickyni/desert-witch.nvim"
     },
     "eyeliner.nvim": {

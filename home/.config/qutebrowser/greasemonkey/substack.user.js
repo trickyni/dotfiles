@@ -1,0 +1,1 @@
+/home/trickyni/git/clay-witch.userscript/substack.user.js

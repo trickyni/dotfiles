@@ -1,0 +1,1 @@
+/home/trickyni/git/desert-witch.theme/qutebrowser/desert-witch.py

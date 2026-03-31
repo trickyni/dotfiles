@@ -1,0 +1,1 @@
+/home/trickyni/git/clay-witch.userscript/darkreader.user.js

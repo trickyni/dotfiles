@@ -3,7 +3,7 @@ vim.pack.add({ "https://codeberg.org/trickyni/desert-witch.nvim" })
 vim.cmd.colorscheme("desert-witch")
 ---- OPTIONS -------------------------------------------------------------------
 --stylua: ignore start
-vim.opt.termguicolors    = true
+vim.opt.termguicolors  = true
 vim.g.mapleader        = " "  -- leader key (spacebar)
 vim.g.have_nerd_font   = true
 vim.opt.number         = true -- number column
@@ -69,10 +69,10 @@ map({ "n", "v" }, "<C-Bslash>", "<cmd>lua Snacks.picker.explorer()<CR>", { desc 
 map({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = "Find/Replace" })
 map("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
 map("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
-map("n", "<leader>pp", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
-map("n", "<leader>pm", "<cmd>lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
-map("n", "<leader>pt", "<cmd>lua Snacks.picker.todo_comments()<CR>", { desc = "Todo comments" })
-map("n", "<leader>pz", "<cmd>lua Snacks.picker.zoxide()<CR>", { desc = "Zoxide" })
+map("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
+map("n", "<leader>m", "<cmd>lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
+map("n", "<leader>t", "<cmd>lua Snacks.picker.todo_comments()<CR>", { desc = "Todo comments" })
+map("n", "<leader>z", "<cmd>lua Snacks.picker.zoxide()<CR>", { desc = "Zoxide" })
 map({ "n", "v" }, '<leader>"', "<cmd>lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 map("n", "<leader>g", "<cmd>Gitsigns toggle_linehl<CR>", { desc = "Toggle Diff" })
 map("n", "grf", "<cmd>lua require('conform').format()<CR>", { desc = "Format buffer" })
@@ -166,7 +166,7 @@ require("gitsigns").setup({ signs = { delete = "─" } })
 require("yazi").setup({ yazi_floating_window_border = "rounded", open_for_directories = true })
 require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
 require("tabout").setup({ completion = true, act_as_tab = true })
--- require("colorizer").setup({ options = { parsers = { names = { enable = false } } } })
+require("colorizer").setup({ options = { parsers = { names = { enable = false } } } })
 require("neoscroll").setup({ easing = "sine", use_local_scrolloff = true })
 map("n", "<PageUp>", "<cmd>lua require('neoscroll').ctrl_u({duration=300})<CR>", { remap = true })
 map("n", "<PageDown>", "<cmd>lua require('neoscroll').ctrl_d({duration=300})<CR>", { remap = true })
@@ -234,7 +234,6 @@ require("nvim-treesitter").install({
 
 ---- obsidian.nvim -------------------------------------------------------------
 -- keymaps
-map("n", "gf", "<cmd>Obsidian follow_link<CR>", { desc = "Daily notes picker" })
 map("n", "<leader>od", "<cmd>Obsidian dailies<CR>", { desc = "Daily notes picker" })
 map("n", "<leader>ot", "<cmd>Obsidian today<CR>", { desc = "Today's daily note" })
 map("n", "<leader>on", "<cmd>Obsidian tomorrow<CR>", { desc = "Tomorrow's daily note" })
@@ -362,7 +361,6 @@ require("which-key").add({
   { "grr", desc = "LSP references" },
   { "grt", desc = "LSP type definitions" },
   { "grn", desc = "LSP rename" },
-  { "<leader>p", group = "Pickers" },
   { "<leader>o", group = "Obsidian" },
 })
 
