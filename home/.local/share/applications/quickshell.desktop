@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Quickshell
-Exec=swaymsg exec quickshell
+Exec=quickshell-wrapper.sh
 Icon=UI-pixel-bg
 Terminal=false
 Type=Application

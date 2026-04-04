@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 if pgrep -x quickshell; then
-    killall quickshell
+  killall quickshell
 fi
-sway exec quickshell
+niri msg action spawn -- "quickshell"

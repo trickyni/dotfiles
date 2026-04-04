@@ -10,7 +10,7 @@
 - [ ] Gestures
 - [ ] Recent Windows
 - [ ] Animations
-- [X] Layout
+- [ ] Layout
 - [X] Outputs
 - [X] Switch Events
 - [X] Miscellaneous
@@ -28,9 +28,8 @@
 
 ## Script/rescript
 
-- [ ] quickshell-wrapper.sh autoexec - make niri version
-- [ ] quickshell workspace indicator
-- [ ] quickshell notification server
+- [X] quickshell-wrapper.sh autoexec - make niri version
+- [ ] quickshell workspace indicator- bar?
 - [ ] scale-changer
 - [ ] rotator
 - [ ] bluetui (make better w/quickshell?)

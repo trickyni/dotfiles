@@ -1,0 +1,13 @@
+font=ProggyCleanSZ Nerd Font Mono 18
+background-color=#3B3228FF
+text-color=#afd2e9
+border-size=1
+border-color=#c1a387
+progress-color=over #e68d53
+default-timeout=5000
+anchor=bottom-right
+
+[urgency=critical]
+border-color=#e86045
+border-size=2
+default-timeout=0
