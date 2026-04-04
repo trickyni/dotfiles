@@ -1,6 +1,7 @@
 config.load_autoconfig()
 config.source("desert-witch.py")
-c.url.start_pages = "https://www.merriam-webster.com"
+c.url.start_pages = ["about:blank"]
+c.url.default_page = "about:blank"
 c.colors.webpage.preferred_color_scheme = "light"
 c.completion.shrink = True
 c.content.autoplay = False
@@ -8,6 +9,8 @@ c.editor.command = ["kitty", "nvim", "{file}"]
 c.scrolling.smooth = True
 config.bind("<Ctrl-]>", "tab-next")
 config.bind("<Ctrl-[>", "tab-prev")
+config.bind("<Ctrl-=>", "zoom-in")
+config.bind("<Ctrl-Backspace>", "zoom")
 config.bind(",m", "spawn mpv {url}")
 config.bind(",M", "hint links spawn mpv {hint-url}")
 config.bind(

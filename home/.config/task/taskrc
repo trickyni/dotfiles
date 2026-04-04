@@ -16,32 +16,15 @@
 editor=nvim
 # Files
 data.location=/home/trickyni/.task
-
+verbose=no
 # To use the default location of the XDG directories,
 # move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
 
 #data.location=~/.local/share/task
 hooks.location=~/.config/task/hooks
-
-# Color theme (uncomment one to use)
-#include light-16.theme
-#include light-256.theme
-#include dark-16.theme
-#include dark-256.theme
-#include dark-red-256.theme
-#include dark-green-256.theme
-#include dark-blue-256.theme
-#include dark-violets-256.theme
-#include dark-yellow-green.theme
-#include dark-gray-256.theme
-#include dark-gray-blue-256.theme
-#include solarized-dark-256.theme
-#include solarized-light-256.theme
-#include no-color.theme
 include /home/trickyni/.config/task/themes/desert-witch.theme
 
 #   coefficient mods
-urgency.user.tag.buy.coefficient = 5.0
 urgency.tags.coefficient = 0.0
 urgency.annotations.coefficient = 0.0
 urgency.project.coefficient = 0.0
@@ -50,37 +33,36 @@ urgency.blocked.coefficient = -50.0
 
 # user-defined attributes
 uda.priority.values=x,@,o
+uda.pipe.type=string
+uda.pipe.values=|
+uda.pipe.default=|
 urgency.uda.priority.o.coefficient=10.0
 urgency.uda.priority.x.coefficient=-7.0
 urgency.uda.priority.@.coefficient=-15.0
 
+# report default
+report.list.columns = id,project,priority,description,urgency,wait.relative
+report.list.labels = ID,proj,p,desc,urg,wait
+report.list.sort = urgency-
+report.list.filter = status:pending or status:waiting 
 
-#   report next
-report.next.description = ""
-report.next.columns = id,project,depends,priority,description,tags,scheduled.relative,until.relative,due.countdown,urgency
-report.next.labels = ID,Project,Deps,P,Description,Tag,Sched,Until,Due,Urg
-report.next.sort = urgency-
-report.next.filter=status:pending
+# report md
+report.md.columns = pipe,priority,pipe,description,pipe,project,pipe,wait.relative,pipe
+report.md.labels =,|p,,|desc,,|project,,|wait|, 
+report.md.sort = urgency-
+report.md.filter = status:pending or status:waiting
 
-#   report now
-report.now.description = "Current unblocked mainburner tasks"
-report.now.columns=id,project,priority,description,tags,scheduled.relative,until.relative,due.countdown,urgency
-report.now.labels=,Project,,Description,Tags,Sched,Until,Due,Urg
-report.now.sort = urgency-
-report.now.filter=status:pending pri.not:x +UNBLOCKED
+# report vim-full
+report.vim.columns = priority,description,project
+report.vim.labels = ,,
+report.vim.sort = urgency-
+report.vim.filter = status:pending or status:waiting
 
-#   report agenda
-report.agenda.description = "Current unblocked mainburner tasks"
-report.agenda.columns=id,project,priority,description,tags,scheduled.relative,until.relative,due.countdown,urgency
-report.agenda.labels=,Project,,Description,Tags,Sched,Until,Due,Urg
-report.agenda.sort = urgency-
-report.agenda.filter=status:pending pri.not:x and ( +ACTIVE or +TODAY or +next )
-
-#  report plate
-report.plate.columns=project.indented,id,depends,priority,description,tags,scheduled.relative,until.relative,due.countdown,urgency
-report.plate.labels=Project,ID,Deps,P,Description,Tags,Sched,Until,Due,Urg
-report.plate.sort=scheduled+,due+,urgency-
-report.plate.filter= -DELETED -COMPLETED +SCHEDULED or +YEAR
+# report vim-
+report.vim.columns = priority,project,description
+report.vim.labels = ,,
+report.vim.sort = urgency-
+report.vim.filter = status:pending (priority: or priority:o)
 
 #   report unblocked
 report.unblocked.columns = id,project,priority,description,tags,due,urgency
@@ -104,3 +86,4 @@ report.due.description = "Timeline view"
 
 
 include ~/.config/task/twsync
+default.command=list

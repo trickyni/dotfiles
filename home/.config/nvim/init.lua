@@ -151,7 +151,6 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-abolish" }, --CHECKED: no LLMs
   { src = "https://github.com/alex-popov-tech/store.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/obsidian-nvim/obsidian.nvim" }, --CHECKED: no LLMs
-  -- { src = "https://github.com/lervag/wiki.vim" }, --CHECKED: no LLMs
 })
 
 -- vim.g.wiki_root = "~/Sync/"

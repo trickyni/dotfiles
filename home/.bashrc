@@ -180,6 +180,8 @@ alias ytmp3='yt-dlp \
 
 alias lavat='lavat -s 7 -c blue -k yellow'
 
+alias archive_website='wget --mirror --convert-links --adjust-extension --page-requisites --no-parent'
+
 alias termdown='termdown -f doh'
 
 alias meiscan="scanimage --device 'hpaio:/net/hp_laserjet_m1536dnf_mfp?ip=192.168.0.9&queue=false' --format=png --resolution 300 --mode Color -p -o"
