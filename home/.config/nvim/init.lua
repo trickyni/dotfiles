@@ -503,6 +503,7 @@ require("snacks").setup({
           "~/.config/nvim",
           "~/.config/rmpc",
           "~/.config/sway",
+          "~/.config/niri",
         },
       },
       todo_comments = { buffers = true, layout = "select" },

@@ -142,7 +142,7 @@ alias quickshell='swaymsg exec quickshell'
 alias enkidu='ncdu --color off'
 alias grep='grep --color=auto'
 alias cat='bat --theme "ansi" --style="header,grid"'
-alias rsync='rsync --info=progress2'
+alias rsync='rsync -c --info=progress2'
 #   Arch linux
 if grep arch /etc/os-release >/dev/null; then
   alias invoke='sudo pacman -S'
