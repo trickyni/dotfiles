@@ -1,4 +1,4 @@
-font=ProggyCleanSZ Nerd Font Mono 18
+font=ProggyCleanSZ Nerd Font Mono normal 18
 background-color=#3B3228FF
 text-color=#afd2e9
 border-size=1
@@ -6,8 +6,23 @@ border-color=#c1a387
 progress-color=over #e68d53
 default-timeout=5000
 anchor=bottom-right
+format=%s\n%b 
+on-notify=exec [ -n "$desktop_entry" ] && notify-send "$desktop_entry"
 
 [urgency=critical]
 border-color=#e86045
 border-size=2
 default-timeout=0
+
+[grouped]
+format=(%g) %s\n%b
+
+[desktop-entry="signal"]
+on-button-left=exec niri msg action focus-window --id $(niri msg -j windows | jq '.[] | select(.app_id=="signal") | .id')
+width=400
+
+[desktop-entry="signal" summary="mewi"]
+on-button-left=exec niri msg action focus-window --id $(niri msg -j windows | jq '.[] | select(.app_id=="signal") | .id')
+border-color=#f8e2a0
+width=400
+

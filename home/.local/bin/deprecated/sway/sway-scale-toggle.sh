@@ -2,7 +2,7 @@
 qsScale() {
   # tell sway proc to run it since 'qs' links against a tonne of things
   # and steam doesn't like that...
-  swaymsg 'exec "qs ipc call panel scale '$1'"'
+  swaymsg 'exec "qs ipc call panel scale '"$1"'"'
 }
 case "$1" in
 "")

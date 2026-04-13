@@ -1,0 +1,23 @@
+#! /usr/bin/env bash
+case $1 in 
+mic)
+case $2 in
+on)
+echo 1 | sudo tee /sys/class/leds/platform::micmute/brightness
+;;
+off)
+echo 0 | sudo tee /sys/class/leds/platform::micmute/brightness
+;;
+esac
+;;
+audio)
+case $2 in
+on)
+echo 1 | sudo tee /sys/class/leds/platform::mute/brightness
+;;
+off)
+echo 0 | sudo tee /sys/class/leds/platform::mute/brightness
+;;
+esac
+;;
+esac

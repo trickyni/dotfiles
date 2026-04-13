@@ -5,6 +5,7 @@ vim.cmd.colorscheme("desert-witch")
 --stylua: ignore start
 vim.opt.termguicolors  = true
 vim.g.mapleader        = " "  -- leader key (spacebar)
+vim.g.maplocalleader   = " "  -- leader key (spacebar)
 vim.g.have_nerd_font   = true
 vim.opt.number         = true -- number column
 vim.opt.relativenumber = true -- number column
@@ -73,6 +74,7 @@ map("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Project
 map("n", "<leader>m", "<cmd>lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
 map("n", "<leader>t", "<cmd>lua Snacks.picker.todo_comments()<CR>", { desc = "Todo comments" })
 map("n", "<leader>z", "<cmd>lua Snacks.picker.zoxide()<CR>", { desc = "Zoxide" })
+map("n", "<leader>f", "<cmd>GrugFar<CR>", { desc = "Grug-Far" })
 map({ "n", "v" }, '<leader>"', "<cmd>lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 map("n", "<leader>g", "<cmd>Gitsigns toggle_linehl<CR>", { desc = "Toggle Diff" })
 map("n", "grf", "<cmd>lua require('conform').format()<CR>", { desc = "Format buffer" })
@@ -151,16 +153,26 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-abolish" }, --CHECKED: no LLMs
   { src = "https://github.com/alex-popov-tech/store.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/obsidian-nvim/obsidian.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/MagicDuck/grug-far.nvim" }, --CHECKED: no LLMs
 })
 
 -- vim.g.wiki_root = "~/Sync/"
 require("mini.pairs").setup()
+require("grug-far").setup({
+  keymaps = {
+    replace = { n = "<C-CR>" },
+    close = { n = "q" },
+  },
+})
 require("mini.comment").setup()
 require("mini.splitjoin").setup()
 require("mini.surround").setup()
 require("mini.align").setup()
 require("eyeliner").setup({ dim = true, disabled_buftypes = { "nofile" } })
-require("rip-substitute").setup({ popupWin = { border = "rounded" } })
+require("rip-substitute").setup({
+  popupWin = { border = "rounded" },
+  prefill = { normal = false },
+})
 require("gitsigns").setup({ signs = { delete = "─" } })
 require("yazi").setup({ yazi_floating_window_border = "rounded", open_for_directories = true })
 require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
@@ -237,7 +249,7 @@ map("n", "<leader>od", "<cmd>Obsidian dailies<CR>", { desc = "Daily notes picker
 map("n", "<leader>ot", "<cmd>Obsidian today<CR>", { desc = "Today's daily note" })
 map("n", "<leader>on", "<cmd>Obsidian tomorrow<CR>", { desc = "Tomorrow's daily note" })
 map("n", "<leader>oy", "<cmd>Obsidian yesterday<CR>", { desc = "Yesterday's daily note" })
-map("n", "<leader>op", "<cmd><CR>", { desc = "Pick from vault" })
+map("n", "<leader>of", "<cmd>Obsidian quick_switch<CR>", { desc = "Pick from vault" })
 map("n", "<leader>ov", "<cmd><CR>", { desc = "Switch vault" })
 -- Config
 require("obsidian").setup({
@@ -246,10 +258,9 @@ require("obsidian").setup({
   checkbox = { enabled = false },
   footer = { format = "{{words}} words  {{backlinks}} backlinks" },
   templates = {
-    folder = ".tmp",
+    folder = "Documents/.tmp",
     customizations = {
       weekly = {
-        notes_subdir = "journal/weekly/",
         date_format = "YYYY/MMMM/YYYY-wWW",
       },
     },
@@ -257,14 +268,14 @@ require("obsidian").setup({
   note_id_func = require("obsidian.builtin").title_id,
   workspaces = {
     {
-      name = "Sync",
-      path = "~/Sync",
+      name = "Documents",
+      path = "~/Documents",
     },
   },
   daily_notes = {
     enabled = true,
-    folder = "journal/",
-    template = "~/Sync/.tmp/daily",
+    folder = "Documents/journal",
+    template = "Documents/.tmp/daily",
     default_tags = { "daily-notes" },
     workdays_only = false,
     date_format = "YYYY/MMMM/YYYY-MM-DD__dddd",
@@ -321,8 +332,8 @@ require("blink.cmp").setup({
     -- keymap = { ["<CR>"] = { "accept", "fallback" } },
     keymap = {
       ["<Tab>"] = { "show", "accept", "fallback" },
-      ["<Up>"] = { "select_prev", "fallback" },
-      ["<Down>"] = { "select_next", "fallback" },
+      ["<Up>"] = { "select_prev" },
+      ["<Down>"] = { "select_next" },
     },
     completion = {
       menu = {
@@ -504,6 +515,7 @@ require("snacks").setup({
           "~/.config/rmpc",
           "~/.config/sway",
           "~/.config/niri",
+          "~/.local/bin",
         },
       },
       todo_comments = { buffers = true, layout = "select" },

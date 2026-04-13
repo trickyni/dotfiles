@@ -1,7 +1,8 @@
 spawn-at-startup "quickshell"
+spawn-at-startup "swaynag -t warning -m 'open qbittorrent?' -Z 'Yes' niri msg action spawn -- 'qbittorrent'"
 prefer-no-csd
 screenshot-path "~/Downloads/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
-
+include "window-rules.kdl"
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
@@ -14,43 +15,24 @@ input {
         }
     }
     touchpad {
-        // off
         tap
-        // dwt
-        // dwtp
-        // drag false
-        // drag-lock
+        drag-lock
         natural-scroll
-        // accel-speed 0.2
-        // accel-profile "flat"
-        // scroll-method "two-finger"
-        // disabled-on-external-mouse
     }
     mouse {
-        // off
-        // natural-scroll
         accel-speed 0.1
         accel-profile "flat"
-        // scroll-method "no-scroll"
     }
     trackpoint {
-      //TODO
-        // off
-        // natural-scroll
-        accel-speed 0.1
-        // accel-profile "flat"
-        // scroll-method "on-button-down"
-        // scroll-button 273
-        // scroll-button-lock
-        // middle-emulation
+        accel-profile "flat"
     }
 }
+
 cursor {
   xcursor-theme "Bibata-Modern-Classic"
   xcursor-size 20
-  hide-when-typing //NOTE hide-when-typing could interfere with some FPS games!
+  // hide-when-typing //NOTE hide-when-typing could interfere with some FPS games!
 }
-
 
 output "eDP-1" {
     mode "1920x1080@60.001"
@@ -72,8 +54,8 @@ layout {
     gaps 4
     // left/right struts can make windows peek a little
     struts {
-        left -3
-        right -3
+        left -4
+        right -4
         top -4
         bottom -4
     }
@@ -91,6 +73,7 @@ layout {
       proportion 0.33333
       proportion 0.5
       proportion 0.66667
+      proportion 1.0
       // fixed 1920
     }
     default-column-width { proportion 0.66667; }
@@ -102,7 +85,7 @@ layout {
     }
     border {
       on
-      width 1
+      width 2
       active-color "#e68d53"
       inactive-color "#5d4f40"
       urgent-color "#e86045"
@@ -121,32 +104,9 @@ hotkey-overlay {
   skip-at-startup
 }
 
-animations {
-    // window-open {
-    //   off
-    // }
-
-    // window-close {
-    //   off
-    // }
-}
-
-window-rule {
-    // This regular expression is intentionally made as specific as possible,
-    // since this is the default config, and we want no false positives.
-    // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
-
-// Open the Firefox picture-in-picture player as floating by default.
-window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    open-floating true
-}
+workspace "main"
+workspace "chat"
+workspace "downloads"
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -167,9 +127,33 @@ window-rule {
     clip-to-geometry true
 }
 
+recent-windows {
+    // off
+    debounce-ms 750
+    open-delay-ms 150
+    highlight {
+        active-color "#4c4134"
+        urgent-color "#e86045"
+        padding 16
+        corner-radius 0
+    }
+    previews {
+        max-height 480
+        max-scale 0.5
+    }
+    binds {
+        Alt+Tab         { next-window; }
+        Alt+Shift+Tab   { previous-window; }
+        Alt+grave       { next-window     filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
+        Mod+Tab         { next-window; }
+        Mod+Shift+Tab   { previous-window; }
+        Mod+grave       { next-window     filter="app-id"; }
+        Mod+Shift+grave { previous-window filter="app-id"; }
+    }
+}
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
-
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Tab hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
@@ -193,7 +177,8 @@ binds {
     // Example media keys mapping using playerctl.
     // This will work with any MPRIS-enabled media player.
     XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    F10                  allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    F10                  allow-when-locked=true { spawn-sh "playerctl -p mpd play-pause"; }
+    Shift+F10            allow-when-locked=true { spawn-sh "playerctl -p firefox play-pause"; }
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
     F11                  allow-when-locked=true { spawn-sh "playerctl stop"; }
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
@@ -232,13 +217,6 @@ binds {
     Mod+Shift+J     { move-window-down-or-to-workspace-down; }
     Mod+Shift+K     { move-window-up-or-to-workspace-up; }
     Mod+Shift+L     { move-column-right; }
-
-    // Alternative commands that move across workspaces when reaching
-    // the first or last window in a column.
-    // Mod+J     { focus-window-or-workspace-down; }
-    // Mod+K     { focus-window-or-workspace-up; }
-    // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
 
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
@@ -377,11 +355,11 @@ binds {
     //TODO Mod+Period { expel-window-from-column; }
 
     Mod+R { switch-preset-column-width; }
-    // Cycling through the presets in reverse order is also possible.
-    // Mod+R { switch-preset-column-width-back; }
-    Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
+    Mod+Shift+R { maximize-column; }
+    Mod+T { switch-preset-window-height; }
+    Mod+Shift+T { reset-window-height; }
+    // Mod+F { maximize-column; }
+    Mod+F { maximize-window-to-edges; }
     Mod+Shift+F { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
@@ -391,7 +369,7 @@ binds {
     Mod+C { center-column; }
 
     // Center all fully visible columns on screen.
-    Mod+Ctrl+C { center-visible-columns; }
+    Mod+Shift+C { center-visible-columns; }
 
     // Finer width adjustments.
     // This command can also:
@@ -448,4 +426,8 @@ binds {
     Mod+Shift+P { power-off-monitors; }
     Mod+P {spawn "~/.local/bin/fuzzel-palette/fuzzel_palette.js"; }
     Mod+Delete hotkey-overlay-title="Dismiss Notifications"{ spawn-sh "makoctl dismiss -a"; }
+    Mod+B repeat=false hotkey-overlay-title="Bluetooth" { spawn "bluetui-wrapper.sh"; }
+    Mod+M repeat=false hotkey-overlay-title="Music" { spawn "rmpc-wrapper.sh"; }
+    Mod+Shift+Insert repeat=false hotkey-overlay-title=null { spawn "niri-rotate.sh"; }
+    Mod+Shift+Backslash repeat=false hotkey-overlay-title=null { spawn "niri-scale.sh"; }
 }

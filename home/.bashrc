@@ -46,6 +46,7 @@ echo -e -n "\x1b[\x35 q" # changes to blinking bar
 
 #   paths
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/usr/lib/qt6/bin/:$PATH"
 #
 #   pager
 export MANPAGER='nvim +Man!'
@@ -83,7 +84,7 @@ eval "$(zoxide init bash)"
 #   taskwarrior completions
 source ~/.task/task_completions.sh
 alias t='task'
-alias tt='task pri.not:x'
+alias tt='task now'
 
 #   yazi
 alias y='yazi'
@@ -138,7 +139,6 @@ alias lockdown-lift='sudo rfkill unblock all'
 #   renames/config loads
 alias nmtui='NEWT_COLORS=$(<~/.config/nmtui/desert-witch.theme) nmtui'
 alias dust='dust -r'
-alias quickshell='swaymsg exec quickshell'
 alias enkidu='ncdu --color off'
 alias grep='grep --color=auto'
 alias cat='bat --theme "ansi" --style="header,grid"'

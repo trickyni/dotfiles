@@ -46,6 +46,12 @@ report.list.labels = ID,proj,p,desc,urg,wait
 report.list.sort = urgency-
 report.list.filter = status:pending or status:waiting 
 
+# report now
+report.now.columns = id,project,priority,description,urgency,wait.relative
+report.now.labels = ID,proj,p,desc,urg,wait
+report.now.sort = urgency-
+report.now.filter = status:pending (priority: or priority:o)
+
 # report md
 report.md.columns = pipe,priority,pipe,description,pipe,project,pipe,wait.relative,pipe
 report.md.labels =,|p,,|desc,,|project,,|wait|, 

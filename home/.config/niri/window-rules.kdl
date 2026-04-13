@@ -1,0 +1,58 @@
+window-rule { //chat belt apps
+  match app-id="org.gajim.Gajim"
+  match app-id="signal" title="Signal"
+  match app-id=r#"^org\.telegram\.desktop$"#
+  open-on-workspace "chat"
+  default-column-width { proportion 0.33333; }
+}
+window-rule { //rmpc
+  match app-id="rmpc" 
+  open-floating true
+  default-column-width { proportion 0.97; }
+  default-window-height { proportion 0.97; }
+  border {
+    active-color "#3eccbe"
+  }
+}
+
+window-rule { //qBittorrent add torrent
+  match app-id=r#"^org\.qbittorrent\.qBittorrent$"#
+  exclude title=r#"^qBittorrent.*"#
+  open-on-workspace "downloads"
+  open-floating true
+  default-window-height { proportion 0.8; }
+  default-column-width { proportion 0.7; }
+}
+
+window-rule { //qBittorrent popups
+  match app-id="org.qbittorrent.qBittorrent" title="Remove torrent(s)"
+  match app-id="org.qbittorrent.qBittorrent" title="Exiting qBittorrent"
+  open-floating true
+  default-window-height { proportion 0.2; }
+  default-column-width { proportion 0.3; }
+}
+
+window-rule { //qBittorrent
+  match app-id="org.qbittorrent.qBittorrent" title=r#"^qBittorrent.*"#
+  open-on-workspace "downloads"
+  open-maximized-to-edges true
+  open-floating false
+}
+
+window-rule { //bluetui
+  match title="bluetui"
+  match app-id="bluetui"
+  open-floating true
+  default-window-height { proportion 0.6; }
+  default-column-width { proportion 0.9; }
+}
+
+window-rule { //steam notification fix
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+window-rule { // Firefox picture-in-picture player as floating by default.
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
