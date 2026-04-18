@@ -4,7 +4,6 @@ line-color=#C1A387
 
 indicator-radius=200
 indicator-thickness=2
-hide-keyboard-layout
 indicator-idle-visible
 
 line-clear-color=#5D4F40
@@ -23,3 +22,8 @@ line-caps-lock-color=#3ECCBE
 text-caps-lock-color=#000000
 inside-caps-lock-color=#000000
 
+font=ProggyCleanSZ Nerd Font Mono
+font-size=32
+layout-bg-color=#3b3228
+layout-border-color=#3b3228
+layout-text-color=#afd2e9

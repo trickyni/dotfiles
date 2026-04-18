@@ -275,7 +275,7 @@ require("obsidian").setup({
   daily_notes = {
     enabled = true,
     folder = "Documents/journal",
-    template = "Documents/.tmp/daily",
+    template = "~/Documents/.tmp/daily",
     default_tags = { "daily-notes" },
     workdays_only = false,
     date_format = "YYYY/MMMM/YYYY-MM-DD__dddd",
@@ -513,8 +513,6 @@ require("snacks").setup({
         projects = {
           "~/.config/nvim",
           "~/.config/rmpc",
-          "~/.config/sway",
-          "~/.config/niri",
           "~/.local/bin",
         },
       },

@@ -2,6 +2,7 @@ window-rule { //chat belt apps
   match app-id="org.gajim.Gajim"
   match app-id="signal" title="Signal"
   match app-id=r#"^org\.telegram\.desktop$"#
+  match app-id="cinny" title="Cinny"
   open-on-workspace "chat"
   default-column-width { proportion 0.33333; }
 }

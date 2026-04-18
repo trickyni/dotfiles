@@ -2,4 +2,5 @@
 if pgrep -x quickshell; then
   killall quickshell
 fi
-niri msg action spawn -- "quickshell"
+# quickshell --no-duplicate --daemonize
+niri msg action spawn-sh -- "quickshell --no-duplicate --daemonize"

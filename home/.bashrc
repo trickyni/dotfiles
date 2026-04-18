@@ -119,8 +119,8 @@ export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
 export ELECTRON_OZONE_PLATFORM_HINT=x11
 export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
-export XDG_CURRENT_DESKTOP=sway
-export XDG_SESSION_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=niri
+export XDG_SESSION_DESKTOP=niri
 export ELECTRON_OZONE_PLATFORM_HINT=wayland
 alias obsidian='obsidian --ozone-platform=wayland'
 
@@ -186,7 +186,9 @@ alias termdown='termdown -f doh'
 
 alias meiscan="scanimage --device 'hpaio:/net/hp_laserjet_m1536dnf_mfp?ip=192.168.0.9&queue=false' --format=png --resolution 300 --mode Color -p -o"
 
-function timer() {
-  termdown "$1"
-  notify-send -w "${2:-BEEP}"
-}
+# function timer() {
+#   termdown "$1"
+#   notify-send -w "${2:-BEEP}"
+# }
+alias timer='qs ipc call timer set'
+alias tstop='qs ipc call timer stop'

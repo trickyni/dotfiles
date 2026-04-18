@@ -66,11 +66,11 @@ require("mini.surround").config.custom_surroundings = {
 ---- RenderMarkdown ------------------------------------------------------------
 vim.g.render_markdown_config = {
   render_modes = true,
-  -- on = {
-  --   initial = function()
-  --     vim.cmd("syntax clear Emdash")
-  --   end,
-  -- },
+  on = {
+    initial = function()
+      vim.cmd("syntax clear Emdash")
+    end,
+  },
   completions = { lsp = { enabled = true } },
   checkbox = {
     checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
@@ -122,6 +122,7 @@ vim.g.render_markdown_config = {
     left_margin = 0,
   },
   latex = { enabled = false },
+  html = { comment = { conceal = false } },
 }
 
 vim.g.bullets_checkbox_markers = " abodeX"

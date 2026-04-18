@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Quickshell
 Exec=quickshell-wrapper.sh
+# Exec=quickshell --no-duplicate --daemonize
 Icon=UI-pixel-bg
 Terminal=false
 Type=Application
