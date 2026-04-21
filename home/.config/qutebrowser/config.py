@@ -19,7 +19,7 @@ config.bind(
 c.aliases["cheatsheet"] = (
     "open https://raw.githubusercontent.com/qutebrowser/qutebrowser/main/doc/img/cheatsheet-big.png"
 )
-c.aliases["m"] = "open !mw"
+c.aliases["mw"] = "open !mw"
 c.aliases["mwt"] = "open !mwt"
 c.aliases["rz"] = "open !rz"
 c.aliases["w"] = "open !w"

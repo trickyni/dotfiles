@@ -66,7 +66,7 @@ map("n", "ycc", "yygccp", { remap = true, desc = "Duplicate line and comment ori
 map("n", "<C-/>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show floating diagnostic" })
 map("n", "<leader><leader>", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
 map({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>", { desc = "yazi" })
-map({ "n", "v" }, "<C-Bslash>", "<cmd>lua Snacks.picker.explorer()<CR>", { desc = "yazi" })
+map({ "n", "v" }, "<C-Bslash>", "<cmd>lua Snacks.picker.explorer()<CR>")
 map({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = "Find/Replace" })
 map("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
 map("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
@@ -255,10 +255,17 @@ map("n", "<leader>ov", "<cmd><CR>", { desc = "Switch vault" })
 require("obsidian").setup({
   ui = { enable = false },
   legacy_commands = false,
+  workspaces = {
+    {
+      name = "Documents",
+      path = "~/Documents",
+      strict = true,
+    },
+  },
   checkbox = { enabled = false },
   footer = { format = "{{words}} words  {{backlinks}} backlinks" },
   templates = {
-    folder = "Documents/.tmp",
+    folder = ".tmp",
     customizations = {
       weekly = {
         date_format = "YYYY/MMMM/YYYY-wWW",
@@ -266,16 +273,10 @@ require("obsidian").setup({
     },
   },
   note_id_func = require("obsidian.builtin").title_id,
-  workspaces = {
-    {
-      name = "Documents",
-      path = "~/Documents",
-    },
-  },
   daily_notes = {
     enabled = true,
-    folder = "Documents/journal",
-    template = "~/Documents/.tmp/daily",
+    folder = "journal",
+    template = ".tmp/daily.md",
     default_tags = { "daily-notes" },
     workdays_only = false,
     date_format = "YYYY/MMMM/YYYY-MM-DD__dddd",
@@ -317,7 +318,7 @@ require("blink.cmp").setup({
         module = "blink-nerdfont",
         name = "Nerd Fonts",
         score_offset = 15, -- Tune by preference
-        opts = { insert = true, trigger = ";" }, -- Insert nerdfont icon (default) or complete its name
+        opts = { insert = true, trigger = ":" }, -- Insert nerdfont icon (default) or complete its name
       },
       emoji = {
         module = "blink-emoji",
