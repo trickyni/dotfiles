@@ -35,6 +35,12 @@ cursor {
   // hide-when-typing //NOTE hide-when-typing could interfere with some FPS games!
 }
 
+gestures {
+  hot-corners {
+    top-right
+  }
+}
+
 output "eDP-1" {
     mode "1920x1080@60.001"
     backdrop-color "#3b3228"

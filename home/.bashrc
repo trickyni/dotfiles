@@ -173,8 +173,8 @@ alias ytdlp='yt-dlp \
 alias ytmp3='yt-dlp \
 -f ba \
 --extract-audio --audio-format flac --audio-quality 0 \
--P "~/Downloads/ \
--o %(uploader)s - %(title)s.%(ext)s" \
+-P "~/Downloads/" \
+-o "%(uploader)s - %(title)s.%(ext)s" \
 --embed-metadata --embed-chapters --no-write-info-json --embed-thumbnail \
 --cookies-from-browser firefox'
 

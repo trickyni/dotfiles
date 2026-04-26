@@ -32,6 +32,7 @@ vim.opt.list           = true      -- show trailing whitespaces and tab characte
 vim.opt.listchars      = { tab = "» ", trail = "·", nbsp = "␣"}
 vim.opt.timeoutlen     = 300       --timeout on keys with followups
 vim.opt.winborder      = "rounded" --border for floating windows
+vim.opt.pumborder      = "rounded" --border for popup menus
 vim.opt.spelllang      = "en_us"
 vim.opt.smoothscroll   = true
 vim.opt.splitright     = true
@@ -79,6 +80,10 @@ map({ "n", "v" }, '<leader>"', "<cmd>lua Snacks.picker.registers()<CR>", { desc 
 map("n", "<leader>g", "<cmd>Gitsigns toggle_linehl<CR>", { desc = "Toggle Diff" })
 map("n", "grf", "<cmd>lua require('conform').format()<CR>", { desc = "Format buffer" })
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "LSP go to definition" })
+map("n", "<leader>ot", "<cmd>Journal <CR>", { desc = "Today's daily note" })
+map("n", "<leader>on", "<cmd>Journal +1<CR>", { desc = "Tomorrow's daily note" })
+map("n", "<leader>oy", "<cmd>Journal -1<CR>", { desc = "Yesterday's daily note" })
+map("n", "<leader>of", "<cmd>Obsidian quick_switch<CR>", { desc = "Pick from vault" })
 
 ---- Behaviors -----------------------------------------------------------------
 vim.api.nvim_create_autocmd("TextYankPost", { --highlights text on yank
@@ -118,6 +123,7 @@ vim.diagnostic.config({
 })
 
 ---- Plugins -------------------------------------------------------------------
+
 vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" }, --INFO one copilot commit
   { src = "https://github.com/nvim-lua/plenary.nvim" }, --CHECKED: no LLMs
@@ -127,6 +133,10 @@ vim.pack.add({
   { src = "https://github.com/nvim-mini/mini.splitjoin" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-mini/mini.pairs" }, --CHECKED: no LLMs
   { src = "https://github.com/nvim-mini/mini.tabline" }, --CHECKED: no LLMs
+  { src = "https://github.com/nvim-mini/mini.snippets" }, --CHECKED: no LLMs
+  { src = "https://github.com/nvim-mini/mini.completion" }, --CHECKED: no LLMs
+  { src = "https://github.com/nvim-mini/mini.keymap" }, --CHECKED: no LLMs
+  { src = "https://github.com/nvim-mini/mini.icons" }, --CHECKED: no LLMs
   { src = "https://github.com/folke/todo-comments.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/folke/zen-mode.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/folke/which-key.nvim" }, --CHECKED: no LLMs
@@ -143,10 +153,6 @@ vim.pack.add({
   { src = "https://github.com/nvim-lualine/lualine.nvim" }, --CHECKED: no LLMs
   { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/stevearc/conform.nvim" }, --CHECKED: no LLMs
-  { src = "https://github.com/saghen/blink.cmp" }, --CHECKED: no LLMs
-  { src = "https://github.com/MahanRahmati/blink-nerdfont.nvim" }, --CHECKED: no LLMs
-  { src = "https://github.com/moyiz/blink-emoji.nvim" }, --CHECKED: no LLMs
-  { src = "https://github.com/Saghen/blink.compat" }, --CHECKED: no LLMs
   { src = "https://github.com/dimtion/guttermarks.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/cosmicbuffalo/eyeliner.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/abecodes/tabout.nvim" }, --CHECKED: no LLMs
@@ -154,10 +160,12 @@ vim.pack.add({
   { src = "https://github.com/alex-popov-tech/store.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/obsidian-nvim/obsidian.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/MagicDuck/grug-far.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/jakobkhansen/journal.nvim" }, --CHECKED: no LLMs
 })
 
 -- vim.g.wiki_root = "~/Sync/"
 require("mini.pairs").setup()
+require("mini.icons").setup()
 require("grug-far").setup({
   keymaps = {
     replace = { n = "<C-CR>" },
@@ -193,6 +201,13 @@ vim.cmd("cnoreabbrev norm Norm")
 vim.cmd("cnoreabbrev normal Normal")
 vim.cmd("cnoreabbrev glo Glo")
 vim.cmd("cnoreabbrev global Global")
+
+---- mini.keymap ---------------------------------------------------------------
+local map_multistep = require("mini.keymap").map_multistep
+map_multistep("i", "<Tab>", { "pmenu_next" })
+map_multistep("i", "<S-Tab>", { "pmenu_prev" })
+map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
+map_multistep("i", "<BS>", { "minipairs_bs" })
 
 ---- conform.nvim --------------------------------------------------------------
 require("conform").setup({
@@ -242,15 +257,26 @@ require("nvim-treesitter").install({
   "xml",
   "yaml",
 })
+---- mini.snippets -------------------------------------------------------------
+local gen_loader = require("mini.snippets").gen_loader
+require("mini.snippets").setup({
+  snippets = {
+    -- Load custom file with global snippets first (adjust for Windows)
+    gen_loader.from_file("~/.config/nvim/snippets/global.json"),
 
+    -- Load snippets based on current language by reading files from
+    -- "snippets/" subdirectories from 'runtimepath' directories.
+    gen_loader.from_lang(),
+  },
+  mappings = {
+    expand = "<C-CR>",
+    jump_next = "<C-Right>",
+    jump_prev = "<C-Left>",
+    stop = "<C-c>",
+  },
+})
 ---- obsidian.nvim -------------------------------------------------------------
 -- keymaps
-map("n", "<leader>od", "<cmd>Obsidian dailies<CR>", { desc = "Daily notes picker" })
-map("n", "<leader>ot", "<cmd>Obsidian today<CR>", { desc = "Today's daily note" })
-map("n", "<leader>on", "<cmd>Obsidian tomorrow<CR>", { desc = "Tomorrow's daily note" })
-map("n", "<leader>oy", "<cmd>Obsidian yesterday<CR>", { desc = "Yesterday's daily note" })
-map("n", "<leader>of", "<cmd>Obsidian quick_switch<CR>", { desc = "Pick from vault" })
-map("n", "<leader>ov", "<cmd><CR>", { desc = "Switch vault" })
 -- Config
 require("obsidian").setup({
   ui = { enable = false },
@@ -264,23 +290,8 @@ require("obsidian").setup({
   },
   checkbox = { enabled = false },
   footer = { format = "{{words}} words  {{backlinks}} backlinks" },
-  templates = {
-    folder = ".tmp",
-    customizations = {
-      weekly = {
-        date_format = "YYYY/MMMM/YYYY-wWW",
-      },
-    },
-  },
   note_id_func = require("obsidian.builtin").title_id,
-  daily_notes = {
-    enabled = true,
-    folder = "journal",
-    template = ".tmp/daily.md",
-    default_tags = { "daily-notes" },
-    workdays_only = false,
-    date_format = "YYYY/MMMM/YYYY-MM-DD__dddd",
-  },
+  daily_notes = { enabled = false },
   callbacks = {
     enter_note = function(note)
       vim.keymap.del("n", "<CR>", { buffer = true })
@@ -289,14 +300,69 @@ require("obsidian").setup({
   },
 })
 
+---- journal.nvim --------------------------------------------------------------
+require("journal").setup({
+  filetype = "md", -- Filetype to use for new journal entries
+  root = "~/Documents/journal", -- Root directory for journal entries
+  date_format = "%d/%m/%Y", -- Date format for `:Journal <date-modifier>`
+  autocomplete_date_modifier = "end", -- "always"|"never"|"end". Enable date modifier autocompletion
+
+  -- Configuration for journal entries
+  journal = {
+    -- Default configuration for `:Journal <date-modifier>`
+    format = "%Y/%m-%B/daily/%Y-%m-%d__%A",
+    template = "---\nid: %Y-%m-%d__%A\naliases: []\ntags:\n - daily-notes\n---\n\n# %Y-%m-%d__%A\n\n## Achievements\n\n## Reflect\n\n## Do\n\n## Observations\n\n## Gratitude\n",
+    frequency = { day = 1 },
+
+    -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
+    entries = {
+      day = {
+        format = "%Y/%m-%B/daily/%Y-%m-%d__%A",
+        template = "---\nid: %Y-%m-%d__%A\naliases: []\ntags:\n - daily-notes\n---\n\n# %Y-%m-%d__%A\n\n## Achievements\n\n## Reflect\n\n## Do\n\n## Observations\n\n## Gratitude\n",
+        frequency = { day = 1 },
+      },
+      week = {
+        format = function()
+          local sundayWeek = tonumber(os.date("%U")) + 1
+          return "%Y/%m-%B/weekly/%Y-w" .. sundayWeek
+        end,
+        template = function(date)
+          local sunday = date:relative({ day = 6 })
+          local sundayWeek = tonumber(os.date("%U")) + 1
+          local end_date = os.date("%A %d/%m", os.time(sunday.date))
+          return "# Week " .. sundayWeek .. "  - %A %d/%m -> " .. end_date .. "\n"
+        end,
+        frequency = { day = 7 },
+        date_modifier = "sunday",
+      },
+      month = {
+        format = "%Y/%m-%B/%B",
+        template = "# %B %Y\n",
+        frequency = { month = 1 },
+      },
+      year = {
+        format = "%Y/%Y",
+        template = "# %Y\n",
+        frequency = { year = 1 },
+      },
+    },
+  },
+})
+
 ---- blink.cmp -----------------------------------------------------------------
-require("blink.cmp").setup({
+vim.pack.add({
+  { src = "https://github.com/saghen/blink.lib" },
+  { src = "https://github.com/saghen/blink.cmp" },
+})
+local cmp = require("blink.cmp")
+cmp.build():wait(60000)
+cmp.setup({
   keymap = {
     preset = "enter",
     ["<Tab>"] = { "select_next", "fallback" },
     ["<S-Tab>"] = { "select_prev", "fallback" },
   },
-  fuzzy = { implementation = "lua" },
+  fuzzy = { implementation = "rust" },
   appearance = { nerd_font_variant = "mono" },
   completion = {
     accept = { auto_brackets = { enabled = true } },
@@ -312,21 +378,7 @@ require("blink.cmp").setup({
     },
   },
   sources = {
-    default = { "lsp", "path", "snippets", "omni", "nerdfont", "emoji" },
-    providers = {
-      nerdfont = {
-        module = "blink-nerdfont",
-        name = "Nerd Fonts",
-        score_offset = 15, -- Tune by preference
-        opts = { insert = true, trigger = ":" }, -- Insert nerdfont icon (default) or complete its name
-      },
-      emoji = {
-        module = "blink-emoji",
-        name = "Emoji",
-        score_offset = 15, -- Tune by preference
-        opts = { insert = true, trigger = ":" },
-      },
-    },
+    default = { "lsp", "path", "snippets", "omni" },
   },
   cmdline = {
     enabled = true,
@@ -522,3 +574,6 @@ require("snacks").setup({
     },
   },
 })
+
+vim.pack.add({ { src = "https://github.com/coder/claudecode.nvim" } })
+require("claudecode").setup()

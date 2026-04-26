@@ -63,6 +63,7 @@ require("mini.surround").config.custom_surroundings = {
 }
 
 ---- Plugins -------------------------------------------------------------------
+
 ---- RenderMarkdown ------------------------------------------------------------
 vim.g.render_markdown_config = {
   render_modes = true,
@@ -113,7 +114,6 @@ vim.g.render_markdown_config = {
     icons = { " Ⅰ ", " Ⅱ ", " Ⅲ ", " Ⅳ ", " Ⅴ ", " Ⅵ " },
     -- icons = { " 🯱 ", " 🯲 ", " 🯳 ", " 🯴 ", " 🯵 ", " 🯶 " },
   },
-
   dash = {
     enabled = true,
     render_modes = false,
