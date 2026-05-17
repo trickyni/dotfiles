@@ -68,6 +68,7 @@ alias ll='eza -laohb --no-time --no-permissions --group-directories-first'
 #   FZF
 export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/fzf-config
 eval "$(fzf --bash)"
+# Print tree structure in the preview window
 
 #   starship
 eval "$(starship init bash)"
@@ -80,6 +81,10 @@ alias hometrack='homeshick track dotfiles'
 
 #   zoxide
 eval "$(zoxide init bash)"
+
+export _ZO_FZF_OPTS='--exact --layout=reverse --keep-right --info=inline --height=100% --no-sort --border --preview "eza -a1 {2..}"'
+stty quit undef
+bind -x '"\C-\\":"zi"'
 
 #   taskwarrior completions
 source ~/.task/task_completions.sh
@@ -183,8 +188,6 @@ alias lavat='lavat -s 7 -c blue -k yellow'
 alias archive_website='wget --mirror --convert-links --adjust-extension --page-requisites --no-parent'
 
 alias termdown='termdown -f doh'
-
-alias meiscan="scanimage --device 'hpaio:/net/hp_laserjet_m1536dnf_mfp?ip=192.168.0.9&queue=false' --format=png --resolution 300 --mode Color -p -o"
 
 # function timer() {
 #   termdown "$1"

@@ -19,12 +19,9 @@ local map = vim.keymap.set
 map("n", "grl", '<cmd>lua vim.lsp.enable({"ltex_plus","markdown_oxide"})<CR>', { desc = "Enable ltex_ls" })
 map({ "n", "v" }, "k", "gk", { remap = false, buffer = true, silent = true })
 map({ "n", "v" }, "j", "gj", { remap = false, buffer = true, silent = true })
-map("n", "<CR>", "<cmd>ToggleCheckbox<CR>", { remap = false, buffer = true })
--- map("n", "gf", "<cmd>lua require('follow-md-links').follow_link()<CR>", { noremap = true })
-map("n", "gf", "<cmd>Obsidian follow_link<CR>", { desc = "Follow link", remap = false })
 map("n", "gb", "<cmd>Obsidian backlinks<CR>", { desc = "Backlinks", remap = false })
 map("n", "o", "<cmd>InsertNewBullet<CR>", { remap = false, buffer = true })
-map("i", "<CR>", "<cmd>InsertNewBullet<CR>", { remap = false, buffer = true })
+
 map(
   "n",
   "<leader>if",
@@ -44,6 +41,7 @@ map(
   { remap = false, buffer = true, desc = "Next footnote" }
 )
 map("n", "<leader>mm", "<cmd>MarkmapOpen<CR>", { buffer = true, desc = "Open MarkMap" })
+
 ---- Custom Syntax -------------------------------------------------------------
 vim.cmd('syntax region ScarletText matchgroup=Conceal start="+R|" end="|+" concealends')
 vim.cmd('syntax region MossText matchgroup=Conceal start="+G|" end="|+" concealends')
@@ -62,16 +60,11 @@ require("mini.surround").config.custom_surroundings = {
   ["T"] = { output = { left = "+T|", right = "|+" } },
 }
 
----- Plugins -------------------------------------------------------------------
+-------- Plugins ---------------------------------------------------------------
 
 ---- RenderMarkdown ------------------------------------------------------------
 vim.g.render_markdown_config = {
   render_modes = true,
-  on = {
-    initial = function()
-      vim.cmd("syntax clear Emdash")
-    end,
-  },
   completions = { lsp = { enabled = true } },
   checkbox = {
     checked = { icon = "󰫈", scope_highlight = "RenderMarkdownCheckedItem" },
@@ -126,6 +119,7 @@ vim.g.render_markdown_config = {
 }
 
 vim.g.bullets_checkbox_markers = " abodeX"
+vim.g.bullets_set_mappings = 0
 require("conform").formatters_by_ft.markdown = { "rumdl" }
 vim.pack.add({
   { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" }, --CHECKED: no LLMs
@@ -133,7 +127,6 @@ vim.pack.add({
   { src = "https://github.com/selimacerbas/live-server.nvim" }, --FIX LLM
   { src = "https://github.com/bullets-vim/bullets.vim" }, --CHECKED: no LLMs
   { src = "https://github.com/chenxin-yan/footnote.nvim" }, --CHECKED: no LLMs
-  -- { src = "https://github.com/jghauser/follow-md-links.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/Zeioth/markmap.nvim" }, --CHECKED: no LLMs
 })
 

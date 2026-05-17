@@ -59,31 +59,34 @@ map("n", "<S-Right>", ">>", { desc = "Move line right", remap = false, silent = 
 map("n", "<S-Left>", "<<", { desc = "Move line left", remap = false, silent = true })
 map("v", "<S-Right>", ">gv", { desc = "Move line right", remap = false, silent = true })
 map("v", "<S-Left>", "<gv", { desc = "Move line left", remap = false, silent = true })
+-- rebind Shift+left/right to Ctrl+left/right
+map("n", "<C-Right>", "w", { remap = false, silent = true })
+map("n", "<C-Left>", "b", { remap = false, silent = true })
+map("i", "<C-Right>", "<S-Right>", { remap = false, silent = true })
+map("i", "<C-Left>", "<S-Left>", { remap = false, silent = true })
 -- bottom of the file and center screen
 map("n", "G", "Gzz", { remap = false, silent = true })
 -- Other
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clear highlights" })
 map("n", "ycc", "yygccp", { remap = true, desc = "Duplicate line and comment original" })
-map("n", "<C-/>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show floating diagnostic" })
+map("n", "<C-'>", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Show floating diagnostic" })
 map("n", "<leader><leader>", "<cmd>ZenMode<CR>", { desc = "Zen mode" })
-map({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>", { desc = "yazi" })
+map({ "n", "v" }, "<Bslash>", "<cmd>Yazi<CR>")
 map({ "n", "v" }, "<C-Bslash>", "<cmd>lua Snacks.picker.explorer()<CR>")
 map({ "n", "x" }, "<leader>s", "<Cmd>RipSubstitute<CR>", { desc = "Find/Replace" })
 map("n", "<leader>d", "<cmd>Trouble diagnostics toggle<CR>", { desc = "Diagnostics" })
 map("n", "<leader>r", "<cmd>lua Snacks.picker.recent()<CR>", { desc = "Recent Files" })
 map("n", "<leader>p", "<cmd>lua Snacks.picker.projects()<CR>", { desc = "Projects" })
-map("n", "<leader>m", "<cmd>lua Snacks.picker.man()<CR>", { desc = "Man-pages" })
-map("n", "<leader>t", "<cmd>lua Snacks.picker.todo_comments()<CR>", { desc = "Todo comments" })
-map("n", "<leader>z", "<cmd>lua Snacks.picker.zoxide()<CR>", { desc = "Zoxide" })
 map("n", "<leader>f", "<cmd>GrugFar<CR>", { desc = "Grug-Far" })
-map({ "n", "v" }, '<leader>"', "<cmd>lua Snacks.picker.registers()<CR>", { desc = "Registers" })
 map("n", "<leader>g", "<cmd>Gitsigns toggle_linehl<CR>", { desc = "Toggle Diff" })
 map("n", "grf", "<cmd>lua require('conform').format()<CR>", { desc = "Format buffer" })
+map("n", "grl", "<cmd>Trouble lsp_references<CR>", { desc = "references" })
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "LSP go to definition" })
 map("n", "<leader>ot", "<cmd>Journal <CR>", { desc = "Today's daily note" })
 map("n", "<leader>on", "<cmd>Journal +1<CR>", { desc = "Tomorrow's daily note" })
 map("n", "<leader>oy", "<cmd>Journal -1<CR>", { desc = "Yesterday's daily note" })
 map("n", "<leader>of", "<cmd>Obsidian quick_switch<CR>", { desc = "Pick from vault" })
+map("n", "<leader>o#", "<cmd>Obsidian tags<CR>", { desc = "Pick from vault" })
 
 ---- Behaviors -----------------------------------------------------------------
 vim.api.nvim_create_autocmd("TextYankPost", { --highlights text on yank
@@ -96,7 +99,6 @@ vim.api.nvim_create_autocmd("TextYankPost", { --highlights text on yank
 vim.schedule(function() -- sync OS/nvim clipboards
   vim.o.clipboard = "unnamedplus"
 end)
-
 ---- Diagnostic configs --------------------------------------------------------
 vim.diagnostic.config({
   severity_sort = true,
@@ -155,40 +157,35 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/dimtion/guttermarks.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/cosmicbuffalo/eyeliner.nvim" }, --CHECKED: no LLMs
-  { src = "https://github.com/abecodes/tabout.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/tpope/vim-abolish" }, --CHECKED: no LLMs
-  { src = "https://github.com/alex-popov-tech/store.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/obsidian-nvim/obsidian.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/MagicDuck/grug-far.nvim" }, --CHECKED: no LLMs
   { src = "https://github.com/jakobkhansen/journal.nvim" }, --CHECKED: no LLMs
+  { src = "https://github.com/saghen/blink.lib" },
+  { src = "https://github.com/saghen/blink.cmp" },
 })
-
--- vim.g.wiki_root = "~/Sync/"
+require("plugins.pack-ui")
 require("mini.pairs").setup()
 require("mini.icons").setup()
+require("mini.comment").setup()
+require("mini.splitjoin").setup()
+require("mini.surround").setup()
+require("mini.align").setup()
+require("eyeliner").setup({ dim = true, disabled_buftypes = { "nofile" } })
+require("rip-substitute").setup({ prefill = { normal = false } })
+require("gitsigns").setup({ signs = { delete = "─" } })
+require("yazi").setup({ yazi_floating_window_border = "rounded", open_for_directories = true })
+require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
+require("colorizer").setup({ options = { parsers = { names = { enable = false } } } })
+require("neoscroll").setup({ easing = "sine", use_local_scrolloff = true })
+map("n", "<PageUp>", "<cmd>lua require('neoscroll').ctrl_u({duration=300})<CR>", { remap = true })
+map("n", "<PageDown>", "<cmd>lua require('neoscroll').ctrl_d({duration=300})<CR>", { remap = true })
 require("grug-far").setup({
   keymaps = {
     replace = { n = "<C-CR>" },
     close = { n = "q" },
   },
 })
-require("mini.comment").setup()
-require("mini.splitjoin").setup()
-require("mini.surround").setup()
-require("mini.align").setup()
-require("eyeliner").setup({ dim = true, disabled_buftypes = { "nofile" } })
-require("rip-substitute").setup({
-  popupWin = { border = "rounded" },
-  prefill = { normal = false },
-})
-require("gitsigns").setup({ signs = { delete = "─" } })
-require("yazi").setup({ yazi_floating_window_border = "rounded", open_for_directories = true })
-require("trouble").setup({ focus = true, multiline = true, keys = { ["<esc>"] = "close" } })
-require("tabout").setup({ completion = true, act_as_tab = true })
-require("colorizer").setup({ options = { parsers = { names = { enable = false } } } })
-require("neoscroll").setup({ easing = "sine", use_local_scrolloff = true })
-map("n", "<PageUp>", "<cmd>lua require('neoscroll').ctrl_u({duration=300})<CR>", { remap = true })
-map("n", "<PageDown>", "<cmd>lua require('neoscroll').ctrl_d({duration=300})<CR>", { remap = true })
 require("live-command").setup({
   enable_highlighting = true,
   inline_highlighting = true,
@@ -203,11 +200,41 @@ vim.cmd("cnoreabbrev glo Glo")
 vim.cmd("cnoreabbrev global Global")
 
 ---- mini.keymap ---------------------------------------------------------------
-local map_multistep = require("mini.keymap").map_multistep
-map_multistep("i", "<Tab>", { "pmenu_next" })
-map_multistep("i", "<S-Tab>", { "pmenu_prev" })
-map_multistep("i", "<CR>", { "pmenu_accept", "minipairs_cr" })
-map_multistep("i", "<BS>", { "minipairs_bs" })
+--stylua: ignore start
+local n_cr_steps = {}
+n_cr_steps[1] = {
+  condition = function() return vim.bo.filetype == "markdown" end,
+  action = function() return "<cmd>ToggleCheckbox<CR>j" end,
+}
+n_cr_steps[2] = {
+  condition = function() return require("obsidian.api").cursor_link() end,
+  action = function() return "<cmd>Obsidian follow_link<CR>" end,
+}
+n_cr_steps[3] = {
+  condition = function() return require("obsidian.api").cursor_tag() end,
+  action = function() return "<cmd>Obsidian tags<CR>" end,
+}
+
+local i_cr_steps = {"blink_accept",nil,"minipairs_cr"}
+i_cr_steps[2] = {
+  condition = function() return vim.bo.filetype == "markdown" end,
+  action = function() return "<cmd>InsertNewBullet<CR>" end,
+}
+
+local multistep = require("mini.keymap").map_multistep
+multistep("i", "<Tab>", { "minisnippets_next", "minisnippets_expand", "blink_next", "jump_after_close" })
+multistep("i", "<S-Tab>", { "minisnippets_prev", "blink_prev", "jump_before_open" })
+multistep("i", "<BS>", { "minipairs_bs" })
+multistep("i", "<CR>", i_cr_steps)
+multistep("n", "<CR>", n_cr_steps)
+--stylua: ignore end
+local combo = require("mini.keymap").map_combo
+combo("i", "((", "<BS><BS>(", { delay = 300 })
+combo("i", "[[", "<BS><BS>[", { delay = 300 })
+combo("i", "{{", "<BS><BS>{", { delay = 300 })
+combo("i", '""', '<BS><BS>"', { delay = 300 })
+combo("i", "''", "<BS><BS>'", { delay = 300 })
+combo("i", "``", "<BS><BS>`", { delay = 300 })
 
 ---- conform.nvim --------------------------------------------------------------
 require("conform").setup({
@@ -222,7 +249,7 @@ require("conform").setup({
   },
   formatters = {
     prettier = {
-      prepend_args = { "--tab-width", "2", "--experimental-ternaries", "true" },
+      prepend_args = { "--tab-width", "2" },
     },
   },
 })
@@ -232,108 +259,103 @@ vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 require("nvim-treesitter").setup({
   highlight = { enable = true },
 })
+--stylua: ignore
 require("nvim-treesitter").install({
-  "caddy",
-  "css",
-  "csv",
-  "desktop",
-  "diff",
-  "dockerfile",
-  "editorconfig",
-  "git_config",
-  "git_rebase",
-  "gitcommit",
-  "gitignore",
-  "html",
-  "jq",
-  "kitty",
-  "regex",
-  "robots_txt",
-  "sql",
-  "tmux",
-  "typst",
-  "sway",
-  "vimdoc",
-  "xml",
-  "yaml",
+  "caddy", "css", "csv", "desktop", "diff", "dockerfile", "editorconfig", "git_config", "git_rebase", "gitcommit", "gitignore", "html", "jq", "kitty", "regex", "robots_txt", "sql", "tmux", "typst", "sway", "vimdoc", "xml", "yaml",
 })
 ---- mini.snippets -------------------------------------------------------------
 local gen_loader = require("mini.snippets").gen_loader
 require("mini.snippets").setup({
   snippets = {
-    -- Load custom file with global snippets first (adjust for Windows)
-    gen_loader.from_file("~/.config/nvim/snippets/global.json"),
-
-    -- Load snippets based on current language by reading files from
-    -- "snippets/" subdirectories from 'runtimepath' directories.
+    -- gen_loader.from_file("~/.config/nvim/snippets/global.json"),
     gen_loader.from_lang(),
   },
-  mappings = {
-    expand = "<C-CR>",
-    jump_next = "<C-Right>",
-    jump_prev = "<C-Left>",
-    stop = "<C-c>",
-  },
+  mappings = { stop = "<C-c>" },
 })
+MiniSnippets.start_lsp_server({ match = false })
+
 ---- obsidian.nvim -------------------------------------------------------------
--- keymaps
--- Config
+vim.g.obsidian_default_keymap = false
 require("obsidian").setup({
-  ui = { enable = false },
-  legacy_commands = false,
-  workspaces = {
-    {
-      name = "Documents",
-      path = "~/Documents",
-      strict = true,
-    },
-  },
-  checkbox = { enabled = false },
+  workspaces = { { name = "Documents", path = "~/Documents", strict = true } },
   footer = { format = "{{words}} words  {{backlinks}} backlinks" },
   note_id_func = require("obsidian.builtin").title_id,
+  ui = { enable = false },
+  legacy_commands = false,
+  checkbox = { enabled = false },
   daily_notes = { enabled = false },
-  callbacks = {
-    enter_note = function(note)
-      vim.keymap.del("n", "<CR>", { buffer = true })
-      vim.keymap.set("n", "<CR>", "<cmd>ToggleCheckbox<CR>j", { remap = false, buffer = true })
-    end,
-  },
 })
 
 ---- journal.nvim --------------------------------------------------------------
+local weekday_format = "%Y/%m-%B/daily/%Y-%m-%d__%A"
+local weekday_template =
+  "---\nid: %Y-%m-%d__%A\naliases: []\ntags:\n - daily-notes\n---\n\n# %Y-%m-%d__%A\n\n## Achievements\n\n## Reflect\n\n## Do\n\n## Observations\n\n## Gratitude\n"
 require("journal").setup({
-  filetype = "md", -- Filetype to use for new journal entries
-  root = "~/Documents/journal", -- Root directory for journal entries
-  date_format = "%d/%m/%Y", -- Date format for `:Journal <date-modifier>`
-  autocomplete_date_modifier = "end", -- "always"|"never"|"end". Enable date modifier autocompletion
-
-  -- Configuration for journal entries
-  journal = {
-    -- Default configuration for `:Journal <date-modifier>`
-    format = "%Y/%m-%B/daily/%Y-%m-%d__%A",
-    template = "---\nid: %Y-%m-%d__%A\naliases: []\ntags:\n - daily-notes\n---\n\n# %Y-%m-%d__%A\n\n## Achievements\n\n## Reflect\n\n## Do\n\n## Observations\n\n## Gratitude\n",
+  filetype = "md",
+  root = "~/Documents/journal",
+  date_format = "%Y-%m-%d",
+  autocomplete_date_modifier = "end",
+  journal = { --Default journal format (same as day)
+    format = weekday_format,
+    template = weekday_template,
     frequency = { day = 1 },
-
-    -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
     entries = {
-      day = {
-        format = "%Y/%m-%B/daily/%Y-%m-%d__%A",
-        template = "---\nid: %Y-%m-%d__%A\naliases: []\ntags:\n - daily-notes\n---\n\n# %Y-%m-%d__%A\n\n## Achievements\n\n## Reflect\n\n## Do\n\n## Observations\n\n## Gratitude\n",
-        frequency = { day = 1 },
+      sun = {
+        format = weekday_format,
+        template = weekday_template,
+        frequency = { day = 7 },
+        date_modifier = "last sunday",
+      },
+      mon = {
+        format = weekday_format,
+        template = weekday_template,
+        frequency = { day = 7 },
+        date_modifier = "monday",
+      },
+      tue = {
+        format = weekday_format,
+        template = weekday_template,
+        frequency = { day = 7 },
+        date_modifier = "tuesday",
+      },
+      wed = {
+        format = weekday_format,
+        template = weekday_template,
+        frequency = { day = 7 },
+        date_modifier = "wednesday",
+      },
+      thu = {
+        format = weekday_format,
+        template = weekday_template,
+        frequency = { day = 7 },
+        date_modifier = "thursday",
+      },
+      fri = {
+        format = weekday_format,
+        template = weekday_template,
+        frequency = { day = 7 },
+        date_modifier = "friday",
+      },
+      sat = {
+        format = weekday_format,
+        template = weekday_template,
+        frequency = { day = 7 },
+        date_modifier = "saturday",
       },
       week = {
-        format = function()
-          local sundayWeek = tonumber(os.date("%U")) + 1
-          return "%Y/%m-%B/weekly/%Y-w" .. sundayWeek
+        format = function(date)
+          local this_week = date:relative({ day = 7 })
+          local week_nr = os.date("%U", os.time(this_week.date))
+          return "%Y/%m-%B/weekly/%Y-w" .. week_nr
         end,
         template = function(date)
-          local sunday = date:relative({ day = 6 })
-          local sundayWeek = tonumber(os.date("%U")) + 1
-          local end_date = os.date("%A %d/%m", os.time(sunday.date))
-          return "# Week " .. sundayWeek .. "  - %A %d/%m -> " .. end_date .. "\n"
+          local this_sat = date:relative({ day = 6 })
+          local week_end = os.date("%b %-d", os.time(this_sat.date))
+          local week_nr = tonumber(os.date("%U", os.time(this_sat.date)) + 1)
+          return "# Week " .. week_nr .. " - %b %-d -> " .. week_end .. "\n"
         end,
         frequency = { day = 7 },
-        date_modifier = "sunday",
+        date_modifier = "last sunday",
       },
       month = {
         format = "%Y/%m-%B/%B",
@@ -350,21 +372,21 @@ require("journal").setup({
 })
 
 ---- blink.cmp -----------------------------------------------------------------
-vim.pack.add({
-  { src = "https://github.com/saghen/blink.lib" },
-  { src = "https://github.com/saghen/blink.cmp" },
-})
 local cmp = require("blink.cmp")
 cmp.build():wait(60000)
 cmp.setup({
+  sources = { default = { "lsp", "path", "snippets", "omni" } },
   keymap = {
-    preset = "enter",
-    ["<Tab>"] = { "select_next", "fallback" },
-    ["<S-Tab>"] = { "select_prev", "fallback" },
+    preset = "none",
+    ["<Up>"] = { "select_prev", "fallback" },
+    ["<Down>"] = { "select_next", "fallback" },
   },
   fuzzy = { implementation = "rust" },
   appearance = { nerd_font_variant = "mono" },
+  snippets = { preset = "mini_snippets" },
   completion = {
+    list = { selection = { preselect = true, auto_insert = true } },
+    trigger = { show_on_insert_on_trigger_character = false },
     accept = { auto_brackets = { enabled = true } },
     documentation = { auto_show = true },
     menu = {
@@ -377,28 +399,15 @@ cmp.setup({
       },
     },
   },
-  sources = {
-    default = { "lsp", "path", "snippets", "omni" },
-  },
   cmdline = {
     enabled = true,
-    -- keymap = { ["<CR>"] = { "accept", "fallback" } },
+    completion = { menu = { auto_show = false, draw = { columns = { { "kind_icon", gap = 1 }, { "label" } } } } },
     keymap = {
-      ["<Tab>"] = { "show", "accept", "fallback" },
+      ["<CR>"] = { "select_and_accept", "fallback" },
+      ["<Tab>"] = { "show_and_insert", "insert_next", "fallback" },
+      ["<S-Tab>"] = { "show_and_insert", "insert_prev", "fallback" },
       ["<Up>"] = { "select_prev" },
       ["<Down>"] = { "select_next" },
-    },
-    completion = {
-      menu = {
-        auto_show = false,
-        draw = {
-          columns = {
-            { "kind_icon", gap = 1 },
-            { "label" },
-          },
-        },
-      },
-      ghost_text = { enabled = true },
     },
   },
   signature = { enabled = false },
@@ -413,18 +422,13 @@ require("which-key").setup({
 })
 require("which-key").add({
   { "gS", desc = "mini.splitjoin Toggle" },
-  { "cr", group = "Change case" },
-  { "crc", desc = "camelCase" },
-  { "cr_", desc = "snake_case" },
-  { "crs", desc = "snake_case" },
-  { "cru", desc = "SNAKE_UPPERCASE" },
   { "gr", group = "LSP" },
   { "gra", desc = "LSP code action" },
   { "gri", desc = "LSP implementations" },
   { "grr", desc = "LSP references" },
   { "grt", desc = "LSP type definitions" },
   { "grn", desc = "LSP rename" },
-  { "<leader>o", group = "Obsidian" },
+  { "<leader>o", group = "Notes" },
 })
 
 ---- todo-comments -------------------------------------------------------------
@@ -481,7 +485,7 @@ require("lualine").setup({
         icon = { "", align = "right" },
         symbols = { done = "", spinner = "", separator = ", " },
         show_name = true,
-        ignore_lsp = { "render-markdown", "obsidian-ls" },
+        ignore_lsp = { "render-markdown", "obsidian-ls", "mini.snippets" },
       },
     },
     lualine_y = { { "filetype", colored = false } },
@@ -516,7 +520,7 @@ require("snacks").setup({
       --stylua: ignore
       keys = {
         { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-        { icon = "󱨰 ", key = "t", desc = "Today's journal entry", action = "<cmd>Obsidian today<CR>" },
+        { icon = "󱨰 ", key = "t", desc = "Today's journal entry", action = "<cmd>:Journal<CR>" },
         { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
         { icon = " ", key = "p",  desc = "Projects",     action  = ":lua Snacks.picker.projects()" },
         { icon = " ", key = "q", desc = "Quit", action = ":qa" },
@@ -543,25 +547,14 @@ require("snacks").setup({
       { section = "keys", indent = 2, padding = 1 },
     },
   },
-  indent = {
-    indent = { char = "▏" },
-    animate = { enabled = false },
-    scope = { enabled = false },
-  },
+  indent = { indent = { char = "▏" }, animate = { enabled = false }, scope = { enabled = false } },
   picker = {
     sources = {
-      man = { layout = "select" },
       recent = { layout = "select" },
-      zoxide = { layout = "select" },
-      registers = {
-        layout = { preview = false, preset = "right" },
-        preview = false,
-        confirm = { "paste", "close" },
-      },
       projects = {
         dev = { "~/git", "~/Documents/writing/novels" },
         filter = { paths = { ["~/.local/share/nvim/"] = false } },
-        patterns = { ".git" },
+        patterns = { ".git", "package.json" },
         layout = "default",
         projects = {
           "~/.config/nvim",
@@ -569,11 +562,7 @@ require("snacks").setup({
           "~/.local/bin",
         },
       },
-      todo_comments = { buffers = true, layout = "select" },
       explorer = { win = { list = { keys = { ["d"] = "explorer_del" } } } },
     },
   },
 })
-
-vim.pack.add({ { src = "https://github.com/coder/claudecode.nvim" } })
-require("claudecode").setup()

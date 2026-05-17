@@ -19,13 +19,14 @@ input {
         drag-lock
         drag true
         natural-scroll
+        // scroll-factor vertical=8.0 horizontal=-2.0
     }
     mouse {
-        accel-speed 0.1
-        accel-profile "flat"
+      accel-profile "flat"
+      accel-speed 0.1
     }
     trackpoint {
-        accel-profile "flat"
+      accel-profile "flat"
     }
 }
 
@@ -180,10 +181,21 @@ binds {
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    // XF86Display/Thinkpad T14 Gen2 fn+F7
+    XF86NotificationCenter { spawn-sh "makoctl dismiss -a"; }//Thinkpad T14 Gen2 fn+F9
+    // XF86PickupPhone //Thinkpad T14 Gen2 fn+F10
+    // XF86HangupPhone //Thinkpad T14 Gen2 fn+F11
+    // XF86Favorites //Thinkpad T14 Gen2 fn+F12
+    // XF86Launch3 //Thinkpad T14 Gen2 fn+Shift_R
+    // XF86SelectiveScreenshot //Thinkpad T14 Gen2 fn+PrtSc
+    // XF86FullScreen//Thinkpad T14 Gen2 fn+Tab
+    // XF86Sleep //Thinkpad T14 Gen2 fn+4
+    // Scroll_Lock //Thinkpad T14 Gen2 fn+k
 
-    // Example media keys mapping using playerctl.
-    // This will work with any MPRIS-enabled media player.
     XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    Pause                allow-when-locked=true { spawn-sh "playerctl play-pause"; }
     F10                  allow-when-locked=true { spawn-sh "playerctl -p mpd play-pause"; }
     Shift+F10            allow-when-locked=true { spawn-sh "playerctl -p firefox play-pause"; }
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
@@ -192,12 +204,6 @@ binds {
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
     Mod+Comma            allow-when-locked=true { spawn-sh "playerctl previous"; }
     Mod+Period           allow-when-locked=true { spawn-sh "playerctl next"; }
-
-    // Example brightness key mappings for brightnessctl.
-    // You can use regular spawn with multiple arguments too (to avoid going through "sh"),
-    // but you need to manually put each argument in separate "" quotes.
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
