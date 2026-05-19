@@ -87,7 +87,7 @@ stty quit undef
 bind -x '"\C-\\":"zi"'
 
 #   taskwarrior completions
-source ~/.task/task_completions.sh
+# source ~/.task/task_completions.sh
 alias t='task'
 alias tt='task now'
 
