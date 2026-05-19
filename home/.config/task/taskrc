@@ -1,38 +1,31 @@
-editor=nvim
-data.location=/home/trickyni/.task
-verbose=no
-hooks.location=~/.config/task/hooks
-include /home/trickyni/.config/task/themes/desert-witch.theme
-
-#   coefficient mods
-urgency.tags.coefficient = 0.0
-urgency.annotations.coefficient = 0.0
-urgency.project.coefficient = 0.0
-urgency.age.coefficient = 0.0
-urgency.blocked.coefficient = -50.0
-
-# user-defined attributes
-uda.priority.values=x,@,o
-urgency.uda.priority.o.coefficient=10.0
-urgency.uda.priority.x.coefficient=-7.0
-urgency.uda.priority.@.coefficient=-15.0
-
-# report default
+data.location=/home/trickyni/.local/share/task
+default.command = list
+editor = nvim
+hooks.location=/home/trickyni/.config/task/hooks
+include ./themes/desert-witch.theme
+report.bar.columns = description
+report.bar.filter = status:pending
+report.bar.labels=
+report.bar.sort = urgency-
 report.list.columns = id,project,priority,description,urgency,wait.relative
+report.list.filter = status:pending
 report.list.labels = ID,proj,p,desc,urg,wait
 report.list.sort = urgency-
-report.list.filter = status:pending or status:waiting 
-
-# report now
 report.now.columns = id,project,priority,description,urgency,wait.relative
+report.now.filter = status:pending (priority: or priority:o)
 report.now.labels = ID,proj,p,desc,urg,wait
 report.now.sort = urgency-
-report.now.filter = status:pending (priority: or priority:o)
-
-# report vim-
 report.vim.columns = priority,project,description
+report.vim.filter = status:pending (priority: or priority:o)
 report.vim.labels = ,,
 report.vim.sort = urgency-
-report.vim.filter = status:pending (priority: or priority:o)
-include ~/.config/task/twsync
-default.command=list
+uda.priority.values=x,@,o
+urgency.age.coefficient = 0.0
+urgency.annotations.coefficient = 0.0
+urgency.blocked.coefficient = -50.0
+urgency.project.coefficient = 0.0
+urgency.tags.coefficient = 0.0
+urgency.uda.priority.@.coefficient=-15.0
+urgency.uda.priority.o.coefficient=10.0
+urgency.uda.priority.x.coefficient=-7.0
+verbose=no
