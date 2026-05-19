@@ -203,16 +203,16 @@ vim.cmd("cnoreabbrev global Global")
 --stylua: ignore start
 local n_cr_steps = {}
 n_cr_steps[1] = {
-  condition = function() return vim.bo.filetype == "markdown" end,
-  action = function() return "<cmd>ToggleCheckbox<CR>j" end,
-}
-n_cr_steps[2] = {
   condition = function() return require("obsidian.api").cursor_link() end,
   action = function() return "<cmd>Obsidian follow_link<CR>" end,
 }
-n_cr_steps[3] = {
+n_cr_steps[2] = {
   condition = function() return require("obsidian.api").cursor_tag() end,
   action = function() return "<cmd>Obsidian tags<CR>" end,
+}
+n_cr_steps[3] = {
+  condition = function() return vim.bo.filetype == "markdown" end,
+  action = function() return "<cmd>ToggleCheckbox<CR>j" end,
 }
 
 local i_cr_steps = {"blink_accept",nil,"minipairs_cr"}
@@ -558,7 +558,6 @@ require("snacks").setup({
         layout = "default",
         projects = {
           "~/.config/nvim",
-          "~/.config/rmpc",
           "~/.local/bin",
         },
       },
