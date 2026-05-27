@@ -76,7 +76,7 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 #   homeshick
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-alias homescum='homeshick cd dotfiles && git add . && git commit -m "0" && git push && echo -e "\033[93mhome successfully scummed\033[0m"'
+alias homescum='homeshick cd dotfiles && git commit -am "0" && git push && echo -e "\033[93mhome successfully scummed\033[0m"'
 alias hometrack='homeshick track dotfiles'
 
 #   zoxide
@@ -84,7 +84,7 @@ eval "$(zoxide init bash)"
 
 export _ZO_FZF_OPTS='--exact --layout=reverse --keep-right --info=inline --height=100% --no-sort --border --preview "eza -a1 {2..}"'
 stty quit undef
-bind -x '"\C-\\":"zi"'
+bind '"\C-\\":"zi\n"'
 
 #   taskwarrior completions
 # source ~/.task/task_completions.sh
@@ -162,7 +162,7 @@ alias whaledown='sudo docker compose down'
 alias whaleseesaw='sudo docker compose down && sudo docker compose up -d'
 
 #   git
-alias gitscum='git add . && git commit -m "0" && git push && echo -e "\033[93mgit successfully scummed\033[0m"'
+alias gitscum='git commit -am "0" && git push && echo -e "\033[93mgit successfully scummed\033[0m"'
 
 #   yt-dlp
 alias ytdlp='yt-dlp \

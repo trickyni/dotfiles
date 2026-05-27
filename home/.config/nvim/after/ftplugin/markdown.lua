@@ -12,7 +12,6 @@ vim.treesitter.start()
 ---- LSP -----------------------------------------------------------------------
 -- vim.lsp.enable({ "ltex_plus", "rumdl", "markdown_oxide" })
 vim.lsp.enable({ "rumdl" })
-
 ---- Keymaps -------------------------------------------------------------------
 -- make up/down consider wrapped text
 local map = vim.keymap.set
@@ -21,7 +20,8 @@ map({ "n", "v" }, "k", "gk", { remap = false, buffer = true, silent = true })
 map({ "n", "v" }, "j", "gj", { remap = false, buffer = true, silent = true })
 map("n", "gb", "<cmd>Obsidian backlinks<CR>", { desc = "Backlinks", remap = false })
 map("n", "o", "<cmd>InsertNewBullet<CR>", { remap = false, buffer = true })
-
+map("i", "<C-->", "—")
+require("mini.keymap").map_combo("i", "<C--><C-->", "<BS><BS>–", { delay = 300 })
 map(
   "n",
   "<leader>if",
@@ -101,7 +101,7 @@ vim.g.render_markdown_config = {
     alignment_indicator = "┈",
   },
   heading = {
-    position = "inline",
+    -- position = "inline",
     -- icons = { " 󰉫 ", " 󰉬 ", " 󰉭 ", " 󰉮 ", " 󰉯 ", " 󰉰 " },
     -- icons = { " 󰇊 ", " 󰇋 ", " 󰇌 ", " 󰇍 ", " 󰇎 ", " 󰇏 " },
     icons = { " Ⅰ ", " Ⅱ ", " Ⅲ ", " Ⅳ ", " Ⅴ ", " Ⅵ " },
