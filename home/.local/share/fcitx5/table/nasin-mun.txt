@@ -1,0 +1,211 @@
+# This IME is based mainly on the UCSUR (https://www.kreativekorp.com/ucsur/charts/sitelen.html), but omits certain glyphs due to a lack of font support as of writing.
+# Alternate glyphs are not implemented yet since there isn't a standard encoding as of writing.
+#
+# If you make any edits, use `libime_tabledict` to turn this file into a dictionary, probably available under the `libime` package on your distro
+# Otherwise, a .dict file should already be provided that reflects the default table.
+
+
+# KeyCode sets the characters that fcitx5 will detect, if a character is used as a key under the [Data] section
+# but not present in KeyCode, fcitx5 will not be able to use it
+KeyCode=ptkmnswljaeiouv>^<x
+
+# Length sets the maximum length of characters that can make up a key.
+# e.g: setting to 3 means that fcitx5 will think that after typing 3 characters, a new word has begun;
+# you would only be able to type "ake" in "akesi" before a new word starts.
+# 15 is the number of characters in kijetesantakalu, and no word in Sitelen Pona's UCSUR (as of writing) is longer.
+Length=15
+
+[Data]
+# All entries should be given in the format `Key [any? amount of whitespace] Word`,
+# where Key is the latin text the user has to type, and Word is what the IME outputs.
+# Characters are ordered (mostly) according to their Tier in Common Sitelen Pona, with a miscellaneous section at the end.
+
+# Tier 1 Word Characters
+a       󱤀
+akesi   󱤁
+ala     󱤂
+alasa   󱤃
+ale     󱤄
+ali     󱤄
+anpa    󱤅
+ante    󱤆
+anu     󱤇
+awen    󱤈
+e       󱤉
+en      󱤊
+esun    󱤋
+ijo     󱤌
+ike     󱤍
+ilo     󱤎
+insa    󱤏
+jaki    󱤐
+jan     󱤑
+jelo    󱤒
+jo      󱤓
+kala    󱤔
+kalama  󱤕
+kama    󱤖
+kasi    󱤗
+ken     󱤘
+kepeken 󱤙
+kili    󱤚
+kin     󱥹
+kiwen   󱤛
+ko      󱤜
+kon     󱤝
+kule    󱤞
+kulupu  󱤟
+kute    󱤠
+la      󱤡
+lape    󱤢
+laso    󱤣
+lawa    󱤤
+len     󱤥
+lete    󱤦
+li      󱤧
+lili    󱤨
+linja   󱤩
+lipu    󱤪
+loje    󱤫
+lon     󱤬
+luka    󱤭
+lukin   󱤮
+lupa    󱤯
+ma      󱤰
+mama    󱤱
+mani    󱤲
+meli    󱤳
+mi      󱤴
+mije    󱤵
+moku    󱤶
+moli    󱤷
+monsi   󱤸
+monsuta 󱥽
+mu      󱤹
+mun     󱤺
+musi    󱤻
+mute    󱤼
+nanpa   󱤽
+nasa    󱤾
+nasin   󱤿
+nena    󱥀
+ni      󱥁
+nimi    󱥂
+noka    󱥃
+o       󱥄
+olin    󱥅
+ona     󱥆
+open    󱥇
+pakala  󱥈
+pali    󱥉
+palisa  󱥊
+pan     󱥋
+pana    󱥌
+pi      󱥍
+pilin   󱥎
+pimeja  󱥏
+pini    󱥐
+pipi    󱥑
+poka    󱥒
+poki    󱥓
+pona    󱥔
+pu      󱥕
+sama    󱥖
+seli    󱥗
+selo    󱥘
+seme    󱥙
+sewi    󱥚
+sijelo  󱥛
+sike    󱥜
+sin     󱥝
+sina    󱥞
+sinpin  󱥟
+sitelen 󱥠
+sona    󱥡
+soweli  󱥢
+suli    󱥣
+suno    󱥤
+supa    󱥥
+suwi    󱥦
+tan     󱥧
+taso    󱥨
+tawa    󱥩
+telo    󱥪
+tenpo   󱥫
+toki    󱥬
+tomo    󱥭
+tonsi   󱥾
+tu      󱥮
+unpa    󱥯
+uta     󱥰
+utala   󱥱
+walo    󱥲
+wan     󱥳
+waso    󱥴
+wawa    󱥵
+weka    󱥶
+wile    󱥷
+
+# Tier 2 Word Characters
+kijetesantakalu 󱦀
+kipisi          󱥻
+ku              󱦈
+leko            󱥼
+misikeke        󱦇
+n               󱦆
+namako          󱥸
+soko            󱦁
+
+# Tier 3 Word Characters
+epiku   󱦃
+jasima  󱥿
+lanpan  󱦅
+linluwi 󱦤
+majuna  󱦢
+meso    󱦂
+oko     󱥺
+su      󱦦
+
+# Tier 3 Word Characters - alternate glyphs
+# Commented by default, due to lack of font support at time of writing
+#niv  󱥁
+#ni>  󱦋
+#ni^  󱦊
+#ni<  󱦉
+#sewi 󱦌
+
+
+# Misc
+
+# Other UCSUR Characters
+# Commented by default, due to lack of font support at time of writing
+#kokosila   󱦄
+#pake       󱦠
+#apeja      󱦡
+#powe       󱦣
+#linluwi    󱦤
+#kiki       󱦥
+#isipin     󱦧
+#kamalawala 󱦨
+#kapesi     󱦩
+#melome     󱦪
+#mijomi     󱦫
+#misa       󱦬
+#nimisin    󱦭
+#nja        󱦮
+#oke        󱦯
+#omekapo    󱦰
+#puwa       󱦱
+#san        󱦲
+#taki       󱦳
+#unu        󱦶
+#usawi      󱦷
+#wa         󱦸
+#wuwojiti   󱦹
+#yupekosi   󱦺
+
+# Abbreviations
+# Commented by default
+#tw  󱥩
+#kpk 󱤙
+#x   󱤂

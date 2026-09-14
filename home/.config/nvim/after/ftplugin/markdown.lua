@@ -59,6 +59,8 @@ vim.schedule(function()
   vim.cmd('syntax region OrangeText matchgroup=Conceal start="+O|" end="|+" concealends')
   vim.cmd('syntax region CyanText matchgroup=Conceal start="+B|" end="|+" concealends')
   vim.cmd('syntax region CeladonText matchgroup=Conceal start="+T|" end="|+" concealends')
+  vim.cmd('syntax region Bg25Text matchgroup=Conceal start="+F|" end="|+" concealends')
+  vim.cmd('syntax region GreyText matchgroup=Conceal start="+E|" end="|+" concealends')
   vim.cmd("syntax region tokiPonaLongGlyph start=/%U000f1997/ end=/%U000f1998/ concealends")
 end)
 require("mini.surround").config.custom_surroundings = {
@@ -73,6 +75,7 @@ require("mini.surround").config.custom_surroundings = {
 
 -------- Plugins ---------------------------------------------------------------
 vim.api.nvim_set_hl(0, "tokiPonaLongGlyph", { fg = "#e68d53", underline = true })
+-- vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = "#afd2e9", bg = "#3b3228" })
 
 ---- RenderMarkdown ------------------------------------------------------------
 vim.g.render_markdown_config = {
@@ -108,6 +111,17 @@ vim.g.render_markdown_config = {
       video = { icon = " ", pattern = "^!%[%[.*%.m[pk][4v]$", kind = "file", highlight = "RenderMarkdownLink" },
       webm = { icon = " ", pattern = "%.webm$", kind = "file", highlight = "RenderMarkdownLink" },
       wikipedia = { icon = "󰖬", pattern = "wikipedia%.org", kind = "url", highlight = "SandText" },
+      admin = { icon = " ", pattern = "^0[02346789]%.%d%d", kind = "pattern", highlight = "SandText" },
+      medical = { icon = "󰶯 ", pattern = "^05%.%d%d", kind = "pattern", highlight = "SandText" },
+      wisdom = { icon = "󰟶 ", pattern = "^1[0-9]%.%d%d", kind = "pattern", highlight = "SandText" },
+      writing = { icon = " ", pattern = "^2[0-9]%.%d%d", kind = "pattern", highlight = "SandText" },
+      creative = { icon = " ", pattern = "^5[0-9]%.%d%d", kind = "pattern", highlight = "SandText" },
+      studies = { icon = " ", pattern = "^6[03456789]%.%d%d", kind = "pattern", highlight = "SandText" },
+      voice = { icon = "󰗋 ", pattern = "^62%.%d%d", kind = "pattern", highlight = "SandText" },
+      language = { icon = "󰗊 ", pattern = "^61%.[03456789]%d", kind = "pattern", highlight = "SandText" },
+      japanese = { icon = "󱌴 ", pattern = "^61%.1%d", kind = "pattern", highlight = "SandText" },
+      tokipona = { icon = "󱥬", pattern = "^61%.2%d", kind = "pattern", highlight = "SandText" },
+      tech = { icon = " ", pattern = "^7[0-9]%.%d%d", kind = "pattern", highlight = "SandText" },
     },
   },
   -- bullet = { enabled = false },
@@ -117,8 +131,8 @@ vim.g.render_markdown_config = {
     alignment_indicator = "┈",
   },
   heading = {
+    setext = false,
     position = "inline",
-    settext = false,
     signs = { false },
     icons = { " 󰇊 ", " 󰇋 ", " 󰇌 ", " 󰇍 ", " 󰇎 ", " 󰇏 " },
     -- icons = { " Ⅰ ", " Ⅱ ", " Ⅲ ", " Ⅳ ", " Ⅴ ", " Ⅵ " },

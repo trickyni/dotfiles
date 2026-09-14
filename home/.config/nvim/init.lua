@@ -1,11 +1,11 @@
 --- COLORSCHEME ---------------------------------------------------------------
-vim.fn.setcellwidths({
-  { 0xF1900, 0xF1989, 2 },
-  { 0xF1990, 0xF1991, 1 },
-  { 0xF1992, 0xF1996, 2 },
-  { 0xF1997, 0xF1998, 1 },
-  { 0xF1999, 0xF19FF, 2 },
-})
+-- vim.fn.setcellwidths({
+--   { 0xF1900, 0xF1989, 2 },
+--   { 0xF1990, 0xF1991, 1 },
+--   { 0xF1992, 0xF1996, 2 },
+--   { 0xF1997, 0xF1998, 1 },
+--   { 0xF1999, 0xF19FF, 2 },
+-- })
 vim.pack.add({ "https://codeberg.org/trickyni/desert-witch.nvim" })
 vim.cmd.colorscheme("desert-witch")
 ---- OPTIONS -------------------------------------------------------------------
@@ -317,3 +317,8 @@ require("zen-mode").setup({
   window = { width = 100, backdrop = 1, options = { signcolumn = "no" } },
   plugins = { options = { laststatus = 0 }, gitsigns = { enabled = true } },
 })
+
+vim.pack.add({
+  { src = "sitelen-pona.nvim" },
+})
+require("sitelen-pona").setup()

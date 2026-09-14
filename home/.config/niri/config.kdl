@@ -1,4 +1,10 @@
 spawn-at-startup "quickshell"
+// Block out mako notifications from screencasts.
+layer-rule {
+    match namespace="^notifications$"
+
+    block-out-from "screencast"
+}
 spawn-at-startup "swaynag -t warning -m 'open qbittorrent?' -Z 'Yes' niri msg action spawn -- 'qbittorrent'"
 prefer-no-csd
 screenshot-path "~/Downloads/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
