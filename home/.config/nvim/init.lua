@@ -30,7 +30,8 @@ vim.opt.expandtab      = true      -- turns tabs into spaces
 vim.opt.showmode       = false     -- hides mode indicator, since we have a status line
 vim.opt.laststatus     = 3
 vim.opt.cursorline     = true      -- highlights cursor line
-vim.opt.scrolloff      = 10        -- keeps 10 lines above/below the cursor when scrolling
+vim.opt.scrolloff      = 5        -- keeps 10 lines above/below the cursor when scrolling
+-- vim.opt.scrolloffpad   = 1 -- keeps 10 lines above/below the cursor when scrolling
 vim.opt.sidescrolloff  = 16        -- keeps 10 lines above/below the cursor when scrolling
 vim.opt.signcolumn     = "yes:1"   -- gutter to the left of the number column
 vim.opt.inccommand     = "nosplit" -- shows find/replace results live
@@ -105,6 +106,10 @@ vim.api.nvim_create_autocmd("TextYankPost", { --highlights text on yank
 vim.schedule(function() -- sync OS/nvim clipboards
   vim.o.clipboard = "unnamedplus"
 end)
+
+vim.filetype.add({
+  extension = { ron = "ron" },
+})
 ---- Diagnostic configs --------------------------------------------------------
 vim.diagnostic.config({
   severity_sort = true,
@@ -170,7 +175,7 @@ vim.pack.add({
   { src = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim" },
   { src = "https://codeberg.org/cryptomilk/nvim-pack-ui" },
   { src = "https://github.com/bngarren/checkmate.nvim" },
-  -- { src = "https://github.com/3rd/image.nvim" },
+  { src = "https://github.com/pysan3/fcitx5.nvim" },
 })
 
 require("pack-ui")
@@ -220,7 +225,7 @@ require("nvim-treesitter").setup({
 })
 --stylua: ignore
 require("nvim-treesitter").install({
-  "caddy", "css", "csv", "desktop", "diff", "dockerfile", "editorconfig", "git_config", "git_rebase", "gitcommit", "gitignore", "html", "jq", "kitty", "regex", "robots_txt", "sql", "typst", "sway", "vimdoc", "xml", "yaml",
+  "caddy", "css", "csv", "desktop", "diff", "dockerfile", "editorconfig", "git_config", "git_rebase", "gitcommit", "gitignore", "html", "jq", "kitty", "regex", "robots_txt", "sql", "typst", "sway", "vimdoc", "xml", "yaml", "ron"
 })
 
 ---- mini.snippets -------------------------------------------------------------
@@ -321,4 +326,23 @@ require("zen-mode").setup({
 vim.pack.add({
   { src = "sitelen-pona.nvim" },
 })
+
 require("sitelen-pona").setup()
+
+local en = "keyboard-us"
+require("fcitx5").setup({
+  imname = {
+    norm = en,
+    -- ins = en,
+    cmd = en,
+    vis = en,
+    sel = en,
+    opr = en,
+    term = en,
+    lang = en,
+  },
+  remember_prior = true,
+  define_autocmd = true, -- boolean: if true, defines autocmd at `ModeChanged` to switch fcitx5 mode.
+  autostart_fcitx5 = false, -- boolean: if true, autostarts `fcitx5` when it is not running.
+  log = "warn", -- string: log level (default: warn)
+})

@@ -4,4 +4,4 @@
 require("nvim-treesitter").install({ "rust", "ron" })
 vim.treesitter.start()
 vim.lsp.enable({ "rust_analyzer" })
-require("conform").formatters_by_ft.lua = { "rustfmt", lsp_format = "fallback" }
+require("conform").formatters_by_ft.lua = { "rustfmt", "ron-lsp", lsp_format = "fallback" }
