@@ -221,7 +221,7 @@
                             content: [
                                 (
                                     kind: Property(Status(RepeatV2(
-                                                on_label: "󰑖",
+                                                on_label: "󰑘",
                                                 off_label: "󰑗",
                                                 on_style: (
                                                     fg: "#e68d53",

@@ -56,8 +56,8 @@
             "<C-]>": NextTab,
             "<S-Tab>": PreviousTab,
             "<C-[>": PreviousTab,
-            "1": SwitchToTab("Lyrics"),
-            "2": SwitchToTab("Queue"),
+            "1": SwitchToTab("Queue"),
+            "2": SwitchToTab("Lyrics"),
             "\\": SwitchToTab("Browse"),
             "<C-f>": SwitchToTab("Search"),
             "q": Quit,
@@ -183,6 +183,51 @@
     ),
     tabs: [
         (
+            name: "Queue",
+            pane: Split(
+                direction: Vertical,
+                panes: [
+                    (
+                        size: "100%",
+                        pane: Split(
+                            direction: Horizontal,
+                            panes: [
+                                (
+                                    size: "100%",
+                                    pane: Pane(Queue),
+                                    borders: "ALL",
+                                    border_title: [
+                                        (
+                                            kind: Text(" Queue "),
+                                        ),
+                                    ],
+                                    border_title_position: Top,
+                                    border_title_alignment: Left,
+                                ),
+                                (
+                                    size: "90%",
+                                    pane: Split(
+                                        direction: Vertical,
+                                        panes: [
+                                            (
+                                                size: "100%",
+                                                pane: Pane(AlbumArt),
+                                            ),
+                                            (
+                                                size: "3",
+                                                borders: "BOTTOM",
+                                                pane: Component("time"),
+                                            ),
+                                        ],
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                ],
+            ),
+        ),
+        (
             name: "Lyrics",
             pane: Split(
                 direction: Vertical,
@@ -234,51 +279,6 @@
                                                         ),
                                                     ],
                                                 ),
-                                            ),
-                                            (
-                                                size: "3",
-                                                borders: "BOTTOM",
-                                                pane: Component("time"),
-                                            ),
-                                        ],
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                ],
-            ),
-        ),
-        (
-            name: "Queue",
-            pane: Split(
-                direction: Vertical,
-                panes: [
-                    (
-                        size: "100%",
-                        pane: Split(
-                            direction: Horizontal,
-                            panes: [
-                                (
-                                    size: "60%",
-                                    pane: Pane(Queue),
-                                    borders: "ALL",
-                                    border_title: [
-                                        (
-                                            kind: Text(" Queue "),
-                                        ),
-                                    ],
-                                    border_title_position: Top,
-                                    border_title_alignment: Left,
-                                ),
-                                (
-                                    size: "40%",
-                                    pane: Split(
-                                        direction: Vertical,
-                                        panes: [
-                                            (
-                                                size: "100%",
-                                                pane: Pane(AlbumArt),
                                             ),
                                             (
                                                 size: "3",
