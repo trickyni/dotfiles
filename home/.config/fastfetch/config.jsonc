@@ -22,7 +22,7 @@
     "separator",
     {
       "type": "os",
-      "format": "{name}"
+      "format": "Scheming UNIX"
     },
     {
       "type": "wm",

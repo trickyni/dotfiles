@@ -19,7 +19,6 @@ window-rule { //rmpc
 window-rule { //qBittorrent add torrent
   match app-id=r#"^org\.qbittorrent\.qBittorrent$"#
   exclude title=r#"^qBittorrent.*"#
-  open-on-workspace "downloads"
   open-floating true
   default-window-height { proportion 0.8; }
   default-column-width { proportion 0.7; }

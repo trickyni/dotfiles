@@ -35,6 +35,9 @@ input {
       accel-profile "flat"
       accel-speed 0.0
     }
+    tablet {
+      map-to-output "DP-2"
+     }
 }
 
 cursor {
@@ -94,7 +97,8 @@ layout {
       proportion 1.0
       // fixed 1920
     }
-    default-column-width { proportion 0.66667; }
+    // default-column-width { proportion 0.66667; }
+    default-column-width { proportion 0.5; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
@@ -247,23 +251,10 @@ binds {
     Mod+Shift+Home { move-column-to-first; }
     Mod+Shift+End  { move-column-to-last; }
 
-    // Mod+Shift+Left  { focus-monitor-left; }
-    // Mod+Shift+Down  { focus-monitor-down; }
-    // Mod+Shift+Up    { focus-monitor-up; }
-    // Mod+Shift+Right { focus-monitor-right; }
-    // Mod+Shift+H     { focus-monitor-left; }
-    // Mod+Shift+J     { focus-monitor-down; }
-    // Mod+Shift+K     { focus-monitor-up; }
-    // Mod+Shift+L     { focus-monitor-right; }
-    //
-    // Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-    // Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
-    // Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
-    // Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    // Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    // Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    // Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    // Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    Mod+Page_Up  { focus-monitor-previous; }
+    Mod+Page_Down { focus-monitor-next; }
+    Mod+Shift+Page_Up  { move-column-to-monitor-previous; }
+    Mod+Shift+Page_Down { move-column-to-monitor-next; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
@@ -273,12 +264,8 @@ binds {
     // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
     // ...
 
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
     Mod+U              { focus-workspace-down; }
     Mod+I              { focus-workspace-up; }
-    Mod+Shift+Page_Down { move-column-to-workspace-down; }
-    Mod+Shift+Page_Up   { move-column-to-workspace-up; }
     Mod+Shift+U         { move-column-to-workspace-down; }
     Mod+Shift+I         { move-column-to-workspace-up; }
 
@@ -432,6 +419,6 @@ binds {
     Mod+Delete hotkey-overlay-title="Dismiss Notifications"{ spawn-sh "makoctl dismiss -a"; }
     Mod+B repeat=false hotkey-overlay-title="Bluetooth" { spawn "bluetui-wrapper.sh"; }
     Mod+M repeat=false hotkey-overlay-title="Music" { spawn "rmpc-wrapper.sh"; }
-    Mod+Shift+Insert repeat=false hotkey-overlay-title=null { spawn "niri-rotate.sh"; }
-    Mod+Shift+Backslash repeat=false hotkey-overlay-title=null { spawn "niri-scale.sh"; }
+    Mod+Shift+Insert repeat=false hotkey-overlay-title=null { spawn "niri-monitor.sh" "rotate"; }
+    Mod+Shift+Backslash repeat=false hotkey-overlay-title=null { spawn "niri-monitor.sh" "scale"; }
 }

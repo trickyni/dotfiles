@@ -204,6 +204,11 @@ alias woman='man'
 alias wiki='wiki-tui'
 # alias plate='fd "\[ACTIVE\]" --format {/} -C ~/Documents'
 alias plate='fd "\[ACTIVE\]" -C ~/Documents'
+alias hachisync='ssh -L 8385:localhost:8384 hachiko'
 
 # toki pona
 export XMODIFIERS=@im=fcitx
+
+
+
+XMODIFIERS=@im=fcitx

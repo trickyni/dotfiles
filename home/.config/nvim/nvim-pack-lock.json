@@ -21,7 +21,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "csvview.nvim": {
-      "rev": "2466bdda54047f525d4faca53040fe657c9c33db",
+      "rev": "f190de76d2eca0380ddcb2425cd582d740699b55",
       "src": "https://github.com/hat0uma/csvview.nvim"
     },
     "desert-witch.nvim": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/chenxin-yan/footnote.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "070a5d7b985546cc57e1fc61e5bc507fecac6045",
+      "rev": "851a051e2bd2caba97e23314c68d69f1b1cf5d19",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "guttermarks.nvim": {
@@ -65,7 +65,7 @@
       "src": "https://github.com/smjonas/live-command.nvim"
     },
     "live-server.nvim": {
-      "rev": "c0cf9f5114eabc18d7e59b208c9e73d9d403d865",
+      "rev": "4cb5c94a84cc653e0b32e0c9aed95465a36fc94d",
       "src": "https://github.com/selimacerbas/live-server.nvim"
     },
     "lualine.nvim": {
@@ -73,7 +73,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "markdown-preview.nvim": {
-      "rev": "3e0dc6f133b7ebb4c0438309cde40cb66bcf68e1",
+      "rev": "dded03dc6cce87364b48260b2ffbace575a6add7",
       "src": "https://github.com/selimacerbas/markdown-preview.nvim"
     },
     "markmap.nvim": {
@@ -113,7 +113,7 @@
       "src": "https://github.com/nvim-mini/mini.splitjoin"
     },
     "mini.surround": {
-      "rev": "33a2ebe5df8eb4751828fcba133e18ed0fbbdfab",
+      "rev": "72feeaa0f984646efde875cc775a97b6f8a8be9b",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
     "mini.tabline": {
@@ -129,7 +129,7 @@
       "src": "https://github.com/catgoose/nvim-colorizer.lua"
     },
     "nvim-lspconfig": {
-      "rev": "a9bb4d5f4276aa5cddc015faa3ecc5a7b5a26b14",
+      "rev": "c59fc922f718fa055f69f5f3bc888f23211571eb",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-pack-ui": {
@@ -141,7 +141,7 @@
       "src": "https://github.com/chrisgrieser/nvim-rip-substitute"
     },
     "nvim-treesitter": {
-      "rev": "728e031f6b11d03d1f0708b7dc4fb0f1d9c8a137",
+      "rev": "e289100ff98969e118c702199d88b764ce9e7fdf",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
@@ -149,7 +149,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "obsidian.nvim": {
-      "rev": "1212014bb22a1f44a655e8e706659892b8e43e59",
+      "rev": "ab794e1774c4cfd84f02b37720a92e38ea4c053d",
       "src": "https://github.com/obsidian-nvim/obsidian.nvim"
     },
     "plenary.nvim": {
@@ -157,11 +157,11 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rainbow-delimiters.nvim": {
-      "rev": "3a0fc08dd39e8bf034a4cfef3f2845bd5f565a2e",
+      "rev": "b55decda611755171bc5bf8f4c99603a75de4b41",
       "src": "https://gitlab.com/HiPhish/rainbow-delimiters.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "640a3ec6d538bad17c328be373c7cad0293d9589",
+      "rev": "245956d67572c137df375dbf256e96bdb07e0937",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "sitelen-pona.nvim": {
@@ -189,7 +189,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "yazi.nvim": {
-      "rev": "bc2f9d0d4d7f05f9c1bee0c3482e5ffd341ebfb7",
+      "rev": "f5a7572398064de40aab7dbe4c30b3fd326ef771",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     },
     "zen-mode.nvim": {

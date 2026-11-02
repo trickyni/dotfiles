@@ -1,12 +1,12 @@
 [[plugin.deps]]
 use = "ndtoan96/ouch"
-rev = "cfe4f50"
-hash = "eff5702573b6cfba61e4ac8b1969629a"
+rev = "596b666"
+hash = "c2f4f4aca257dcceafa9e3b828dbf1c9"
 
 [[plugin.deps]]
 use = "boydaihungst/restore"
-rev = "7bfcfcb"
-hash = "bbb1569978e6d2b3e8343c6ca08a4ea6"
+rev = "864dd05"
+hash = "3070b579618c4831f5d7ca4293c1c275"
 
 [[plugin.deps]]
 use = "uhs-robert/recycle-bin"
@@ -30,8 +30,8 @@ hash = "9776f378459072b6c2875eae5addc49d"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:piper"
-rev = "72f9e3c"
-hash = "45a533508a9840cc5a10cf6129f63e6a"
+rev = "603fa36"
+hash = "d1e0499cae5f3aeb628c267616d4b682"
 
 [[plugin.deps]]
 use = "coder0x6675/osc7"
@@ -40,7 +40,7 @@ hash = "4f73595837992eeefcb525c0a95b92ba"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "72f9e3c"
+rev = "603fa36"
 hash = "187cc58ba7ac3befd49c342129e6f1b6"
 
 [flavor]

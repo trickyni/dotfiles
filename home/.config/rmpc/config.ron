@@ -58,6 +58,10 @@
             "<C-[>": PreviousTab,
             "1": SwitchToTab("Queue"),
             "2": SwitchToTab("Lyrics"),
+            "3": SwitchToTab("Browse"),
+            "4": SwitchToTab("Albums"),
+            "5": SwitchToTab("Playlist"),
+            "6": SwitchToTab("Search"),
             "\\": SwitchToTab("Browse"),
             "<C-f>": SwitchToTab("Search"),
             "q": Quit,
@@ -113,6 +117,22 @@
             "D": Delete,
             "B": ShowInfo,
             "<C-z>": ContextMenu(),
+            "*": Rate(
+                kind: Modal(
+                    values: [],
+                    custom: false,
+                    like: true,
+                ),
+                current: true,
+            ),
+            "8": Rate(
+                kind: Modal(
+                    values: [],
+                    custom: false,
+                    like: true,
+                ),
+                current: false,
+            ),
             "<C-s>": Save(
                 kind: Modal(
                     all: false,
@@ -297,6 +317,10 @@
         (
             name: "Browse",
             pane: Pane(AlbumArtists),
+        ),
+        (
+            name: "Albums",
+            pane: Pane(Albums),
         ),
         (
             name: "Playlist",
